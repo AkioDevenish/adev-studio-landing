@@ -33,7 +33,7 @@ export default function Hero() {
             Developer & Creative Portfolio
           </p>
           <span className="text-xs font-mono uppercase tracking-widest text-muted mt-4">
-            Est. 2025
+            Est. 2024
           </span>
         </motion.div>
       </div>
