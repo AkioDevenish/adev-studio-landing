@@ -89,7 +89,7 @@ export default function Contact() {
         </div>
 
         <div className="mt-40 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-xs opacity-40 font-mono uppercase tracking-widest">
-          <p>© 2026 Adevstudio. All rights reserved.</p>
+          <p>© 2026 ADEV STUDIO. All rights reserved.</p>
           <div className="flex gap-8 mt-4 md:mt-0">
             <a href="#" className="hover:opacity-100 transition-opacity">Instagram</a>
             <a href="#" className="hover:opacity-100 transition-opacity">Twitter</a>

@@ -32,7 +32,7 @@ const Header = () => {
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
         <a href="#" className="text-2xl font-display font-bold text-foreground">
-          Adevstudio
+          ADEV STUDIO
         </a>
 
         {/* Desktop Nav */}
