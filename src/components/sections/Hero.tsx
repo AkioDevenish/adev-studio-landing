@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 // @ts-ignore
 import SplitText from '../reactbits/SplitText';
 
+// Force rebuild - updated portfolio tagline
 export default function Hero() {
   return (
     <section className="relative h-screen w-full flex flex-col justify-center items-center overflow-hidden">
