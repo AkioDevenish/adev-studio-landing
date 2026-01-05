@@ -1,14 +1,12 @@
-import HeroScene from '../3d/HeroScene';
+import { motion } from 'framer-motion';
 // @ts-ignore
 import SplitText from '../reactbits/SplitText';
-import { motion } from 'framer-motion';
 
 export default function Hero() {
   return (
     <section className="relative h-screen w-full flex flex-col justify-center items-center overflow-hidden">
-      <HeroScene />
       
-      <div className="z-10 text-center px-4 mix-blend-multiply">
+      <div className="z-10 text-center px-4">
         <div className="mb-8">
           <SplitText
             text="ADEV STUDIO"
@@ -32,10 +30,10 @@ export default function Hero() {
           className="flex flex-col items-center gap-4"
         >
           <p className="text-xl md:text-2xl text-foreground/70 max-w-lg mx-auto font-sans font-light tracking-wide">
-            Crafting digital silence in a noisy world.
+            Developer & Creative Portfolio
           </p>
           <span className="text-xs font-mono uppercase tracking-widest text-muted mt-4">
-            Est. 2024
+            Est. 2025
           </span>
         </motion.div>
       </div>

@@ -1,6 +1,6 @@
-# YOUWARE Landing Page
+# ADEV Portfolio
 
-A minimalist, beige-themed landing page for a design studio featuring 3D interactive elements, motion graphics, and smooth parallax scrolling.
+A minimalist, beige-themed portfolio website featuring 3D interactive elements, motion graphics, and smooth parallax scrolling.
 
 ## Features
 
