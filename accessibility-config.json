@@ -1,0 +1,17 @@
+{
+  "browser": {
+    "browserName": "chromium",
+    "launchOptions": {
+      "headless": true,
+      "channel": "chrome"
+    }
+  },
+  "timeouts": {
+    "navigationTimeout": 60000,
+    "defaultTimeout": 5000
+  },
+  "network": {
+    "allowedOrigins": [],
+    "blockedOrigins": ["ads.example.com", "analytics.google.com"]
+  }
+}

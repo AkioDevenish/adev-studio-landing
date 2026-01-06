@@ -1,10 +1,9 @@
 import React from 'react'
 import Header from './components/Header'
 import Hero from './components/sections/Hero'
-import Services from './components/sections/Services'
+import Background from './components/sections/Background'
+import Focus from './components/sections/Focus'
 import CaseStudies from './components/sections/CaseStudies'
-import Pricing from './components/sections/Pricing'
-import Testimonials from './components/sections/Testimonials'
 import Contact from './components/sections/Contact'
 
 function App() {
@@ -12,10 +11,9 @@ function App() {
     <div className="min-h-screen bg-background">
       <Header />
       <Hero />
-      <Services />
+      <Background />
+      <Focus />
       <CaseStudies />
-      <Pricing />
-      <Testimonials />
       <Contact />
     </div>
   )

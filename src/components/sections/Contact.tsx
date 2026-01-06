@@ -3,7 +3,7 @@ import Noise from '../reactbits/Noise';
 
 export default function Contact() {
   return (
-    <section className="relative py-40 px-6 md:px-12 bg-[#1a1a1a] text-[#F2F0E9] overflow-hidden min-h-screen flex items-center">
+    <section id="contact" className="relative py-40 px-6 md:px-12 bg-[#1a1a1a] text-[#F2F0E9] overflow-hidden min-h-screen flex items-center">
       <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-overlay">
         <Noise 
           patternSize={300}
