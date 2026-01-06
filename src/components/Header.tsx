@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { getCalApi } from '@calcom/embed-react';
 
 const navLinks = [
   { name: 'Focus', href: '#focus' },
@@ -19,6 +20,18 @@ const Header = () => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({"namespace":"30min"});
+      cal("ui", {
+        theme: "dark",
+        styles: { branding: { brandColor: "#1a1a1a" } },
+        hideEventTypeDetails: false,
+        layout: "month_view"
+      });
+    })();
   }, []);
 
   return (
@@ -45,12 +58,14 @@ const Header = () => {
               {link.name}
             </a>
           ))}
-          <a
-            href="#contact"
+          <button
+            data-cal-namespace="30min"
+            data-cal-link="adevstudio/30min"
+            data-cal-config='{"layout":"month_view","theme":"dark"}'
             className="px-5 py-2.5 bg-foreground text-background text-sm font-medium rounded-full hover:bg-foreground/90 transition-colors"
           >
             Get in Touch
-          </a>
+          </button>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -83,13 +98,15 @@ const Header = () => {
                   {link.name}
                 </a>
               ))}
-              <a
-                href="#contact"
-                className="mt-2 px-5 py-3 bg-foreground text-background text-center font-medium rounded-full hover:bg-foreground/90 transition-colors"
+              <button
+                data-cal-namespace="30min"
+                data-cal-link="adevstudio/30min"
+                data-cal-config='{"layout":"month_view","theme":"dark"}'
                 onClick={() => setIsOpen(false)}
+                className="mt-2 px-5 py-3 bg-foreground text-background text-center font-medium rounded-full hover:bg-foreground/90 transition-colors"
               >
                 Get in Touch
-              </a>
+              </button>
             </nav>
           </motion.div>
         )}

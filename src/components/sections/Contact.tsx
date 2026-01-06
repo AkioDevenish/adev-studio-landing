@@ -1,7 +1,21 @@
 // @ts-ignore
 import Noise from '../reactbits/Noise';
+import { useEffect } from 'react';
+import { getCalApi } from '@calcom/embed-react';
 
 export default function Contact() {
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({"namespace":"30min"});
+      cal("ui", {
+        theme: "dark",
+        styles: { branding: { brandColor: "#1a1a1a" } },
+        hideEventTypeDetails: false,
+        layout: "month_view"
+      });
+    })();
+  }, []);
+
   return (
     <section id="contact" className="relative py-40 px-6 md:px-12 bg-[#1a1a1a] text-[#F2F0E9] overflow-hidden min-h-screen flex items-center">
       <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-overlay">
@@ -29,21 +43,32 @@ export default function Contact() {
             <div className="space-y-8 mt-20 lg:mt-0">
               <div className="flex flex-col gap-1">
                 <span className="text-xs uppercase tracking-widest opacity-40 font-mono">Email</span>
-                <a href="mailto:hello@adevstudio.com" className="text-2xl hover:opacity-70 transition-opacity">
-                  hello@adevstudio.com
+                <a href="mailto:akiodevenish1@gmail.com" className="text-2xl hover:opacity-70 transition-opacity">
+                  akiodevenish1@gmail.com
                 </a>
               </div>
               
               <div className="flex flex-col gap-1">
                 <span className="text-xs uppercase tracking-widest opacity-40 font-mono">Phone</span>
-                <p className="text-2xl">+1 (555) 000-0000</p>
+                <p className="text-2xl">1-868-469-5973</p>
               </div>
               
               <div className="flex flex-col gap-1">
-                <span className="text-xs uppercase tracking-widest opacity-40 font-mono">Studio</span>
+                <span className="text-xs uppercase tracking-widest opacity-40 font-mono">Location</span>
                 <p className="text-2xl">
-                  123 Design Avenue<br/>New York, NY 10012
+                  LP52 Sunset Drive<br/>Trinidad & Tobago
                 </p>
+              </div>
+
+              <div className="pt-8">
+                <button 
+                  data-cal-namespace="30min"
+                  data-cal-link="adevstudio/30min"
+                  data-cal-config='{"layout":"month_view","theme":"dark"}'
+                  className="inline-block px-8 py-4 bg-[#F2F0E9] text-[#1a1a1a] font-mono text-xs uppercase tracking-widest hover:bg-white transition-colors rounded-full cursor-pointer"
+                >
+                  Schedule a Call
+                </button>
               </div>
             </div>
           </div>

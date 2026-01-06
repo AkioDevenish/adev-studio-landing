@@ -23,7 +23,7 @@ const webDevProjects = [
     category: "Full Stack / Weather Portal",
     year: "2024",
     description: "Complete weather information portal for Trinidad & Tobago with real-time data, forecasts, marine conditions, and responsive design for public access.",
-    image: "/metoffice-screenshot.png",
+    image: "/metoffice-clean.jpg",
     link: "https://www.metoffice.gov.tt/metdemo/site/demo/"
   },
   {
@@ -120,12 +120,12 @@ export default function CaseStudies() {
                   <motion.div
                     whileHover={{ scale: 1.03 }}
                     transition={{ duration: 0.7, ease: "easeOut" }}
-                    className="w-full h-[70vh] relative"
+                    className="w-full aspect-[4/3] relative"
                   >
                     <img 
                       src={project.image} 
                       alt={project.title}
-                      className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-700"
+                      className="w-full h-full object-cover object-top grayscale-[20%] group-hover:grayscale-0 transition-all duration-700"
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
