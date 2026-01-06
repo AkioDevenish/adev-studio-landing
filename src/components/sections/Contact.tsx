@@ -63,7 +63,7 @@ export default function Contact() {
                 Let's<br />Create.
               </h2>
               <p className="text-xl md:text-2xl font-light opacity-70 max-w-md">
-                We are currently accepting new projects for Q3 2026.
+                Open for data science projects and web development work.
               </p>
             </div>
 
@@ -86,16 +86,6 @@ export default function Contact() {
                 </p>
               </div>
 
-              <div className="pt-8">
-                <button 
-                  data-cal-namespace="30min"
-                  data-cal-link="adevstudio/30min"
-                  data-cal-config='{"layout":"month_view","theme":"dark"}'
-                  className="inline-block px-8 py-4 bg-[#F2F0E9] text-[#1a1a1a] font-mono text-xs uppercase tracking-widest hover:bg-white transition-colors rounded-full cursor-pointer"
-                >
-                  Schedule a Call
-                </button>
-              </div>
             </div>
           </div>
 
