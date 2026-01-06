@@ -1,9 +1,11 @@
 // @ts-ignore
 import Noise from '../reactbits/Noise';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getCalApi } from '@calcom/embed-react';
 
 export default function Contact() {
+  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+
   useEffect(() => {
     (async function () {
       const cal = await getCalApi({"namespace":"30min"});
@@ -15,6 +17,31 @@ export default function Contact() {
       });
     })();
   }, []);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormStatus('sending');
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (response.ok) {
+        setFormStatus('success');
+        form.reset();
+        setTimeout(() => setFormStatus('idle'), 5000);
+      } else {
+        setFormStatus('error');
+      }
+    } catch {
+      setFormStatus('error');
+    }
+  };
 
   return (
     <section id="contact" className="relative py-40 px-6 md:px-12 bg-[#1a1a1a] text-[#F2F0E9] overflow-hidden min-h-screen flex items-center">
@@ -43,9 +70,8 @@ export default function Contact() {
             <div className="space-y-8 mt-20 lg:mt-0">
               <div className="flex flex-col gap-1">
                 <span className="text-xs uppercase tracking-widest opacity-40 font-mono">Email</span>
-                <a href="mailto:akiodevenish1@gmail.com" className="text-2xl hover:opacity-70 transition-opacity">
-                  akiodevenish1@gmail.com
-                </a>
+                <a href="mailto:hello@adevstudio.com" className="text-2xl hover:opacity-70 transition-opacity">
+                hello@adevstudio.com                </a>
               </div>
               
               <div className="flex flex-col gap-1">
@@ -73,13 +99,19 @@ export default function Contact() {
             </div>
           </div>
 
-          <form className="space-y-12 pt-12 lg:pt-0">
+          <form onSubmit={handleSubmit} className="space-y-12 pt-12 lg:pt-0">
+            <input type="hidden" name="access_key" value="bcef8f96-f94f-4835-91ad-68663bc8a66e" />
+            <input type="hidden" name="subject" value="New Contact from ADEV Studio Website" />
+            <input type="hidden" name="from_name" value="ADEV Studio Website" />
+            
             <div className="group">
               <label className="block text-xs uppercase tracking-widest opacity-40 font-mono mb-4 group-focus-within:opacity-100 transition-opacity">
                 Name
               </label>
               <input 
-                type="text" 
+                type="text"
+                name="name"
+                required
                 className="w-full bg-transparent border-b border-white/20 py-4 focus:border-white outline-none transition-colors text-3xl font-display placeholder:text-white/30"
                 placeholder="Your name"
               />
@@ -90,7 +122,9 @@ export default function Contact() {
                 Email
               </label>
               <input 
-                type="email" 
+                type="email"
+                name="email"
+                required
                 className="w-full bg-transparent border-b border-white/20 py-4 focus:border-white outline-none transition-colors text-3xl font-display placeholder:text-white/30"
                 placeholder="Your email"
               />
@@ -101,15 +135,28 @@ export default function Contact() {
                 Message
               </label>
               <textarea 
+                name="message"
+                required
                 rows={4}
                 className="w-full bg-transparent border-b border-white/20 py-4 focus:border-white outline-none transition-colors text-3xl font-display resize-none placeholder:text-white/30"
                 placeholder="Tell us about your project"
               />
             </div>
 
-            <button className="mt-8 px-10 py-5 bg-[#F2F0E9] text-[#1a1a1a] font-mono text-xs uppercase tracking-widest hover:bg-white transition-colors rounded-full">
-              Send Message
+            <button 
+              type="submit"
+              disabled={formStatus === 'sending'}
+              className="mt-8 px-10 py-5 bg-[#F2F0E9] text-[#1a1a1a] font-mono text-xs uppercase tracking-widest hover:bg-white transition-colors rounded-full disabled:opacity-50"
+            >
+              {formStatus === 'sending' ? 'Sending...' : formStatus === 'success' ? 'Message Sent!' : 'Send Message'}
             </button>
+            
+            {formStatus === 'success' && (
+              <p className="text-green-400 text-sm font-mono">Thank you! Your message has been sent.</p>
+            )}
+            {formStatus === 'error' && (
+              <p className="text-red-400 text-sm font-mono">Something went wrong. Please try again.</p>
+            )}
           </form>
         </div>
 
