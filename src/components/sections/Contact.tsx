@@ -57,21 +57,22 @@ export default function Contact() {
 
       <div className="max-w-screen-xl mx-auto relative z-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-40">
-          <div className="flex flex-col justify-between h-full">
+          <div className="flex flex-col justify-start gap-12">
             <div>
               <h2 className="text-7xl md:text-9xl font-display font-bold mb-12 leading-[0.8] tracking-tighter">
                 Let's<br />Create.
               </h2>
               <p className="text-xl md:text-2xl font-light opacity-70 max-w-md">
-                Open for data science projects and web development work.
+              Open for web development work and Data Science Internships.
               </p>
             </div>
 
-            <div className="space-y-8 mt-20 lg:mt-0">
+            <div className="space-y-8">
               <div className="flex flex-col gap-1">
                 <span className="text-xs uppercase tracking-widest opacity-40 font-mono">Email</span>
                 <a href="mailto:hello@adevstudio.com" className="text-2xl hover:opacity-70 transition-opacity">
-                hello@adevstudio.com                </a>
+                  hello@adevstudio.com
+                </a>
               </div>
               
               <div className="flex flex-col gap-1">
@@ -82,7 +83,7 @@ export default function Contact() {
               <div className="flex flex-col gap-1">
                 <span className="text-xs uppercase tracking-widest opacity-40 font-mono">Location</span>
                 <p className="text-2xl">
-                  LP52 Sunset Drive<br/>Trinidad & Tobago
+                  Trinidad & Tobago
                 </p>
               </div>
 
@@ -90,7 +91,7 @@ export default function Contact() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-12 pt-12 lg:pt-0">
-            <input type="hidden" name="access_key" value="bcef8f96-f94f-4835-91ad-68663bc8a66e" />
+            <input type="hidden" name="access_key" value="de373533-0217-44a2-ae9f-eaf81e5dd8ce" />
             <input type="hidden" name="subject" value="New Contact from ADEV Studio Website" />
             <input type="hidden" name="from_name" value="ADEV Studio Website" />
             
@@ -129,7 +130,7 @@ export default function Contact() {
                 required
                 rows={4}
                 className="w-full bg-transparent border-b border-white/20 py-4 focus:border-white outline-none transition-colors text-3xl font-display resize-none placeholder:text-white/30"
-                placeholder="Tell us about your project"
+                placeholder="Tell me about your request"
               />
             </div>
 
@@ -153,9 +154,9 @@ export default function Contact() {
         <div className="mt-40 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-xs opacity-40 font-mono uppercase tracking-widest">
           <p>© 2026 ADEV STUDIO. All rights reserved.</p>
           <div className="flex gap-8 mt-4 md:mt-0">
-            <a href="#" className="hover:opacity-100 transition-opacity">Instagram</a>
-            <a href="#" className="hover:opacity-100 transition-opacity">Twitter</a>
-            <a href="#" className="hover:opacity-100 transition-opacity">LinkedIn</a>
+            <a href="https://www.youtube.com/@AkioandTen" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">YouTube</a>
+            <a href="https://x.com/Helloadevstudio" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">Twitter</a>
+            <a href="https://www.linkedin.com/in/akio-devenish-832476282/" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">LinkedIn</a>
           </div>
         </div>
       </div>

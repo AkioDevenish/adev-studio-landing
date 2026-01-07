@@ -31,7 +31,7 @@ export default function Hero() {
           className="flex flex-col items-center gap-4"
         >
           <p className="text-xl md:text-2xl text-foreground/70 max-w-lg mx-auto font-sans font-light tracking-wide">
-          Data Science → Neural Interface Journey     </p>
+          Data Science → Neural Interfaces     </p>
           <span className="text-xs font-mono uppercase tracking-widest text-muted mt-4">
             Est. 2025
           </span>
