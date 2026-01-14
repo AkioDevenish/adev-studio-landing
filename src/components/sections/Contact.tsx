@@ -70,7 +70,16 @@ export default function Contact() {
             <div className="space-y-8">
               <div className="flex flex-col gap-1">
                 <span className="text-xs uppercase tracking-widest opacity-40 font-mono">Email</span>
-                <a href="mailto:hello@adevstudio.com" className="text-2xl hover:opacity-70 transition-opacity">
+                <a 
+                  href="mailto:hello@adevstudio.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-2xl hover:opacity-70 transition-opacity cursor-pointer"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.href = 'mailto:hello@adevstudio.com';
+                  }}
+                >
                   hello@adevstudio.com
                 </a>
               </div>

@@ -30,7 +30,7 @@ export default function Background() {
               ( Background )
             </h2>
             <p className="text-3xl md:text-5xl font-display max-w-2xl leading-tight">
-              From <span className="italic text-foreground/60">developer</span> to the future of <span className="italic text-foreground/60">immersive tech</span>.
+              From <span className="italic text-foreground/60">developer</span> to a future in <span className="italic text-foreground/60">immersive tech</span>.
             </p>
           </motion.div>
         </div>
