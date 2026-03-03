@@ -1,12 +1,15 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
-import { getCalApi } from '@calcom/embed-react';
+"use client";
+
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import { getCalApi } from "@calcom/embed-react";
+import Link from "next/link";
 
 const navLinks = [
-  { name: 'Focus', href: '#focus' },
-  { name: 'Work', href: '#work' },
-  { name: 'Contact', href: '#contact' },
+  { name: "Focus", href: "/#focus" },
+  { name: "Work", href: "/#work" },
+  { name: "Contact", href: "/#contact" },
 ];
 
 const Header = () => {
@@ -18,18 +21,18 @@ const Header = () => {
       setScrolled(window.scrollY > 50);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
     (async function () {
-      const cal = await getCalApi({"namespace":"30min"});
+      const cal = await getCalApi({ namespace: "30min" });
       cal("ui", {
         theme: "dark",
         styles: { branding: { brandColor: "#1a1a1a" } },
         hideEventTypeDetails: false,
-        layout: "month_view"
+        layout: "month_view",
       });
     })();
   }, []);
@@ -37,26 +40,29 @@ const Header = () => {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-background/80 backdrop-blur-md py-4 shadow-sm' 
-          : 'bg-transparent py-6'
+        scrolled
+          ? "bg-background/80 backdrop-blur-md py-4 shadow-sm"
+          : "bg-transparent py-6"
       }`}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
-        <a href="#" className="text-2xl font-display font-bold text-foreground">
+        <Link
+          href="/"
+          className="text-2xl font-display font-bold text-foreground"
+        >
           ADEV STUDIO
-        </a>
+        </Link>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.name}
               href={link.href}
               className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
             >
               {link.name}
-            </a>
+            </Link>
           ))}
           <button
             data-cal-namespace="30min"
@@ -83,20 +89,20 @@ const Header = () => {
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
+            animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-background border-b border-muted/20 overflow-hidden"
           >
             <nav className="flex flex-col p-6 gap-4">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.name}
                   href={link.href}
                   className="text-lg font-medium text-foreground/80 hover:text-foreground"
                   onClick={() => setIsOpen(false)}
                 >
                   {link.name}
-                </a>
+                </Link>
               ))}
               <button
                 data-cal-namespace="30min"

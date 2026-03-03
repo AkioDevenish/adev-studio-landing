@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "chrome-bridge": {
+      "url": "http://127.0.0.1:12306/mcp",
+      "disabled": false,
+      "autoApprove": [
+        "get_windows_and_tabs",
+        "chrome_navigate",
+        "chrome_read_page",
+        "chrome_click_element",
+        "chrome_computer",
+        "chrome_fill_or_select",
+        "chrome_console",
+        "chrome_screenshot",
+        "chrome_upload_file"
+      ]
+    }
+  }
+}

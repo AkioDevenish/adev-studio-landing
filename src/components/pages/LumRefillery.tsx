@@ -1,31 +1,35 @@
-import { motion } from 'framer-motion';
-import { ArrowLeft, ExternalLink, Calendar, Leaf, ShoppingBag, Recycle } from 'lucide-react';
+"use client";
+
+import { motion } from "framer-motion";
+import {
+  ArrowLeft,
+  ExternalLink,
+  Calendar,
+  Leaf,
+  ShoppingBag,
+  Recycle,
+} from "lucide-react";
+import Link from "next/link";
 
 export default function LumRefillery() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const goBack = () => {
-    window.location.hash = '';
-    scrollToTop();
-  };
-
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md py-4 border-b border-foreground/10">
         <div className="container mx-auto px-6 flex items-center justify-between">
-          <button 
-            onClick={goBack}
+          <Link
+            href="/"
             className="flex items-center gap-2 text-foreground hover:text-foreground/70 transition-colors"
           >
             <ArrowLeft size={20} />
             <span className="font-medium">Back to Portfolio</span>
-          </button>
-          <a href="#" className="text-2xl font-display font-bold text-foreground">
+          </Link>
+          <Link
+            href="/"
+            className="text-2xl font-display font-bold text-foreground"
+          >
             ADEV STUDIO
-          </a>
+          </Link>
         </div>
       </header>
 
@@ -44,10 +48,10 @@ export default function LumRefillery() {
               <span>2024</span>
             </div>
             <h1 className="text-6xl md:text-8xl font-display font-bold tracking-tighter text-foreground mb-8">
-              Lum Refillery
+              Lumë Refillery
             </h1>
             <p className="text-xl md:text-2xl text-foreground/70 max-w-3xl mx-auto leading-relaxed">
-              An eco-friendly e-commerce platform for a zero-waste refill store, 
+              An eco-friendly e-commerce platform for a zero-waste refill store,
               promoting sustainable living and conscious consumerism.
             </p>
           </motion.div>
@@ -59,7 +63,8 @@ export default function LumRefillery() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative rounded-lg overflow-hidden shadow-2xl"
           >
-            <img 
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=2564&auto=format&fit=crop"
               alt="Lum Refillery"
               className="w-full h-[70vh] object-cover"
@@ -83,14 +88,16 @@ export default function LumRefillery() {
                 Project Overview
               </h2>
               <p className="text-lg text-foreground/70 leading-relaxed mb-8">
-                Lum Refillery is an e-commerce platform designed for an eco-conscious refill store. 
-                The website allows customers to browse and purchase sustainable, package-free products 
-                while learning about zero-waste living.
+                Lumë Refillery is an e-commerce platform designed for an
+                eco-conscious refill store. The website allows customers to
+                browse and purchase sustainable, package-free products while
+                learning about zero-waste living.
               </p>
               <p className="text-lg text-foreground/70 leading-relaxed">
-                The platform features a clean, modern design that reflects the brand's commitment to 
-                sustainability. With an intuitive shopping experience, customers can easily find 
-                eco-friendly alternatives for everyday household and personal care products.
+                The platform features a clean, modern design that reflects the
+                brand&apos;s commitment to sustainability. With an intuitive
+                shopping experience, customers can easily find eco-friendly
+                alternatives for everyday household and personal care products.
               </p>
             </motion.div>
 
@@ -106,31 +113,45 @@ export default function LumRefillery() {
                 <div className="bg-background p-6 rounded-lg">
                   <div className="flex items-center gap-3 mb-2">
                     <Calendar className="text-foreground/60" size={20} />
-                    <span className="text-sm font-mono uppercase tracking-widest text-muted">Timeline</span>
+                    <span className="text-sm font-mono uppercase tracking-widest text-muted">
+                      Timeline
+                    </span>
                   </div>
                   <p className="text-2xl font-bold text-foreground">2 Months</p>
-                  <p className="text-sm text-foreground/60">Development Period</p>
+                  <p className="text-sm text-foreground/60">
+                    Development Period
+                  </p>
                 </div>
                 <div className="bg-background p-6 rounded-lg">
                   <div className="flex items-center gap-3 mb-2">
                     <Leaf className="text-foreground/60" size={20} />
-                    <span className="text-sm font-mono uppercase tracking-widest text-muted">Focus</span>
+                    <span className="text-sm font-mono uppercase tracking-widest text-muted">
+                      Focus
+                    </span>
                   </div>
-                  <p className="text-2xl font-bold text-foreground">Zero-Waste</p>
+                  <p className="text-2xl font-bold text-foreground">
+                    Zero-Waste
+                  </p>
                   <p className="text-sm text-foreground/60">Sustainability</p>
                 </div>
                 <div className="bg-background p-6 rounded-lg">
                   <div className="flex items-center gap-3 mb-2">
                     <ShoppingBag className="text-foreground/60" size={20} />
-                    <span className="text-sm font-mono uppercase tracking-widest text-muted">Type</span>
+                    <span className="text-sm font-mono uppercase tracking-widest text-muted">
+                      Type
+                    </span>
                   </div>
-                  <p className="text-2xl font-bold text-foreground">E-Commerce</p>
+                  <p className="text-2xl font-bold text-foreground">
+                    E-Commerce
+                  </p>
                   <p className="text-sm text-foreground/60">Online Store</p>
                 </div>
                 <div className="bg-background p-6 rounded-lg">
                   <div className="flex items-center gap-3 mb-2">
                     <Recycle className="text-foreground/60" size={20} />
-                    <span className="text-sm font-mono uppercase tracking-widest text-muted">Mission</span>
+                    <span className="text-sm font-mono uppercase tracking-widest text-muted">
+                      Mission
+                    </span>
                   </div>
                   <p className="text-2xl font-bold text-foreground">Reduce</p>
                   <p className="text-sm text-foreground/60">Plastic Waste</p>
@@ -157,9 +178,30 @@ export default function LumRefillery() {
         <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row justify-between items-center text-xs opacity-40 font-mono uppercase tracking-widest">
           <p>© 2026 ADEV STUDIO. All rights reserved.</p>
           <div className="flex gap-8 mt-4 md:mt-0">
-            <a href="https://www.youtube.com/@AkioandTen" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">YouTube</a>
-            <a href="https://x.com/Helloadevstudio" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">Twitter</a>
-            <a href="https://www.linkedin.com/in/akio-devenish-832476282/" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">LinkedIn</a>
+            <a
+              href="https://www.youtube.com/@AkioandTen"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-100 transition-opacity"
+            >
+              YouTube
+            </a>
+            <a
+              href="https://x.com/Helloadevstudio"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-100 transition-opacity"
+            >
+              Twitter
+            </a>
+            <a
+              href="https://www.linkedin.com/in/akio-devenish-832476282/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-100 transition-opacity"
+            >
+              LinkedIn
+            </a>
           </div>
         </div>
       </footer>

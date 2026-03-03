@@ -1,31 +1,35 @@
-import { motion } from 'framer-motion';
-import { ArrowLeft, ExternalLink, Calendar, Shield, Users, Zap } from 'lucide-react';
+"use client";
+
+import { motion } from "framer-motion";
+import {
+  ArrowLeft,
+  ExternalLink,
+  Calendar,
+  Shield,
+  Users,
+  Zap,
+} from "lucide-react";
+import Link from "next/link";
 
 export default function MultiHazardCaseStudy() {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const goBack = () => {
-    window.location.hash = '';
-    scrollToTop();
-  };
-
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md py-4 border-b border-foreground/10">
         <div className="container mx-auto px-6 flex items-center justify-between">
-          <button 
-            onClick={goBack}
+          <Link
+            href="/"
             className="flex items-center gap-2 text-foreground hover:text-foreground/70 transition-colors"
           >
             <ArrowLeft size={20} />
             <span className="font-medium">Back to Portfolio</span>
-          </button>
-          <a href="#" className="text-2xl font-display font-bold text-foreground">
+          </Link>
+          <Link
+            href="/"
+            className="text-2xl font-display font-bold text-foreground"
+          >
             ADEV STUDIO
-          </a>
+          </Link>
         </div>
       </header>
 
@@ -44,11 +48,14 @@ export default function MultiHazardCaseStudy() {
               <span>2025</span>
             </div>
             <h1 className="text-6xl md:text-8xl font-display font-bold tracking-tighter text-foreground mb-8">
-              Multi-Hazard<br />Early Warning System
+              Multi-Hazard
+              <br />
+              Early Warning System
             </h1>
             <p className="text-xl md:text-2xl text-foreground/70 max-w-3xl mx-auto leading-relaxed">
-              A national early warning system for Trinidad & Tobago delivering real-time alerts for natural disasters 
-              and emergency events to protect lives and livelihoods.
+              A national early warning system for Trinidad & Tobago delivering
+              real-time alerts for natural disasters and emergency events to
+              protect lives and livelihoods.
             </p>
           </motion.div>
 
@@ -59,7 +66,8 @@ export default function MultiHazardCaseStudy() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative rounded-lg overflow-hidden shadow-2xl"
           >
-            <img 
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src="https://images.unsplash.com/photo-1527482797697-8795b05a13fe?q=80&w=2564&auto=format&fit=crop"
               alt="Multi-Hazard Early Warning System"
               className="w-full h-[70vh] object-cover"
@@ -83,15 +91,17 @@ export default function MultiHazardCaseStudy() {
                 Project Overview
               </h2>
               <p className="text-lg text-foreground/70 leading-relaxed mb-8">
-                The Multi-Hazard Early Warning System (MHEWS) is a national initiative developed in collaboration 
-                with the Office of Disaster Preparedness and Management (ODPM), UWI Seismic Research Centre, 
-                and the Inter-American Development Bank.
+                The Multi-Hazard Early Warning System (MHEWS) is a national
+                initiative developed in collaboration with the Office of
+                Disaster Preparedness and Management (ODPM), UWI Seismic
+                Research Centre, and the Inter-American Development Bank.
               </p>
               <p className="text-lg text-foreground/70 leading-relaxed">
-                The platform provides integrated, people-centred early warnings for multiple hazards including 
-                floods, earthquakes, tsunamis, severe weather, landslides, and other emergency events. 
-                It delivers faster alerts, improves coordination between agencies, and strengthens 
-                community resilience across Trinidad & Tobago.
+                The platform provides integrated, people-centred early warnings
+                for multiple hazards including floods, earthquakes, tsunamis,
+                severe weather, landslides, and other emergency events. It
+                delivers faster alerts, improves coordination between agencies,
+                and strengthens community resilience across Trinidad & Tobago.
               </p>
             </motion.div>
 
@@ -107,15 +117,21 @@ export default function MultiHazardCaseStudy() {
                 <div className="bg-background p-6 rounded-lg">
                   <div className="flex items-center gap-3 mb-2">
                     <Calendar className="text-foreground/60" size={20} />
-                    <span className="text-sm font-mono uppercase tracking-widest text-muted">Timeline</span>
+                    <span className="text-sm font-mono uppercase tracking-widest text-muted">
+                      Timeline
+                    </span>
                   </div>
                   <p className="text-2xl font-bold text-foreground">Ongoing</p>
-                  <p className="text-sm text-foreground/60">Active Development</p>
+                  <p className="text-sm text-foreground/60">
+                    Active Development
+                  </p>
                 </div>
                 <div className="bg-background p-6 rounded-lg">
                   <div className="flex items-center gap-3 mb-2">
                     <Shield className="text-foreground/60" size={20} />
-                    <span className="text-sm font-mono uppercase tracking-widest text-muted">Hazards</span>
+                    <span className="text-sm font-mono uppercase tracking-widest text-muted">
+                      Hazards
+                    </span>
                   </div>
                   <p className="text-2xl font-bold text-foreground">10+</p>
                   <p className="text-sm text-foreground/60">Alert Types</p>
@@ -123,17 +139,25 @@ export default function MultiHazardCaseStudy() {
                 <div className="bg-background p-6 rounded-lg">
                   <div className="flex items-center gap-3 mb-2">
                     <Users className="text-foreground/60" size={20} />
-                    <span className="text-sm font-mono uppercase tracking-widest text-muted">Coverage</span>
+                    <span className="text-sm font-mono uppercase tracking-widest text-muted">
+                      Coverage
+                    </span>
                   </div>
                   <p className="text-2xl font-bold text-foreground">National</p>
-                  <p className="text-sm text-foreground/60">Trinidad & Tobago</p>
+                  <p className="text-sm text-foreground/60">
+                    Trinidad & Tobago
+                  </p>
                 </div>
                 <div className="bg-background p-6 rounded-lg">
                   <div className="flex items-center gap-3 mb-2">
                     <Zap className="text-foreground/60" size={20} />
-                    <span className="text-sm font-mono uppercase tracking-widest text-muted">Alerts</span>
+                    <span className="text-sm font-mono uppercase tracking-widest text-muted">
+                      Alerts
+                    </span>
                   </div>
-                  <p className="text-2xl font-bold text-foreground">Real-time</p>
+                  <p className="text-2xl font-bold text-foreground">
+                    Real-time
+                  </p>
                   <p className="text-sm text-foreground/60">Instant Delivery</p>
                 </div>
               </div>
@@ -158,9 +182,30 @@ export default function MultiHazardCaseStudy() {
         <div className="max-w-screen-xl mx-auto flex flex-col md:flex-row justify-between items-center text-xs opacity-40 font-mono uppercase tracking-widest">
           <p>© 2026 ADEV STUDIO. All rights reserved.</p>
           <div className="flex gap-8 mt-4 md:mt-0">
-            <a href="https://www.youtube.com/@AkioandTen" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">YouTube</a>
-            <a href="https://x.com/Helloadevstudio" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">Twitter</a>
-            <a href="https://www.linkedin.com/in/akio-devenish-832476282/" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">LinkedIn</a>
+            <a
+              href="https://www.youtube.com/@AkioandTen"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-100 transition-opacity"
+            >
+              YouTube
+            </a>
+            <a
+              href="https://x.com/Helloadevstudio"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-100 transition-opacity"
+            >
+              Twitter
+            </a>
+            <a
+              href="https://www.linkedin.com/in/akio-devenish-832476282/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:opacity-100 transition-opacity"
+            >
+              LinkedIn
+            </a>
           </div>
         </div>
       </footer>

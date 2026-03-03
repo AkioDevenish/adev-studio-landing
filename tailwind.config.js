@@ -1,16 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
-        background: "#F2F0E9", // Much warmer cream/ivory
-        foreground: "#2C2C2C", // Darker black for better contrast
-        muted: "#A6A296", // Warmer beige-gray
-        surface: "#E6E4DD", // Slightly darker cream for cards/sections
+        background: "#F2F0E9",
+        foreground: "#2C2C2C",
+        muted: "#A6A296",
+        surface: "#E6E4DD",
       },
       fontFamily: {
         sans: ["Inter", "sans-serif"],

@@ -1,12 +1,30 @@
-import { motion } from 'framer-motion';
-// @ts-ignore
-import SplitText from '../reactbits/SplitText';
+"use client";
 
-// Force rebuild - updated portfolio tagline
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import SplitText from "@/components/reactbits/SplitText";
+import dynamic from "next/dynamic";
+
+const HeroScene = dynamic(() => import("@/components/3d/HeroScene"), {
+  ssr: false,
+});
+
 export default function Hero() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const scrollProgress = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
   return (
-    <section className="relative h-screen w-full flex flex-col justify-center items-center overflow-hidden">
-      
+    <section
+      ref={containerRef}
+      className="relative h-screen w-full flex flex-col justify-center items-center overflow-hidden"
+    >
+      <HeroScene scrollProgress={scrollProgress.get()} />
+
       <div className="z-10 text-center px-4">
         <div className="mb-8">
           <SplitText
@@ -24,21 +42,22 @@ export default function Hero() {
           />
         </div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.8 }}
           className="flex flex-col items-center gap-4"
         >
           <p className="text-xl md:text-2xl text-foreground/70 max-w-lg mx-auto font-sans font-light tracking-wide">
-          Data Science → Neural Interfaces     </p>
+            Data Science → Neural Interfaces
+          </p>
           <span className="text-xs font-mono uppercase tracking-widest text-muted mt-4">
             Est. 2025
           </span>
         </motion.div>
       </div>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2, duration: 1 }}
@@ -54,5 +73,5 @@ export default function Hero() {
         </div>
       </motion.div>
     </section>
-  )
+  );
 }
