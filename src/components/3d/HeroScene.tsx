@@ -429,7 +429,6 @@ const HeroScene: React.FC<{ scrollProgress?: number }> = () => {
         gl={{ antialias: true, alpha: true }}
       >
         <CameraDrift />
-        <StarField count={1000} />
         <ConstellationSystem />
         <DustParticles count={150} />
         <ShootingStar />
