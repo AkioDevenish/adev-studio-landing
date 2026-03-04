@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     description:
       "Developer & Creative Portfolio showcasing modern web development and design solutions.",
     type: "website",
-    url: "https://adevstudio.com",
+    url: "https://www.adevstudio.com",
     siteName: "ADEVSTUDIO",
   },
   twitter: {
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     description:
       "Developer & Creative Portfolio showcasing modern web development and design solutions.",
   },
-  metadataBase: new URL("https://adevstudio.com"),
+  metadataBase: new URL("https://www.adevstudio.com"),
 };
 
 export default function RootLayout({
