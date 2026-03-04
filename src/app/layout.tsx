@@ -3,8 +3,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "ADEV Studio - Portfolio",
-    template: "%s | ADEV Studio",
+    default: "ADEV STUDIO",
+    template: "%s | ADEV STUDIO",
   },
   description:
     "ADEV Studio - Developer & Creative Portfolio showcasing modern web development, design, and digital solutions.",
@@ -18,18 +18,18 @@ export const metadata: Metadata = {
     "data science",
     "neural interfaces",
   ],
-  authors: [{ name: "ADEV Studio" }],
+  authors: [{ name: "ADEV STUDIO" }],
   openGraph: {
-    title: "ADEV Studio - Portfolio",
+    title: "ADEV STUDIO",
     description:
       "Developer & Creative Portfolio showcasing modern web development and design solutions.",
     type: "website",
     url: "https://adevstudio.com",
-    siteName: "ADEV Studio",
+    siteName: "ADEVSTUDIO",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ADEV Studio - Portfolio",
+    title: "ADEV STUDIO",
     description:
       "Developer & Creative Portfolio showcasing modern web development and design solutions.",
   },

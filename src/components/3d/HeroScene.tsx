@@ -40,24 +40,41 @@ const StarField: React.FC<{ count?: number }> = ({ count = 800 }) => {
         attribute float aPhase;
         uniform float uTime;
         varying float vAlpha;
+        varying float vRotation;
         void main() {
           vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
           float twinkle = sin(uTime * 0.8 + aPhase) * 0.5 + 0.5;
           float slowTwinkle = sin(uTime * 0.3 + aPhase * 2.0) * 0.3 + 0.7;
           vAlpha = twinkle * slowTwinkle * 0.5 + 0.05;
-          gl_PointSize = aSize * (150.0 / -mvPosition.z) * (twinkle * 0.5 + 0.5);
+          vRotation = aPhase + uTime * 0.05;
+          gl_PointSize = aSize * 2.0 * (150.0 / -mvPosition.z) * (twinkle * 0.5 + 0.5);
           gl_Position = projectionMatrix * mvPosition;
         }
       `,
       fragmentShader: `
         uniform vec3 uColor;
         varying float vAlpha;
+        varying float vRotation;
         void main() {
-          float d = length(gl_PointCoord - vec2(0.5));
-          if (d > 0.5) discard;
-          float glow = 1.0 - smoothstep(0.0, 0.5, d);
-          glow = pow(glow, 1.5);
-          gl_FragColor = vec4(uColor, vAlpha * glow);
+          vec2 p = (gl_PointCoord - 0.5) * 2.0;
+          float c = cos(vRotation);
+          float s = sin(vRotation);
+          vec2 rp = vec2(p.x * c - p.y * s, p.x * s + p.y * c);
+
+          // Star/flare shape
+          float thickness = 0.05;
+          float star = (thickness / (abs(rp.x) + thickness)) * (thickness / (abs(rp.y) + thickness));
+          
+          float d = length(p);
+          star *= smoothstep(1.0, 0.2, d); // fade out at edges
+
+          float core = smoothstep(1.0, 0.0, d);
+          core = pow(core, 2.0);
+
+          float alpha = (star * 1.5 + core * 0.8) * vAlpha;
+          if (alpha < 0.01) discard;
+
+          gl_FragColor = vec4(uColor, alpha);
         }
       `,
       transparent: true,
