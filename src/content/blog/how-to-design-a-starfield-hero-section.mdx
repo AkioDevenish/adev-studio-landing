@@ -1,0 +1,38 @@
+---
+title: "How We Built a Real-Time 3D Constellation Hero Section"
+date: "2026-03-04"
+excerpt: "A deep dive into using React Three Fiber, WebGL shaders, and Framer Motion to create a stunning data science and neural interface portfolio."
+---
+
+When designing the landing page for **ADEV Studio**, we knew we needed something that immediately conveyed our focus on **Data Science** and **Neural Interfaces**. A static image or a plain hero section just wouldn't do justice to the dynamic fields we work in.
+
+We decided to build a real-time 3D constellation scene right in the browser. Here’s a brief look at how we pulled it off.
+
+## The Tech Stack
+
+1. **Next.js (App Router)** for performance and SEO.
+2. **Three.js & React Three Fiber** for easily composing 3D elements in a React-friendly way.
+3. **Custom WebGL Shaders** for drawing sharp, mathematically perfect stars instead of blurry textures.
+4. **Framer Motion** for smooth scroll animations that fade the scene in and out gracefully.
+
+## Custom WebGL Stars
+
+Instead of just rendering hundreds of spheres, we used a custom shader on a `THREE.Points` object.
+
+```glsl
+// A small snippet from our fragment shader
+float thickness = 0.05;
+float star = (thickness / (abs(p.x) + thickness)) * (thickness / (abs(p.y) + thickness));
+```
+
+This math generates a beautiful "flare" or 4-pointed star effect entirely on the GPU, without taking up massive memory with textures! We apply a smooth step, adjust intensity, and end up with perfect twinkling stars against our cream background.
+
+## The Constellation Nodes
+
+The center of the hero section features a "brain-like" or "neural network" configuration of nodes. We mapped out 3D coordinates and drew faint gray lines connecting them. The nodes themselves are simple `sphereGeometries`, but we layered a translucent "glow" layer behind them and made them slowly pulse using a `useFrame` hook from React Three Fiber.
+
+As the user scrolls down, the entire 3D scene fades away behind them, bringing focus back to the content. The result is an elegant, premium feel that showcases technical skill without overwhelming the visitor.
+
+---
+
+_Want help building highly engaging 3D web experiences? Learn more about ADEV Studio's services or check out our case studies._
