@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://adevstudio.com
+Host: https://www.adevstudio.com
 
 # Sitemaps
-Sitemap: https://adevstudio.com/sitemap.xml
+Sitemap: https://www.adevstudio.com/sitemap.xml

@@ -10,6 +10,9 @@ export interface BlogPost {
   date: string;
   excerpt: string;
   content: string;
+  coverImage?: string;
+  category?: string;
+  tags?: string[];
 }
 
 export function getSortedPostsData(): Omit<BlogPost, "content">[] {
@@ -35,7 +38,14 @@ export function getSortedPostsData(): Omit<BlogPost, "content">[] {
       // Combine the data with the slug
       return {
         slug,
-        ...(matterResult.data as { title: string; date: string; excerpt: string }),
+        ...(matterResult.data as { 
+          title: string; 
+          date: string; 
+          excerpt: string;
+          coverImage?: string;
+          category?: string;
+          tags?: string[];
+        }),
       };
     });
 
@@ -61,6 +71,9 @@ export function getPostData(slug: string): BlogPost {
     title: matterResult.data.title,
     date: matterResult.data.date,
     excerpt: matterResult.data.excerpt,
+    coverImage: matterResult.data.coverImage,
+    category: matterResult.data.category,
+    tags: matterResult.data.tags,
     content: matterResult.content,
   };
 }
