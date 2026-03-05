@@ -16,22 +16,20 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   
   let title = "ADEV STUDIO";
   let category = "";
-  let date = "";
 
   try {
     const post = getPostData(slug);
     title = post.title;
     category = post.category || "";
-    date = post.date;
   } catch (e) {
-    // fallback to defaults
+    // fallback
   }
 
   return new ImageResponse(
     (
       <div
         style={{
-          background: "#1a1a1a",
+          background: "#F2F0E9",
           width: "100%",
           height: "100%",
           display: "flex",
@@ -41,32 +39,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
           position: "relative",
         }}
       >
-        {/* Grid */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
-            display: "flex",
-          }}
-        />
-
-        {/* Top accent */}
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            height: "4px",
-            background: "linear-gradient(90deg, #F2F0E9, rgba(242,240,233,0.3))",
-            display: "flex",
-          }}
-        />
-
-        {/* Top section */}
+        {/* Top: Logo + Category */}
         <div
           style={{
             display: "flex",
@@ -76,42 +49,36 @@ export default async function Image({ params }: { params: Promise<{ slug: string
         >
           <div
             style={{
-              fontSize: 20,
+              fontSize: 22,
               fontWeight: 700,
-              color: "#F2F0E9",
+              color: "#1a1a1a",
               letterSpacing: "-0.5px",
               display: "flex",
+              fontFamily: "serif",
             }}
           >
-            ADEV STUDIO
+            ADEVSTUDIO
           </div>
-          <div
-            style={{
-              display: "flex",
-              gap: "16px",
-              alignItems: "center",
-            }}
-          >
-            {category && (
-              <div
-                style={{
-                  fontSize: 12,
-                  color: "rgba(242,240,233,0.6)",
-                  letterSpacing: "4px",
-                  textTransform: "uppercase",
-                  border: "1px solid rgba(242,240,233,0.15)",
-                  padding: "6px 16px",
-                  borderRadius: "100px",
-                  display: "flex",
-                }}
-              >
-                {category}
-              </div>
-            )}
-          </div>
+          {category && (
+            <div
+              style={{
+                fontSize: 12,
+                color: "rgba(26,26,26,0.5)",
+                letterSpacing: "4px",
+                textTransform: "uppercase",
+                border: "1px solid rgba(26,26,26,0.15)",
+                padding: "6px 16px",
+                borderRadius: "100px",
+                display: "flex",
+                fontFamily: "monospace",
+              }}
+            >
+              {category}
+            </div>
+          )}
         </div>
 
-        {/* Title */}
+        {/* Center: Title */}
         <div
           style={{
             display: "flex",
@@ -121,20 +88,21 @@ export default async function Image({ params }: { params: Promise<{ slug: string
         >
           <div
             style={{
-              fontSize: title.length > 50 ? 42 : 56,
+              fontSize: title.length > 50 ? 44 : 58,
               fontWeight: 700,
-              color: "#F2F0E9",
+              color: "#1a1a1a",
               letterSpacing: "-2px",
               lineHeight: 1.1,
-              maxWidth: "900px",
+              maxWidth: "950px",
               display: "flex",
+              fontFamily: "serif",
             }}
           >
             {title}
           </div>
         </div>
 
-        {/* Bottom */}
+        {/* Bottom: URL */}
         <div
           style={{
             display: "flex",
@@ -144,27 +112,27 @@ export default async function Image({ params }: { params: Promise<{ slug: string
         >
           <div
             style={{
-              fontSize: 14,
-              color: "rgba(242,240,233,0.3)",
-              letterSpacing: "3px",
+              fontSize: 13,
+              color: "rgba(26,26,26,0.2)",
+              letterSpacing: "4px",
               textTransform: "uppercase",
               display: "flex",
+              fontFamily: "monospace",
             }}
           >
             www.adevstudio.com
           </div>
-          {date && (
-            <div
-              style={{
-                fontSize: 14,
-                color: "rgba(242,240,233,0.3)",
-                letterSpacing: "2px",
-                display: "flex",
-              }}
-            >
-              {date}
-            </div>
-          )}
+          <div
+            style={{
+              fontSize: 13,
+              color: "rgba(26,26,26,0.3)",
+              letterSpacing: "2px",
+              display: "flex",
+              fontFamily: "monospace",
+            }}
+          >
+            Read article →
+          </div>
         </div>
       </div>
     ),
