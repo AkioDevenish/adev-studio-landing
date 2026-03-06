@@ -63,7 +63,7 @@ export async function POST(req: Request) {
   const modelMessages = await convertToModelMessages(messages);
 
   const result = streamText({
-    model: google("gemini-1.5-flash"),
+    model: google("gemini-2.5-flash"),
     system: `You are the ADEV Studio AI assistant, a helpful and friendly chatbot embedded on the ADEV Studio website (www.adevstudio.com). Your job is to help visitors learn about ADEV Studio's services, background, and expertise.
 
 RULES:
