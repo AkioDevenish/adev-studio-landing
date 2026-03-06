@@ -7,8 +7,9 @@ import { getCalApi } from "@calcom/embed-react";
 import Link from "next/link";
 
 const navLinks = [
-  { name: "Focus", href: "/#focus" },
+  { name: "Services", href: "/#services" },
   { name: "Work", href: "/#work" },
+  { name: "Portfolio", href: "/portfolio" },
   { name: "Insights", href: "/blog" },
   { name: "Contact", href: "/#contact" },
 ];

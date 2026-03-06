@@ -7,35 +7,37 @@ import ChatBubble from "@/components/ChatBubble";
 
 export const metadata: Metadata = {
   title: {
-    default: "ADEV STUDIO",
+    default: "ADEV STUDIO — Digital Agency",
     template: "%s | ADEV STUDIO",
   },
   description:
-    "ADEV Studio - Developer & Creative Portfolio showcasing modern web development, design, and digital solutions.",
+    "ADEV Studio is a premium digital agency specializing in web development, data science, UI/UX design, and 3D interactive experiences. Based in Trinidad & Tobago.",
   keywords: [
-    "developer",
-    "portfolio",
+    "digital agency",
     "web development",
-    "creative",
-    "design",
-    "ADEV Studio",
+    "web design",
     "data science",
-    "neural interfaces",
+    "UI/UX design",
+    "ADEV Studio",
+    "Trinidad and Tobago",
+    "Next.js",
+    "React",
+    "Three.js",
   ],
   authors: [{ name: "ADEV STUDIO" }],
   openGraph: {
-    title: "ADEV STUDIO",
+    title: "ADEV STUDIO — Digital Agency",
     description:
-      "Developer & Creative Portfolio showcasing modern web development and design solutions.",
+      "Premium web development, data science, and design solutions for ambitious brands.",
     type: "website",
     url: "https://www.adevstudio.com",
-    siteName: "ADEVSTUDIO",
+    siteName: "ADEV STUDIO",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ADEV STUDIO",
+    title: "ADEV STUDIO — Digital Agency",
     description:
-      "Developer & Creative Portfolio showcasing modern web development and design solutions.",
+      "Premium web development, data science, and design solutions for ambitious brands.",
   },
   metadataBase: new URL("https://www.adevstudio.com"),
 };

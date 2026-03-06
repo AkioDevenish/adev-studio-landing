@@ -59,7 +59,6 @@ Next.js, React 19, TypeScript, Tailwind CSS, Three.js, React Three Fiber, Framer
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
-  console.log("RAW MESSAGES:", JSON.stringify(messages, null, 2));
 
   const modelMessages = await convertToModelMessages(messages);
 

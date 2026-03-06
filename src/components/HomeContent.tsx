@@ -1,18 +1,20 @@
 "use client";
 
-import Hero from "@/components/sections/Hero";
-import Background from "@/components/sections/Background";
-import Focus from "@/components/sections/Focus";
-import CaseStudies from "@/components/sections/CaseStudies";
+import AgencyHero from "@/components/sections/AgencyHero";
+import Services from "@/components/sections/Services";
+import FeaturedWork from "@/components/sections/FeaturedWork";
+import Process from "@/components/sections/Process";
+import About from "@/components/sections/About";
 import Contact from "@/components/sections/Contact";
 
-export default function HomeContent() {
+export default function AgencyHome() {
   return (
     <div className="min-h-screen bg-background">
-      <Hero />
-      <Background />
-      <Focus />
-      <CaseStudies />
+      <AgencyHero />
+      <Services />
+      <FeaturedWork />
+      <Process />
+      <About />
       <Contact />
     </div>
   );
