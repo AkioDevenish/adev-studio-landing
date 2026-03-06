@@ -1,5 +1,5 @@
 import { google } from "@ai-sdk/google";
-import { streamText } from "ai";
+import { streamText, convertToModelMessages } from "ai";
 
 export const maxDuration = 30;
 
@@ -60,6 +60,8 @@ Next.js, React 19, TypeScript, Tailwind CSS, Three.js, React Three Fiber, Framer
 export async function POST(req: Request) {
   const { messages } = await req.json();
 
+  const modelMessages = await convertToModelMessages(messages);
+
   const result = streamText({
     model: google("gemini-1.5-flash"),
     system: `You are the ADEV Studio AI assistant, a helpful and friendly chatbot embedded on the ADEV Studio website (www.adevstudio.com). Your job is to help visitors learn about ADEV Studio's services, background, and expertise.
@@ -74,7 +76,7 @@ RULES:
 - Use markdown formatting sparingly (bold for emphasis, but no headers).
 
 ${ADEV_KNOWLEDGE}`,
-    messages,
+    messages: modelMessages,
   });
 
   return result.toTextStreamResponse();
