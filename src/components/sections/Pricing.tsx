@@ -1,68 +1,57 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
 import { useEffect } from "react";
 import { getCalApi } from "@calcom/embed-react";
+import { ArrowRight } from "lucide-react";
 
 const tiers = [
   {
-    name: "Starter",
+    name: "Foundation",
     price: "$1,500",
-    period: "per project",
-    description:
-      "Perfect for small businesses and startups who need a clean, professional web presence.",
-    features: [
-      "Custom designed landing page",
-      "Mobile responsive design",
-      "Basic SEO optimization",
-      "Contact form integration",
-      "Up to 5 pages",
-      "1 round of revisions",
-      "2-week delivery",
+    suffix: "starting at",
+    tagline: "One focused deliverable, done right.",
+    ideal: "Ideal for startups & small businesses",
+    includes: [
+      "Single-service project scope",
+      "Landing page, dashboard, or data report",
+      "Mobile responsive & optimized",
+      "1 revision round included",
+      "2-week turnaround",
     ],
-    cta: "Get Started",
-    highlighted: false,
   },
   {
-    name: "Professional",
+    name: "Growth",
     price: "$3,500",
-    period: "per project",
-    description:
-      "For growing brands that need a high-performance website with advanced functionality.",
-    features: [
-      "Everything in Starter",
+    suffix: "starting at",
+    tagline: "A complete digital solution across services.",
+    ideal: "Ideal for scaling brands & organizations",
+    popular: true,
+    includes: [
+      "Multi-service project scope",
+      "Web + Design + Data or 3D elements",
       "Custom animations & interactions",
-      "CMS integration (blog, portfolio)",
-      "Advanced SEO & analytics setup",
-      "Up to 15 pages",
-      "3D / interactive elements",
-      "3 rounds of revisions",
-      "4-week delivery",
+      "CMS, analytics & SEO setup",
+      "3 revision rounds included",
+      "4-week turnaround",
       "30 days post-launch support",
     ],
-    cta: "Most Popular",
-    highlighted: true,
   },
   {
-    name: "Enterprise",
+    name: "Partnership",
     price: "Custom",
-    period: "let's talk",
-    description:
-      "Full-scale digital solutions for established companies and complex projects.",
-    features: [
-      "Everything in Professional",
-      "Full-stack web application",
-      "Data science & ML integration",
-      "API development & integrations",
-      "Dashboard & admin panels",
-      "Unlimited pages & revisions",
-      "Priority support & maintenance",
-      "Dedicated project timeline",
-      "Ongoing retainer available",
+    suffix: "monthly retainer",
+    tagline: "Ongoing work across all disciplines.",
+    ideal: "Ideal for companies needing a dedicated team",
+    includes: [
+      "Dedicated hours each month",
+      "Web, data, design & 3D on demand",
+      "Priority turnaround on requests",
+      "Ongoing maintenance & optimization",
+      "Strategy & consulting sessions",
+      "Quarterly performance reviews",
+      "Cancel or adjust anytime",
     ],
-    cta: "Contact Us",
-    highlighted: false,
   },
 ];
 
@@ -82,155 +71,129 @@ export default function Pricing() {
   return (
     <section
       id="pricing"
-      className="py-32 md:py-40 px-6 md:px-12 bg-background"
+      className="py-32 md:py-40 px-6 md:px-12 bg-[#1a1a1a] text-[#F2F0E9] relative overflow-hidden"
     >
-      <div className="max-w-screen-xl mx-auto">
-        <div className="flex flex-col items-center text-center mb-20">
-          <motion.h2
-            initial={{ opacity: 0, y: -10 }}
-            whileInView={{ opacity: 1, y: 0 }}
+      {/* Subtle background texture */}
+      <div className="absolute inset-0 opacity-[0.03]">
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full border border-white/20" />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full border border-white/20" />
+      </div>
+
+      <div className="max-w-screen-xl mx-auto relative z-10">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 border-b border-white/10 pb-10">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="text-sm font-mono uppercase tracking-widest text-muted mb-8"
           >
-            ( Pricing )
-          </motion.h2>
+            <h2 className="text-sm font-mono uppercase tracking-widest text-white/40 mb-6">
+              ( Pricing )
+            </h2>
+            <p className="text-4xl md:text-6xl font-display leading-tight max-w-xl">
+              Investment that{" "}
+              <span className="italic text-white/50">pays for itself</span>.
+            </p>
+          </motion.div>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-3xl md:text-5xl font-display max-w-2xl leading-tight"
+            className="text-white/40 text-sm max-w-xs mt-8 md:mt-0 text-right leading-relaxed"
           >
-            Transparent pricing,{" "}
-            <span className="italic text-foreground/60">
-              exceptional value
-            </span>
-            .
-          </motion.p>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-foreground/60 mt-6 max-w-lg"
-          >
-            Every project is unique. These packages are starting points —
-            we&apos;ll tailor the perfect scope for your needs.
+            Flexible pricing across all services — web, data, design & 3D.
+            Every project is scoped to your exact needs.
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        {/* Pricing Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 border border-white/10 rounded-sm overflow-hidden">
           {tiers.map((tier, index) => (
             <motion.div
               key={tier.name}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-5%" }}
-              transition={{ duration: 0.6, delay: index * 0.15 }}
-              className={`group relative flex flex-col rounded-sm border transition-all duration-500 ${
-                tier.highlighted
-                  ? "border-foreground bg-foreground text-background scale-[1.02] shadow-2xl shadow-foreground/10"
-                  : "border-foreground/10 bg-surface hover:border-foreground/30"
-              }`}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.12 }}
+              className={`group relative flex flex-col p-8 md:p-10 ${
+                index < tiers.length - 1
+                  ? "border-b lg:border-b-0 lg:border-r border-white/10"
+                  : ""
+              } ${
+                tier.popular
+                  ? "bg-white/[0.04]"
+                  : "hover:bg-white/[0.02]"
+              } transition-colors duration-500`}
             >
-              {/* Popular badge */}
-              {tier.highlighted && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <span className="px-4 py-1.5 bg-background text-foreground text-[10px] font-mono uppercase tracking-widest rounded-full shadow-sm">
-                    Most Popular
-                  </span>
-                </div>
+              {/* Popular indicator */}
+              {tier.popular && (
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-white/40 to-transparent" />
               )}
 
-              <div className="p-8 md:p-10 flex flex-col flex-grow">
-                {/* Header */}
-                <div className="mb-8">
-                  <h3
-                    className={`text-sm font-mono uppercase tracking-widest mb-6 ${
-                      tier.highlighted
-                        ? "text-background/60"
-                        : "text-muted"
-                    }`}
-                  >
-                    {tier.name}
-                  </h3>
-
-                  <div className="flex items-baseline gap-2 mb-4">
-                    <span className="text-5xl md:text-6xl font-display">
-                      {tier.price}
-                    </span>
-                    <span
-                      className={`text-sm font-mono ${
-                        tier.highlighted
-                          ? "text-background/50"
-                          : "text-muted"
-                      }`}
-                    >
-                      {tier.period}
-                    </span>
-                  </div>
-
-                  <p
-                    className={`text-sm leading-relaxed ${
-                      tier.highlighted
-                        ? "text-background/70"
-                        : "text-foreground/60"
-                    }`}
-                  >
-                    {tier.description}
-                  </p>
-                </div>
-
-                {/* Divider */}
-                <div
-                  className={`w-full h-[1px] mb-8 ${
-                    tier.highlighted
-                      ? "bg-background/20"
-                      : "bg-foreground/10"
-                  }`}
-                />
-
-                {/* Features */}
-                <ul className="space-y-4 mb-10 flex-grow">
-                  {tier.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-3">
-                      <Check
-                        size={16}
-                        className={`mt-0.5 shrink-0 ${
-                          tier.highlighted
-                            ? "text-background/60"
-                            : "text-muted"
-                        }`}
-                      />
-                      <span
-                        className={`text-sm ${
-                          tier.highlighted
-                            ? "text-background/80"
-                            : "text-foreground/70"
-                        }`}
-                      >
-                        {feature}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* CTA */}
-                <button
-                  data-cal-namespace="30min"
-                  data-cal-link="adevstudio/30min"
-                  data-cal-config='{"layout":"month_view","theme":"dark"}'
-                  className={`w-full py-4 rounded-full text-sm font-mono uppercase tracking-widest transition-all duration-300 ${
-                    tier.highlighted
-                      ? "bg-background text-foreground hover:bg-background/90"
-                      : "border border-foreground/20 text-foreground hover:border-foreground hover:bg-foreground hover:text-background"
-                  }`}
-                >
-                  {tier.cta}
-                </button>
+              {/* Tier name */}
+              <div className="flex items-center justify-between mb-8">
+                <span className="text-xs font-mono uppercase tracking-widest text-white/30">
+                  {tier.name}
+                </span>
+                {tier.popular && (
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-white/50 border border-white/20 px-3 py-1 rounded-full">
+                    Popular
+                  </span>
+                )}
               </div>
+
+              {/* Price */}
+              <div className="mb-2">
+                <span className="text-5xl md:text-6xl font-display leading-none">
+                  {tier.price}
+                </span>
+              </div>
+              <span className="text-xs font-mono text-white/30 uppercase tracking-wider mb-6">
+                {tier.suffix}
+              </span>
+
+              {/* Tagline */}
+              <p className="text-lg font-display text-white/70 mb-2 leading-snug">
+                {tier.tagline}
+              </p>
+              <p className="text-xs font-mono text-white/25 uppercase tracking-wider mb-8">
+                {tier.ideal}
+              </p>
+
+              {/* Divider */}
+              <div className="w-full h-[1px] bg-white/10 mb-8" />
+
+              {/* Includes */}
+              <ul className="space-y-3 mb-10 flex-grow">
+                {tier.includes.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-3 text-sm text-white/50"
+                  >
+                    <span className="text-white/20 mt-1.5 shrink-0">—</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+
+              {/* CTA */}
+              <button
+                data-cal-namespace="30min"
+                data-cal-link="adevstudio/30min"
+                data-cal-config='{"layout":"month_view","theme":"dark"}'
+                className={`group/btn w-full flex items-center justify-center gap-2 py-4 rounded-full text-xs font-mono uppercase tracking-widest transition-all duration-300 ${
+                  tier.popular
+                    ? "bg-[#F2F0E9] text-[#1a1a1a] hover:bg-white"
+                    : "border border-white/20 text-white/60 hover:border-white/60 hover:text-white"
+                }`}
+              >
+                Book a Call
+                <ArrowRight
+                  size={12}
+                  className="group-hover/btn:translate-x-1 transition-transform"
+                />
+              </button>
             </motion.div>
           ))}
         </div>
@@ -240,11 +203,11 @@ export default function Pricing() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          className="text-center text-xs font-mono text-muted mt-12 uppercase tracking-widest"
+          transition={{ delay: 0.4 }}
+          className="text-center text-[10px] font-mono text-white/20 mt-10 uppercase tracking-widest"
         >
-          All prices in USD · Flexible payment plans available · Book a
-          free consultation to discuss your project
+          All prices USD · Scope-dependent · Free 30-minute consultation
+          included
         </motion.p>
       </div>
     </section>
