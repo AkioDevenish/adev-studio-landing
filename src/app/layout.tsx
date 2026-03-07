@@ -7,7 +7,7 @@ import ChatBubble from "@/components/ChatBubble";
 
 export const metadata: Metadata = {
   title: {
-    default: "ADEV STUDIO — Digital Agency",
+    default: "ADEV STUDIO",
     template: "%s | ADEV STUDIO",
   },
   description:
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "ADEV STUDIO" }],
   openGraph: {
-    title: "ADEV STUDIO — Digital Agency",
+    title: "ADEV STUDIO",
     description:
       "Premium web development, data science, and design solutions for ambitious brands.",
     type: "website",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ADEV STUDIO — Digital Agency",
+    title: "ADEV STUDIO",
     description:
       "Premium web development, data science, and design solutions for ambitious brands.",
   },

@@ -35,7 +35,7 @@ const featuredWork = [
       "E-commerce platform for an eco-friendly refill store with clean, modern design and seamless shopping experience.",
     image:
       "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=2564&auto=format&fit=crop",
-    slug: "lum-refillery",
+    slug: "lumee-refillery",
     link: "https://lum-refillery.vercel.app/",
   },
 ];
