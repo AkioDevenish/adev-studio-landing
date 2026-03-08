@@ -3,7 +3,7 @@ import React from "react";
 import BlogClient from "@/components/blog/BlogClient";
 
 export const metadata = {
-  title: "Blog & Insights",
+  title: "Blog",
   description: "Read the latest thoughts on Data Science, Neural Interfaces, and Modern Web Development from ADEV Studio.",
 };
 
@@ -15,7 +15,7 @@ export default function BlogListing() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
         <div className="max-w-3xl">
           <h1 className="text-5xl md:text-7xl font-display font-semibold mb-6 tracking-tight text-foreground">
-            Insights & Writing
+            Blog
           </h1>
           <p className="text-foreground/60 text-lg md:text-xl font-light leading-relaxed">
             Exploring the intersection of data science, neural interfaces, and the future of web design. 
