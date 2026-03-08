@@ -118,17 +118,22 @@ const SolarSystem: React.FC = () => {
 
   useFrame((state) => {
     if (systemRef.current) {
-      // Gentle auto-rotation
       const t = state.clock.elapsedTime;
       
+      // Base orientation to match the specific diagonal startup angle requested
+      const baseRotationX = 1.1;  // Tilted forward to make ellipses more circular
+      const baseRotationY = -0.1; // Slight left/right pan
+      const baseRotationZ = -0.3; // Diagonal slant
+
       // Interactive mouse follow with smooth interpolation (lerping)
-      // This maps the mouse position (-1 to 1) to tilt angles
-      const targetRotationX = (state.pointer.y * viewport.height) / 15 + Math.sin(t * 0.1) * 0.1;
-      const targetRotationY = (state.pointer.x * viewport.width) / 15 + t * 0.05 + Math.sin(t * 0.05) * 0.1;
+      const targetRotationX = baseRotationX + (state.pointer.y * viewport.height) / 20 + Math.sin(t * 0.1) * 0.05;
+      const targetRotationY = baseRotationY + (state.pointer.x * viewport.width) / 20 + t * 0.02;
+      const targetRotationZ = baseRotationZ + Math.sin(t * 0.05) * 0.05;
 
       // Smoothly interpolate current rotation to target rotation
       systemRef.current.rotation.x = THREE.MathUtils.lerp(systemRef.current.rotation.x, targetRotationX, 0.05);
       systemRef.current.rotation.y = THREE.MathUtils.lerp(systemRef.current.rotation.y, targetRotationY, 0.05);
+      systemRef.current.rotation.z = THREE.MathUtils.lerp(systemRef.current.rotation.z, targetRotationZ, 0.05);
     }
   });
 
