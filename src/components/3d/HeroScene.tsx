@@ -4,23 +4,8 @@ import React, { useRef, useMemo } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
-// ─── Camera drift ─────────────────────────────────────────────────
-const CameraDrift: React.FC = () => {
-  const { camera } = useThree();
-  const initialPos = useRef(camera.position.clone());
-
-  useFrame((state) => {
-    const t = state.clock.elapsedTime;
-    camera.position.x = initialPos.current.x + Math.sin(t * 0.1) * 0.2;
-    camera.position.y = initialPos.current.y + Math.sin(t * 0.08) * 0.15;
-    camera.lookAt(0, 0, 0);
-  });
-
-  return null;
-};
-
-// ─── Ambient dust particles (grey) ────────────────────────────────
-const DustParticles: React.FC<{ count?: number }> = ({ count = 150 }) => {
+// ─── Ambient dust particles ───────────────────────────────────────
+const DustParticles: React.FC<{ count?: number }> = ({ count = 300 }) => {
   const pointsRef = useRef<THREE.Points>(null);
 
   const { positions, velocities } = useMemo(() => {
@@ -28,9 +13,9 @@ const DustParticles: React.FC<{ count?: number }> = ({ count = 150 }) => {
     const vel = new Float32Array(count * 3);
 
     for (let i = 0; i < count; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 14;
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 10;
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 8;
+      pos[i * 3] = (Math.random() - 0.5) * 20;
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 20;
+      pos[i * 3 + 2] = (Math.random() - 0.5) * 15 - 5;
 
       vel[i * 3] = (Math.random() - 0.5) * 0.002;
       vel[i * 3 + 1] = Math.random() * 0.0015 + 0.0005;
@@ -50,9 +35,9 @@ const DustParticles: React.FC<{ count?: number }> = ({ count = 150 }) => {
       arr[i * 3 + 1] += velocities[i * 3 + 1];
       arr[i * 3 + 2] += velocities[i * 3 + 2];
 
-      if (arr[i * 3 + 1] > 6) {
-        arr[i * 3 + 1] = -6;
-        arr[i * 3] = (Math.random() - 0.5) * 14;
+      if (arr[i * 3 + 1] > 10) {
+        arr[i * 3 + 1] = -10;
+        arr[i * 3] = (Math.random() - 0.5) * 20;
       }
     }
     posAttr.needsUpdate = true;
@@ -68,8 +53,8 @@ const DustParticles: React.FC<{ count?: number }> = ({ count = 150 }) => {
         />
       </bufferGeometry>
       <pointsMaterial
-        color="#999999"
-        size={0.012}
+        color="#888888"
+        size={0.015}
         transparent
         opacity={0.3}
         depthWrite={false}
@@ -79,159 +64,144 @@ const DustParticles: React.FC<{ count?: number }> = ({ count = 150 }) => {
   );
 };
 
-// ─── Nucleus (cluster of spheres) ─────────────────────────────────
-const Nucleus: React.FC = () => {
-  const groupRef = useRef<THREE.Group>(null);
-  const glowRef = useRef<THREE.Mesh>(null);
-
-  const spheres = useMemo(() => {
-    const items = [];
-    const count = 18;
-    for (let i = 0; i < count; i++) {
-      // Golden spiral distribution for a nice spherical cluster
-      const phi = Math.acos(1 - 2 * (i + 0.5) / count);
-      const theta = Math.PI * (1 + Math.sqrt(5)) * i;
-      
-      const r = 0.25 + Math.random() * 0.1;
-      const x = r * Math.sin(phi) * Math.cos(theta);
-      const y = r * Math.sin(phi) * Math.sin(theta);
-      const z = r * Math.cos(phi);
-      
-      const color = i % 2 === 0 ? "#1a1a1a" : "#444444";
-      items.push({ pos: [x, y, z] as [number, number, number], color });
-    }
-    return items;
-  }, []);
+// ─── Orbital Path & Planet ────────────────────────────────────────
+const PlanetOrbit: React.FC<{
+  radius: number;
+  speed: number;
+  planetSize: number;
+  tiltX: number;
+  tiltY: number;
+  tiltZ: number;
+  startAngle: number;
+}> = ({ radius, speed, planetSize, tiltX, tiltY, tiltZ, startAngle }) => {
+  const planetRef = useRef<THREE.Group>(null);
 
   useFrame((state) => {
-    const t = state.clock.elapsedTime;
-    if (groupRef.current) {
-      groupRef.current.rotation.y = t * 0.2;
-      groupRef.current.rotation.z = t * 0.1;
+    if (planetRef.current) {
+      // Orbit around the center
+      const t = state.clock.elapsedTime * speed + startAngle;
+      planetRef.current.position.x = Math.cos(t) * radius;
+      planetRef.current.position.z = Math.sin(t) * radius;
     }
+  });
+
+  return (
+    <group rotation={[tiltX, tiltY, tiltZ]}>
+      {/* The visible thin orbit ring */}
+      <mesh rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[radius, 0.008, 16, 100]} />
+        <meshBasicMaterial color="#999999" transparent opacity={0.15} />
+      </mesh>
+
+      {/* The rotating planet */}
+      <group ref={planetRef}>
+        <mesh>
+          <sphereGeometry args={[planetSize, 32, 32]} />
+          <meshStandardMaterial color="#333333" roughness={0.6} metalness={0.2} />
+        </mesh>
+        {/* Subtle glow around the planet */}
+        <mesh>
+          <sphereGeometry args={[planetSize * 1.8, 16, 16]} />
+          <meshBasicMaterial color="#555555" transparent opacity={0.1} depthWrite={false} />
+        </mesh>
+      </group>
+    </group>
+  );
+};
+
+// ─── Central Star (Sun) ───────────────────────────────────────────
+const CentralStar: React.FC = () => {
+  const glowRef = useRef<THREE.Mesh>(null);
+  
+  useFrame((state) => {
     if (glowRef.current) {
-      const pulse = Math.sin(t * 1.5) * 0.05 + 0.15;
-      (glowRef.current.material as THREE.MeshBasicMaterial).opacity = pulse;
-      glowRef.current.scale.setScalar(1 + Math.sin(t * 2) * 0.05);
+      // Pulsating glow effect
+      const t = state.clock.elapsedTime;
+      const pulse = Math.sin(t * 2) * 0.05 + 0.95;
+      glowRef.current.scale.setScalar(pulse);
     }
   });
 
   return (
     <group>
-      <group ref={groupRef}>
-        {spheres.map((s, i) => (
-          <mesh key={i} position={s.pos}>
-            <sphereGeometry args={[0.12, 16, 16]} />
-            <meshStandardMaterial color={s.color} roughness={0.7} metalness={0.2} />
-          </mesh>
-        ))}
-      </group>
-      {/* Central glow */}
-      <mesh ref={glowRef}>
-        <sphereGeometry args={[0.55, 32, 32]} />
-        <meshBasicMaterial color="#888888" transparent opacity={0.15} depthWrite={false} />
-      </mesh>
-    </group>
-  );
-};
-
-// ─── Electron orbit ring & particle ───────────────────────────────
-const ElectronRing: React.FC<{
-  rotation: [number, number, number];
-  speed: number;
-  radius: number;
-  electronSize: number;
-  electronColor: string;
-}> = ({ rotation, speed, radius, electronSize, electronColor }) => {
-  const electronGrpRef = useRef<THREE.Group>(null);
-  
-  useFrame((state) => {
-    if (electronGrpRef.current) {
-      electronGrpRef.current.rotation.z = state.clock.elapsedTime * speed;
-    }
-  });
-
-  return (
-    <group rotation={rotation}>
-      {/* Orbit path */}
+      {/* Solid core */}
       <mesh>
-        <torusGeometry args={[radius, 0.005, 16, 100]} />
-        <meshBasicMaterial color="#aaaaaa" transparent opacity={0.3} />
+        <sphereGeometry args={[0.3, 32, 32]} />
+        <meshBasicMaterial color="#1a1a1a" />
       </mesh>
-      
-      {/* Orbiting electron */}
-      <group ref={electronGrpRef}>
-        <group position={[radius, 0, 0]}>
-          <mesh>
-            <sphereGeometry args={[electronSize, 16, 16]} />
-            <meshStandardMaterial color={electronColor} roughness={0.4} metalness={0.3} />
-          </mesh>
-          <mesh>
-            <sphereGeometry args={[electronSize * 2.2, 16, 16]} />
-            <meshBasicMaterial color={electronColor} transparent opacity={0.15} depthWrite={false} />
-          </mesh>
-        </group>
-      </group>
+      {/* Corona / Glow */}
+      <mesh ref={glowRef}>
+        <sphereGeometry args={[0.45, 32, 32]} />
+        <meshBasicMaterial color="#888888" transparent opacity={0.2} depthWrite={false} />
+      </mesh>
+      <mesh>
+        <sphereGeometry args={[0.7, 32, 32]} />
+        <meshBasicMaterial color="#666666" transparent opacity={0.08} depthWrite={false} />
+      </mesh>
     </group>
   );
 };
 
-// ─── Main Atom System ─────────────────────────────────────────────
-const AtomSystem: React.FC = () => {
-  const groupRef = useRef<THREE.Group>(null);
+// ─── Interactive Solar System ─────────────────────────────────────
+const SolarSystem: React.FC = () => {
+  const systemRef = useRef<THREE.Group>(null);
+  const { viewport } = useThree();
 
   useFrame((state) => {
-    const t = state.clock.elapsedTime;
-    if (groupRef.current) {
-      groupRef.current.position.y = Math.sin(t * 0.5) * 0.15;
-      groupRef.current.rotation.x = Math.sin(t * 0.15) * 0.1;
-      groupRef.current.rotation.y = Math.sin(t * 0.1) * 0.15;
+    if (systemRef.current) {
+      // Gentle auto-rotation
+      const t = state.clock.elapsedTime;
+      
+      // Interactive mouse follow with smooth interpolation (lerping)
+      // This maps the mouse position (-1 to 1) to tilt angles
+      const targetRotationX = (state.pointer.y * viewport.height) / 15 + Math.sin(t * 0.1) * 0.1;
+      const targetRotationY = (state.pointer.x * viewport.width) / 15 + t * 0.05 + Math.sin(t * 0.05) * 0.1;
+
+      // Smoothly interpolate current rotation to target rotation
+      systemRef.current.rotation.x = THREE.MathUtils.lerp(systemRef.current.rotation.x, targetRotationX, 0.05);
+      systemRef.current.rotation.y = THREE.MathUtils.lerp(systemRef.current.rotation.y, targetRotationY, 0.05);
     }
   });
 
+  // Define our planets with varying orbits
+  const planets = useMemo(
+    () => [
+      { radius: 1.5, speed: 0.4, size: 0.04, tilts: [0.1, 0, 0], angle: 0 },
+      { radius: 2.2, speed: 0.25, size: 0.06, tilts: [-0.2, 0.1, 0], angle: 2 },
+      { radius: 3.1, speed: 0.15, size: 0.08, tilts: [0.15, -0.1, 0.1], angle: 4 },
+      { radius: 4.2, speed: 0.1, size: 0.05, tilts: [-0.05, 0.2, -0.1], angle: 1 },
+      { radius: 5.5, speed: 0.08, size: 0.07, tilts: [0.2, -0.2, 0.05], angle: 5 },
+      { radius: 7.0, speed: 0.05, size: 0.04, tilts: [-0.15, 0.05, -0.15], angle: 3 },
+    ],
+    []
+  );
+
   return (
-    <group ref={groupRef} scale={1.8}>
-      <Nucleus />
+    <group ref={systemRef} position={[0, 0, -2]}>
+      <CentralStar />
       
-      {/* Multiple electron rings with varying angles, speeds, and radii */}
-      <ElectronRing 
-        rotation={[Math.PI / 2.5, Math.PI / 6, 0]} 
-        speed={0.8} 
-        radius={1.4} 
-        electronSize={0.08}
-        electronColor="#1a1a1a"
-      />
-      <ElectronRing 
-        rotation={[-Math.PI / 3, -Math.PI / 4, 0]} 
-        speed={-0.6} 
-        radius={1.8} 
-        electronSize={0.1}
-        electronColor="#444444"
-      />
-      <ElectronRing 
-        rotation={[Math.PI / 6, Math.PI / 2, Math.PI / 4]} 
-        speed={1.0} 
-        radius={2.2} 
-        electronSize={0.06}
-        electronColor="#1a1a1a"
-      />
-      <ElectronRing 
-        rotation={[-Math.PI / 8, Math.PI / 3, -Math.PI / 6]} 
-        speed={-0.45} 
-        radius={2.6} 
-        electronSize={0.09}
-        electronColor="#333333"
-      />
+      {planets.map((p, i) => (
+        <PlanetOrbit
+          key={i}
+          radius={p.radius}
+          speed={p.speed}
+          planetSize={p.size}
+          tiltX={p.tilts[0]}
+          tiltY={p.tilts[1]}
+          tiltZ={p.tilts[2]}
+          startAngle={p.angle}
+        />
+      ))}
     </group>
   );
 };
 
-// ─── Main scene ───────────────────────────────────────────────────
+// ─── Main Scene ───────────────────────────────────────────────────
 const HeroScene: React.FC<{ scrollProgress?: number }> = () => {
   return (
-    <div className="absolute inset-0 z-0">
+    <div className="absolute inset-0 z-0 pointer-events-auto">
       <Canvas
-        camera={{ position: [0, 0, 8.5], fov: 50 }}
+        camera={{ position: [0, 2, 12], fov: 45 }}
         style={{ background: "transparent" }}
         gl={{ antialias: true, alpha: true }}
       >
@@ -239,9 +209,8 @@ const HeroScene: React.FC<{ scrollProgress?: number }> = () => {
         <directionalLight position={[10, 10, 10]} intensity={2.5} />
         <directionalLight position={[-10, -5, -10]} intensity={1} color="#ffffff" />
         
-        <CameraDrift />
         <DustParticles count={250} />
-        <AtomSystem />
+        <SolarSystem />
       </Canvas>
     </div>
   );
