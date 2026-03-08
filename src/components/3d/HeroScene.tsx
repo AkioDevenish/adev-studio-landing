@@ -121,9 +121,9 @@ const SolarSystem: React.FC = () => {
       const t = state.clock.elapsedTime;
       
       // Base orientation to match the specific diagonal startup angle requested
-      const baseRotationX = 1.1;  // Tilted forward to make ellipses more circular
-      const baseRotationY = -0.1; // Slight left/right pan
-      const baseRotationZ = -0.3; // Diagonal slant
+      const baseRotationX = 0.45;  // Pitch: flatter ellipses
+      const baseRotationY = -0.2; // Yaw: slight angle
+      const baseRotationZ = 0.45;  // Roll: right side higher than left side
 
       // Interactive mouse follow with smooth interpolation (lerping)
       const targetRotationX = baseRotationX + (state.pointer.y * viewport.height) / 20 + Math.sin(t * 0.1) * 0.05;
