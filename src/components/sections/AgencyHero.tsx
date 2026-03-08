@@ -27,11 +27,11 @@ export default function AgencyHero() {
     >
       <HeroScene scrollProgress={scrollProgress.get()} />
 
-      <div className="z-10 text-center px-4 max-w-5xl mx-auto">
-        <div className="mb-6">
+      <div className="z-10 text-center px-4 w-full">
+        <div className="mb-6 w-full flex justify-center">
           <SplitText
             text="ADEVSTUDIO"
-            className="text-7xl md:text-9xl lg:text-[11rem] font-display font-bold tracking-tighter text-foreground leading-[0.8]"
+            className="text-[14vw] md:text-[12vw] lg:text-[11rem] font-display font-bold tracking-tighter text-foreground leading-[0.8] whitespace-nowrap"
             delay={100}
             duration={1.2}
             ease="circ.out"
