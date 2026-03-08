@@ -56,17 +56,8 @@ const tiers = [
 ];
 
 export default function Pricing() {
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi({ namespace: "30min" });
-      cal("ui", {
-        theme: "dark",
-        styles: { branding: { brandColor: "#1a1a1a" } },
-        hideEventTypeDetails: false,
-        layout: "month_view",
-      });
-    })();
-  }, []);
+  // Cal.com is initialized globally in Header.tsx
+
 
   return (
     <section

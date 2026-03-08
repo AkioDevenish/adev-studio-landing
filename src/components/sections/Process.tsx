@@ -65,12 +65,7 @@ export default function Process() {
               transition={{ duration: 0.6, delay: index * 0.15 }}
               className="group relative"
             >
-              {/* Connector line */}
-              {index < processSteps.length - 1 && (
-                <div className="hidden lg:block absolute top-8 left-full w-full h-[1px] bg-foreground/10 z-0" />
-              )}
-
-              <div className="border-t border-foreground/10 pt-8 relative z-10">
+              <div className="pt-8 relative z-10">
                 <span className="text-6xl md:text-7xl font-display text-foreground/5 group-hover:text-foreground/10 transition-colors duration-500 leading-none">
                   {step.number}
                 </span>
