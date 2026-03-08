@@ -9,7 +9,6 @@ import Link from "next/link";
 const navLinks = [
   { name: "Services", href: "/#services" },
   { name: "Work", href: "/#work" },
-  { name: "Portfolio", href: "/portfolio" },
   { name: "Insights", href: "/blog" },
   { name: "Contact", href: "/#contact" },
 ];
