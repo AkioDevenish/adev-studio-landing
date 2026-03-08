@@ -109,38 +109,7 @@ const PlanetOrbit: React.FC<{
   );
 };
 
-// ─── Central Star (Sun) ───────────────────────────────────────────
-const CentralStar: React.FC = () => {
-  const glowRef = useRef<THREE.Mesh>(null);
-  
-  useFrame((state) => {
-    if (glowRef.current) {
-      // Pulsating glow effect
-      const t = state.clock.elapsedTime;
-      const pulse = Math.sin(t * 2) * 0.05 + 0.95;
-      glowRef.current.scale.setScalar(pulse);
-    }
-  });
-
-  return (
-    <group>
-      {/* Solid core */}
-      <mesh>
-        <sphereGeometry args={[0.3, 32, 32]} />
-        <meshBasicMaterial color="#1a1a1a" />
-      </mesh>
-      {/* Corona / Glow */}
-      <mesh ref={glowRef}>
-        <sphereGeometry args={[0.45, 32, 32]} />
-        <meshBasicMaterial color="#888888" transparent opacity={0.2} depthWrite={false} />
-      </mesh>
-      <mesh>
-        <sphereGeometry args={[0.7, 32, 32]} />
-        <meshBasicMaterial color="#666666" transparent opacity={0.08} depthWrite={false} />
-      </mesh>
-    </group>
-  );
-};
+// ─── Central Star (Sun) removed intentionally ───────────────────────
 
 // ─── Interactive Solar System ─────────────────────────────────────
 const SolarSystem: React.FC = () => {
@@ -178,8 +147,6 @@ const SolarSystem: React.FC = () => {
 
   return (
     <group ref={systemRef} position={[0, 0, -2]}>
-      <CentralStar />
-      
       {planets.map((p, i) => (
         <PlanetOrbit
           key={i}

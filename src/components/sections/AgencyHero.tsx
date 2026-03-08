@@ -30,7 +30,7 @@ export default function AgencyHero() {
       <div className="z-10 text-center px-4 max-w-5xl mx-auto">
         <div className="mb-6">
           <SplitText
-            text="ADEV STUDIO"
+            text="ADEVSTUDIO"
             className="text-7xl md:text-9xl lg:text-[11rem] font-display font-bold tracking-tighter text-foreground leading-[0.8]"
             delay={100}
             duration={1.2}
