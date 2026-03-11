@@ -14,7 +14,7 @@ const processSteps = [
     number: "02",
     title: "Strategy & Design",
     description:
-      "We craft a clear roadmap and design system tailored to your brand. Wireframes, prototypes, and visual direction — all before a single line of code.",
+      "We craft a clear roadmap and design system tailored to your brand. Wireframes, prototypes, and visual direction all before a single line of code.",
     accent: "from-rose-500/20 to-pink-500/10",
   },
   {
@@ -28,7 +28,7 @@ const processSteps = [
     number: "04",
     title: "Launch & Support",
     description:
-      "We handle deployment, optimization, and provide ongoing support. Your project doesn't end at launch — it evolves.",
+      "We handle deployment, optimization, and provide ongoing support. Your project doesn't end at launch it evolves.",
     accent: "from-amber-500/20 to-orange-500/10",
   },
 ];

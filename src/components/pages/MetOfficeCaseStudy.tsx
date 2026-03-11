@@ -8,6 +8,7 @@ import {
   MapPin,
   Users,
   Zap,
+  Quote,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -116,53 +117,67 @@ export default function MetOfficeCaseStudy() {
               <div className="grid grid-cols-2 gap-6">
                 <div className="bg-background p-6 rounded-lg">
                   <div className="flex items-center gap-3 mb-2">
-                    <Calendar className="text-foreground/60" size={20} />
+                    <Zap className="text-foreground/60" size={20} />
                     <span className="text-sm font-mono uppercase tracking-widest text-muted">
-                      Timeline
+                      Performance
                     </span>
                   </div>
-                  <p className="text-2xl font-bold text-foreground">8 Months</p>
+                  <p className="text-2xl font-bold text-foreground">60%</p>
                   <p className="text-sm text-foreground/60">
-                    Development Period
+                    Faster Load Times
                   </p>
                 </div>
                 <div className="bg-background p-6 rounded-lg">
                   <div className="flex items-center gap-3 mb-2">
                     <Users className="text-foreground/60" size={20} />
                     <span className="text-sm font-mono uppercase tracking-widest text-muted">
-                      Users
+                      Traffic
                     </span>
                   </div>
-                  <p className="text-2xl font-bold text-foreground">10K+</p>
+                  <p className="text-2xl font-bold text-foreground">500K+</p>
                   <p className="text-sm text-foreground/60">
-                    Daily Active Users
+                    Requests Monthly
                   </p>
                 </div>
                 <div className="bg-background p-6 rounded-lg">
                   <div className="flex items-center gap-3 mb-2">
                     <MapPin className="text-foreground/60" size={20} />
                     <span className="text-sm font-mono uppercase tracking-widest text-muted">
-                      Coverage
+                      Users
                     </span>
                   </div>
                   <p className="text-2xl font-bold text-foreground">
-                    2 Islands
+                    50K+
                   </p>
                   <p className="text-sm text-foreground/60">
-                    Trinidad & Tobago
+                    Citizens Reached
                   </p>
                 </div>
                 <div className="bg-background p-6 rounded-lg">
                   <div className="flex items-center gap-3 mb-2">
-                    <Zap className="text-foreground/60" size={20} />
+                    <Calendar className="text-foreground/60" size={20} />
                     <span className="text-sm font-mono uppercase tracking-widest text-muted">
-                      Performance
+                      Uptime
                     </span>
                   </div>
                   <p className="text-2xl font-bold text-foreground">
-                    &lt; 2s
+                    99.9%
                   </p>
-                  <p className="text-sm text-foreground/60">Load Time</p>
+                  <p className="text-sm text-foreground/60">High Availability</p>
+                </div>
+              </div>
+
+              {/* Client Testimonial */}
+              <div className="bg-foreground/5 p-8 rounded-2xl border border-foreground/10 relative mt-8">
+                <Quote className="absolute top-6 left-6 text-foreground/10 w-12 h-12" />
+                <div className="relative z-10 pl-6">
+                  <p className="text-lg text-foreground/80 italic mb-6 leading-relaxed">
+                    "The new portal transformed how we deliver critical weather information. The platform handled the immense traffic surge during the recent hurricane season flawlessly, with zero downtime and incredibly fast load times."
+                  </p>
+                  <div>
+                    <p className="font-bold text-foreground">Director of Meteorology</p>
+                    <p className="text-sm text-foreground/60">Met Office Trinidad & Tobago</p>
+                  </div>
                 </div>
               </div>
 

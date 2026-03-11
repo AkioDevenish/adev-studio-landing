@@ -93,7 +93,7 @@ export default function Pricing() {
             viewport={{ once: true }}
             className="text-white/40 text-sm max-w-xs mt-8 md:mt-0 text-right leading-relaxed"
           >
-            Flexible pricing across all services — web, data, design & 3D.
+            Flexible pricing across all services web, data, design & 3D.
             Every project is scoped to your exact needs.
           </motion.p>
         </div>
@@ -162,7 +162,6 @@ export default function Pricing() {
                     key={item}
                     className="flex items-start gap-3 text-sm text-white/50"
                   >
-                    <span className="text-white/20 mt-1.5 shrink-0">—</span>
                     {item}
                   </li>
                 ))}

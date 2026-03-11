@@ -3,6 +3,7 @@
 import AgencyHero from "@/components/sections/AgencyHero";
 import Services from "@/components/sections/Services";
 import FeaturedWork from "@/components/sections/FeaturedWork";
+import Testimonial from "@/components/sections/Testimonial";
 import Process from "@/components/sections/Process";
 import Pricing from "@/components/sections/Pricing";
 import About from "@/components/sections/About";
@@ -14,6 +15,7 @@ export default function AgencyHome() {
       <AgencyHero />
       <Services />
       <FeaturedWork />
+      <Testimonial />
       <Process />
       <Pricing />
       <About />

@@ -13,8 +13,7 @@ const featuredWork = [
     year: "2024",
     description:
       "Comprehensive weather information portal serving an entire nation with real-time meteorological data, interactive forecasts, and satellite imagery.",
-    image:
-      "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?q=80&w=2564&auto=format&fit=crop&ixlib=rb-4.0.3",
+    image: "/images/case-studies/met-office/Homepage.png",
     slug: "met-office-trinidad-and-tobago",
     link: "https://www.metoffice.gov.tt/metdemo/site/demo/",
     tags: ["Next.js", "Python", "Real-time Data", "GIS"],

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     type: "article",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?q=80&w=1200&auto=format&fit=crop",
+        url: "https://adevstudio.com/images/case-studies/met-office/Homepage.png",
         width: 1200,
         height: 630,
         alt: "Met Office Trinidad & Tobago",

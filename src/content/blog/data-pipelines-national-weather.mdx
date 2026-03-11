@@ -1,0 +1,28 @@
+---
+title: "Building Resilient Data Pipelines for National Weather Systems"
+date: "2026-03-09"
+excerpt: "How we architected a real-time meteorological data ingestion service that scales automatically during extreme weather events."
+category: "Data Engineering"
+coverImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2564&auto=format&fit=crop"
+tags: ["Python", "Data Pipelines", "Architecture"]
+---
+
+When building the digital infrastructure for the Met Office Trinidad & Tobago, one of the primary constraints was designing a system that would gracefully handle massive, sudden spikes in traffic during critical weather events. Extreme weather implies an extreme load on the system exactly when citizens need it most.
+
+## The Challenge
+
+Weather data is relatively predictable on sunny days. Traffic stays consistent, API latency is low, and the primary bottleneck is simply rendering the maps. However, when a tropical storm approaches the Caribbean, traffic multipliers can jump by 100x within an hour. The legacy physical infrastructure would buckle under this pressure, occasionally causing the service to go offline right when information was most critical.
+
+## The Solution
+
+We approached this by implementing a heavily edge-cached architecture connected to a scalable serverless data ingestion pipeline.
+
+1. **Ingestion Layer:** We decoupled the data ingestion from the presentation layer. A Python-based microservice ingests data from local sensors, satellite feeds, and international meteorological endpoints.
+2. **Transform & Store:** That data is normalized, compressed, and stored in a scalable cloud database.
+3. **Distribution at the Edge:** Instead of hitting our database for every user request, we generate static JSON files periodically (e.g., every 5 minutes) and distribute them globally via a CDN.
+
+## Impact & Results
+
+With this architecture, the frontend behaves as a static site fetching static, highly durable JSON blobs from the CDN. During the last hurricane season, the platform served over 500,000 requests in a single month. The load times consistently stayed under 300ms, and the system operated with 99.99% uptime.
+
+Building resilient data pipelines isn't just about handling Big Data it's about handling data _intelligently_. By caching at the edge, we removed the database as a single point of failure and built a system that citizens can trust.

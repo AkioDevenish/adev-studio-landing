@@ -4,7 +4,7 @@ import { streamText, convertToModelMessages } from "ai";
 export const maxDuration = 30;
 
 const ADEV_KNOWLEDGE = `
-# ADEV STUDIO — Knowledge Base
+# ADEV STUDIO Knowledge Base
 
 ## About ADEV Studio
 ADEV Studio is a Data Science and Web Design Studio founded by Akio Devenish, based in Trinidad & Tobago. The studio specializes in modern web development, data science solutions, and is building toward the future of neural interfaces and immersive technology (XR). The website is at www.adevstudio.com. Established in 2025.
@@ -17,10 +17,10 @@ ADEV Studio is a Data Science and Web Design Studio founded by Akio Devenish, ba
 
 ## Founder Background
 **Akio Devenish**
-- MSc Data Science — University of East London (2025–2026)
-- BSc Computing — University of Southern Caribbean (2018–2023)
-- Web Developer at Trinidad & Tobago Met Division (2023–2025)
-- Computer Lab Assistant at University of Southern Caribbean (2019–2020)
+- MSc Data Science University of East London (2025-2026)
+- BSc Computing University of Southern Caribbean (2018-2023)
+- Web Developer at Trinidad & Tobago Met Division (2023-2025)
+- Computer Lab Assistant at University of Southern Caribbean (2019-2020)
 
 ## Learning Roadmap / Focus Areas
 ### Phase 1: Foundations, Data Science & XR
@@ -40,9 +40,9 @@ ADEV Studio is a Data Science and Web Design Studio founded by Akio Devenish, ba
 - Implant simulation/analysis, bidirectional encoding (12-24 months)
 
 ## Case Studies / Portfolio
-1. **Lum Refillery** — E-commerce web design for a sustainable refillery business
-2. **Met Office Trinidad and Tobago** — Weather data platform and visualization system
-3. **Multi-Hazard Early Warning System** — Real-time environmental monitoring dashboard
+1. **Lum Refillery** E-commerce web design for a sustainable refillery business
+2. **Met Office Trinidad and Tobago** Weather data platform and visualization system
+3. **Multi-Hazard Early Warning System** Real-time environmental monitoring dashboard
 
 ## Contact Information
 - Email: hello@adevstudio.com

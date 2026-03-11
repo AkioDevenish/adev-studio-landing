@@ -217,7 +217,7 @@ export default function Services() {
               transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
               className="text-white/30 text-sm max-w-xs md:text-right leading-relaxed font-light"
             >
-              Full-spectrum digital services — from strategy to launch. We
+              Full-spectrum digital services from strategy to launch. We
               partner with you to create work that moves the needle.
             </motion.p>
           </motion.div>

@@ -122,7 +122,7 @@ export default function Contact() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-          {/* Left Side — Info */}
+          {/* Left Side Info */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -132,7 +132,7 @@ export default function Contact() {
           >
             <div>
               <p className="text-xl md:text-2xl font-light text-white/50 max-w-md leading-relaxed mb-14">
-                Open for web development work and Data Science Internships.
+                Open for web development work and new projects.
               </p>
 
               <div className="space-y-8">
@@ -205,7 +205,7 @@ export default function Contact() {
             </motion.div>
           </motion.div>
 
-          {/* Right Side — Form */}
+          {/* Right Side Form */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}

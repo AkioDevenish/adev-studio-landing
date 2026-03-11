@@ -56,13 +56,13 @@ const phases: Record<number, Phase> = {
         title: "Multisensory Specialization Thesis",
         description:
           "Masters thesis on advanced sensor fusion, haptics/olfactory integration, user studies and DS applications in neuro relevant ML",
-        timeline: "1–6 months",
+        timeline: "1-6 months",
       },
       {
         title: "Neuroengineering Transition & Advanced Training",
         description:
           "PhD programs in computational neuroscience or neural engineering certificates + lab internships at companies like Neuralink",
-        timeline: "6 months–4 years",
+        timeline: "6 months-4 years",
       },
     ],
   },
@@ -72,19 +72,19 @@ const phases: Record<number, Phase> = {
       {
         title: "Neuroscience Basics",
         description: "Brain anatomy, electrophysiology and MNE-Python",
-        timeline: "6–12 months",
+        timeline: "6-12 months",
       },
       {
         title: "BCI Fundamentals",
         description:
           "OpenBCI/BrainFlow (EEG), ML decoding and non-invasive hybrids",
-        timeline: "12–18 months",
+        timeline: "12-18 months",
       },
       {
         title: "Advanced BCI/Neuroengineering",
         description:
           "Implant simulation/analysis, bidirectional encoding and regulatory knowledge",
-        timeline: "12–24 months",
+        timeline: "12-24 months",
       },
     ],
   },

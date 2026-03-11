@@ -33,7 +33,7 @@ const approach = [
   },
   {
     title: "Design-Led",
-    desc: "We believe great design isn't decoration — it's how the product works. Form follows function, always.",
+    desc: "We believe great design isn't decoration it's how the product works. Form follows function, always.",
     icon: "◆",
   },
   {
@@ -88,7 +88,7 @@ export default function About() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20">
-          {/* Left Column — Bio + Stats */}
+          {/* Left Column Bio + Stats */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -98,14 +98,14 @@ export default function About() {
           >
             <div className="space-y-6 text-foreground/60 leading-relaxed text-base font-light">
               <p>
-                ADEV Studio was founded by Akio Devenish — a developer, data
+                ADEV Studio was founded by Akio Devenish a developer, data
                 scientist, and designer based in Trinidad & Tobago. What started
                 as freelance web work has grown into a full-service digital
                 studio.
               </p>
               <p>
                 We combine deep technical expertise with design sensibility to
-                create solutions that don&apos;t just look beautiful — they
+                create solutions that don&apos;t just look beautiful they
                 perform. From government weather platforms to e-commerce, every
                 project gets the same level of craft and attention.
               </p>
@@ -145,7 +145,7 @@ export default function About() {
             </div>
           </motion.div>
 
-          {/* Right Column — Tech + Approach */}
+          {/* Right Column Tech + Approach */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}

@@ -75,11 +75,15 @@ const PlanetOrbit: React.FC<{
   startAngle: number;
 }> = ({ radius, speed, planetSize, tiltX, tiltY, tiltZ, startAngle }) => {
   const planetRef = useRef<THREE.Group>(null);
+  const timeRef = useRef(0);
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
+    const safeDelta = Math.min(delta, 0.1);
+    timeRef.current += safeDelta;
+
     if (planetRef.current) {
       // Orbit around the center
-      const t = state.clock.elapsedTime * speed + startAngle;
+      const t = timeRef.current * speed + startAngle;
       planetRef.current.position.x = Math.cos(t) * radius;
       planetRef.current.position.z = Math.sin(t) * radius;
     }
@@ -114,11 +118,15 @@ const PlanetOrbit: React.FC<{
 // ─── Interactive Solar System ─────────────────────────────────────
 const SolarSystem: React.FC = () => {
   const systemRef = useRef<THREE.Group>(null);
+  const timeRef = useRef(0);
   const { viewport } = useThree();
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
+    const safeDelta = Math.min(delta, 0.1);
+    timeRef.current += safeDelta;
+
     if (systemRef.current) {
-      const t = state.clock.elapsedTime;
+      const t = timeRef.current;
       
       // Base orientation to match the specific diagonal startup angle requested
       const baseRotationX = 0.45;  // Pitch: flatter ellipses

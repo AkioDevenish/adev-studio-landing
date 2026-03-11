@@ -1,0 +1,7 @@
+<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <rect width="500" height="500" fill="#E6E4DD" />
+  <text x="250" y="260" font-family="'Playfair Display', Georgia, 'Times New Roman', serif" font-size="120" font-weight="400" fill="#2C2C2C" text-anchor="middle" letter-spacing="2">A</text>
+  <text x="500" y="320" font-family="'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="300" fill="#A6A296" text-anchor="middle" letter-spacing="18" transform="translate(-250, 0)">STUDIO</text>
+  <path d="M 230,120 L 270,120" stroke="#2C2C2C" stroke-width="1" />
+  <path d="M 230,360 L 270,360" stroke="#2C2C2C" stroke-width="1" />
+</svg>
