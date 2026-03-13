@@ -2,5 +2,10 @@
 module.exports = {
   siteUrl: process.env.SITE_URL || 'https://www.adevstudio.com',
   generateRobotsTxt: true,
-  // optional: add any other configuration here
+  exclude: [
+    '/*/opengraph-image',
+    '/**/opengraph-image',
+    '/feed.xml',
+    '/api/*',
+  ],
 };

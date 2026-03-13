@@ -11,6 +11,16 @@
       ],
       "destination": "https://www.adevstudio.com/:path*",
       "permanent": true
+    },
+    {
+      "source": "/legal/privacy-policy",
+      "destination": "/privacy",
+      "permanent": true
+    },
+    {
+      "source": "/legal/terms-and-conditions",
+      "destination": "/privacy",
+      "permanent": true
     }
   ],
   "headers": [
