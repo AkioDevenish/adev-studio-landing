@@ -1,8 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect } from "react";
-import { getCalApi } from "@calcom/embed-react";
 import { ArrowRight } from "lucide-react";
 
 const tiers = [
@@ -56,9 +54,6 @@ const tiers = [
 ];
 
 export default function Pricing() {
-  // Cal.com is initialized globally in Header.tsx
-
-
   return (
     <section
       id="pricing"
@@ -148,7 +143,7 @@ export default function Pricing() {
               <p className="text-lg font-display text-white/70 mb-2 leading-snug">
                 {tier.tagline}
               </p>
-              <p className="text-xs font-mono text-white/25 uppercase tracking-wider mb-8">
+              <p className="text-xs font-mono text-white/35 uppercase tracking-wider mb-8">
                 {tier.ideal}
               </p>
 
@@ -194,7 +189,7 @@ export default function Pricing() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
-          className="text-center text-[10px] font-mono text-white/20 mt-10 uppercase tracking-widest"
+          className="text-center text-[10px] font-mono text-white/35 mt-10 uppercase tracking-widest"
         >
           All prices USD · Scope-dependent · Free 30-minute consultation
           included

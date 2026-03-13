@@ -111,9 +111,9 @@ export default function BlogClient({ posts }: { posts: Omit<BlogPost, "content">
                       {featuredPost.category}
                     </span>
                   )}
-                  <span className="text-white/40 text-xs font-mono">
+                  <time dateTime={featuredPost.date} className="text-white/40 text-xs font-mono">
                     {featuredPost.date}
-                  </span>
+                  </time>
                 </div>
                 <h2 className="text-3xl md:text-5xl font-display font-bold text-white leading-tight mb-4 max-w-3xl tracking-tight">
                   {featuredPost.title}
@@ -172,7 +172,7 @@ export default function BlogClient({ posts }: { posts: Omit<BlogPost, "content">
                     </span>
                   )}
                   {post.category && <span className="w-px h-3 bg-foreground/15" />}
-                  <time className="text-[10px] font-mono text-foreground/40 uppercase tracking-[0.15em]">
+                  <time dateTime={post.date} className="text-[10px] font-mono text-foreground/40 uppercase tracking-[0.15em]">
                     {post.date}
                   </time>
                 </div>

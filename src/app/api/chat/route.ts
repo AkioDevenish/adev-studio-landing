@@ -15,29 +15,16 @@ ADEV Studio is a Data Science and Web Design Studio founded by Akio Devenish, ba
 - **3D & Interactive Experiences**: WebGL, React Three Fiber, and custom shader development for immersive browser-based experiences.
 - **UI/UX Design**: Clean, minimalist design with a focus on premium aesthetics, typography, and user experience.
 
-## Founder Background
-**Akio Devenish**
-- MSc Data Science University of East London (2025-2026)
-- BSc Computing University of Southern Caribbean (2018-2023)
-- Web Developer at Trinidad & Tobago Met Division (2023-2025)
-- Computer Lab Assistant at University of Southern Caribbean (2019-2020)
 
 ## Learning Roadmap / Focus Areas
-### Phase 1: Foundations, Data Science & XR
-- Python, SQL, Statistics (1-2 months)
-- Pandas, Scikit-learn, supervised/unsupervised learning, neural networks (2-4 months)
-- OpenCV, CNNs, YOLO, segmentation, depth estimation (4-6 months)
-- PyTorch/TensorFlow, transformers, diffusion/Gaussian splatting (6-8 months)
-- Unity/Unreal, ARKit/ARCore, ML integration, multisensory APIs (8-10 months)
+### Phase 1: Research & Thesis Development
+- Multisensory Specialization Thesis (1-6 months)
+- Neuroengineering Transition & Advanced Training (6 months-4 years)
 
-### Phase 2: Research & Thesis Development
-- Masters thesis on advanced sensor fusion, haptics/olfactory integration, user studies
-- PhD programs in computational neuroscience or neural engineering
-
-### Phase 3: Neural Interface Development
-- Brain anatomy, electrophysiology, MNE-Python (6-12 months)
-- OpenBCI/BrainFlow (EEG), ML decoding, non-invasive hybrids (12-18 months)
-- Implant simulation/analysis, bidirectional encoding (12-24 months)
+### Phase 2: Neural Interface Development
+- Neuroscience Basics (6-12 months)
+- BCI Fundamentals (12-18 months)
+- Advanced BCI/Neuroengineering (12-24 months)
 
 ## Case Studies / Portfolio
 1. **Lum Refillery** E-commerce web design for a sustainable refillery business

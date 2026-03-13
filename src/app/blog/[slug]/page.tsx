@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: postData.title,
       description: postData.excerpt,
     };
-  } catch (e) {
+  } catch {
     return {
       title: "Post Not Found",
     };
@@ -35,7 +35,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   let postData;
   try {
     postData = getPostData(slug);
-  } catch (e) {
+  } catch {
     notFound();
   }
 
@@ -56,7 +56,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         {/* Post Header */}
         <header className="mb-12">
           <div className="flex flex-wrap items-center gap-4 mb-6">
-            <time className="text-sm font-mono text-muted uppercase tracking-widest block">
+            <time dateTime={postData.date} className="text-sm font-mono text-muted uppercase tracking-widest block">
               {postData.date}
             </time>
             {postData.category && (

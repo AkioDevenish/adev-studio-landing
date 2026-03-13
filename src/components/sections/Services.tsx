@@ -112,7 +112,7 @@ function ServiceCard({
                 className={`text-white/40 ${service.accentColor} transition-colors duration-500`}
               />
             </div>
-            <span className="text-[11px] font-mono text-white/15 tracking-[0.2em] group-hover:text-white/30 transition-colors duration-500">
+            <span className="text-[11px] font-mono text-white/35 tracking-[0.2em] group-hover:text-white/50 transition-colors duration-500">
               {service.number}
             </span>
           </div>
@@ -141,7 +141,7 @@ function ServiceCard({
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.15 + i * 0.05 + 0.3 }}
-                  className="text-[10px] font-mono uppercase tracking-[0.15em] text-white/25 border border-white/[0.06] px-3 py-1.5 rounded-full group-hover:border-white/[0.12] group-hover:text-white/40 transition-all duration-500"
+                  className="text-[10px] font-mono uppercase tracking-[0.15em] text-white/35 border border-white/[0.08] px-3 py-1.5 rounded-full group-hover:border-white/[0.12] group-hover:text-white/50 transition-all duration-500"
                 >
                   {tag}
                 </motion.span>
@@ -248,7 +248,7 @@ export default function Services() {
           className="mt-20 flex items-center justify-center gap-6"
         >
           <div className="w-16 h-[1px] bg-gradient-to-r from-transparent to-white/10" />
-          <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-white/15">
+          <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-white/35">
             End-to-end delivery
           </span>
           <div className="w-16 h-[1px] bg-gradient-to-l from-transparent to-white/10" />

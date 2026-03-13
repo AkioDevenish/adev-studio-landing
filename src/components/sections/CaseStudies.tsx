@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef } from "react";
 import Link from "next/link";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
@@ -81,21 +81,10 @@ const developerProjects: Project[] = [
 
 function ProjectCard({
   project,
-  index,
 }: {
   project: Project;
-  index: number;
 }) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: cardRef,
-    offset: ["start end", "end start"],
-  });
-
-  const imageY = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"]);
-  const contentY = useTransform(scrollYProgress, [0, 1], [30, -30]);
-
-  const isReversed = index % 2 !== 0;
 
   return (
     <motion.div
@@ -106,92 +95,11 @@ function ProjectCard({
       transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
       className="group"
     >
-      <div
-        className={`flex flex-col ${
-          isReversed ? "lg:flex-row-reverse" : "lg:flex-row"
-        } gap-8 lg:gap-0 items-stretch`}
-      >
-        {/* Image Side */}
-        <div className="w-full lg:w-[58%] relative">
-          <div className="relative overflow-hidden rounded-2xl lg:rounded-3xl aspect-[4/3] bg-foreground/5">
-            {/* Gradient overlay */}
-            <div
-              className={`absolute inset-0 z-10 bg-gradient-to-t ${project.accent} to-transparent opacity-0 group-hover:opacity-60 transition-opacity duration-700 mix-blend-overlay`}
-            />
-
-            {/* Image with parallax */}
-            <motion.div
-              style={{ y: imageY }}
-              className="absolute inset-[-10%] w-[120%] h-[120%]"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={project.image}
-                alt={project.title}
-                className={`w-full h-full object-cover object-top transition-all duration-1000 ${
-                  project.comingSoon
-                    ? "grayscale-[50%]"
-                    : "grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105"
-                }`}
-                loading="lazy"
-              />
-            </motion.div>
-
-            {/* Dark overlay */}
-            <div
-              className={`absolute inset-0 z-10 ${
-                project.comingSoon
-                  ? "bg-gradient-to-t from-black/60 via-black/30 to-black/10"
-                  : "bg-gradient-to-t from-black/40 via-black/10 to-transparent"
-              }`}
-            />
-
-            {/* Floating year badge */}
-            <div className="absolute top-6 right-6 z-20">
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full">
-                <span className="text-[11px] font-mono text-white/80 tracking-widest">
-                  {project.year}
-                </span>
-              </div>
-            </div>
-
-            {/* Coming Soon overlay */}
-            {project.comingSoon && (
-              <div className="absolute inset-0 z-20 flex items-center justify-center">
-                <div className="bg-white/10 backdrop-blur-xl border border-white/20 px-8 py-4 rounded-full">
-                  <span className="text-sm font-mono text-white/90 tracking-widest uppercase">
-                    In Development
-                  </span>
-                </div>
-              </div>
-            )}
-
-            {/* Bottom tags on image */}
-            {!project.comingSoon && (
-              <div className="absolute bottom-6 left-6 right-6 z-20 flex flex-wrap gap-2 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-[10px] font-mono uppercase tracking-wider text-white/70 bg-white/10 backdrop-blur-sm border border-white/10 px-3 py-1.5 rounded-full"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-
+      <div className="flex flex-col md:flex-row justify-between items-start gap-8 border-t border-foreground/10 pt-12">
         {/* Content Side */}
-        <motion.div
-          style={{ y: contentY }}
-          className={`w-full lg:w-[42%] flex flex-col justify-center ${
-            isReversed ? "lg:pr-16 xl:pr-24" : "lg:pl-16 xl:pl-24"
-          }`}
-        >
+        <div className="w-full md:w-[60%] flex flex-col justify-center">
           {/* Category */}
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-6 h-[1px] bg-foreground/30" />
             <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-muted">
               {project.category}
             </span>
@@ -206,10 +114,19 @@ function ProjectCard({
             {project.title}
           </h3>
 
-          {/* Description */}
-          <p className="text-foreground/50 leading-relaxed mb-10 text-base font-light max-w-md">
-            {project.description}
-          </p>
+          {/* Tags */}
+          {!project.comingSoon && (
+            <div className="flex flex-wrap gap-2 mb-10">
+              {project.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="text-[10px] font-mono uppercase tracking-wider text-muted bg-foreground/[0.04] border border-foreground/[0.06] px-3 py-1.5 rounded-full"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
 
           {/* CTAs */}
           <div className="flex items-center gap-6">
@@ -253,7 +170,24 @@ function ProjectCard({
               </>
             )}
           </div>
-        </motion.div>
+        </div>
+
+        {/* Right Info Side */}
+        <div className="w-full md:w-[40%] flex flex-col md:items-end md:text-right mt-2 md:mt-0">
+          <div className="flex flex-col items-start md:items-end gap-3 mb-6">
+            <div className="text-[11px] font-mono text-muted tracking-widest border border-foreground/10 px-4 py-1.5 rounded-full inline-block">
+              {project.year}
+            </div>
+            {project.comingSoon && (
+              <div className="text-[11px] font-mono text-foreground/60 tracking-widest uppercase bg-foreground/5 px-4 py-1.5 rounded-full">
+                In Development
+              </div>
+            )}
+          </div>
+          <p className="text-foreground/50 leading-relaxed text-base font-light max-w-sm">
+            {project.description}
+          </p>
+        </div>
       </div>
     </motion.div>
   );
@@ -307,14 +241,12 @@ export default function CaseStudies() {
                 Developer
               </button>
               <button
-                onClick={() => setActiveTab("datascience")}
-                className={`relative px-6 py-2.5 text-[11px] font-mono uppercase tracking-[0.15em] rounded-full transition-all duration-500 ${
-                  activeTab === "datascience"
-                    ? "bg-foreground text-background shadow-lg"
-                    : "text-foreground/50 hover:text-foreground/80"
-                }`}
+                disabled
+                title="Data Science projects coming soon"
+                className="relative px-6 py-2.5 text-[11px] font-mono uppercase tracking-[0.15em] rounded-full text-foreground/25 cursor-not-allowed"
               >
                 Data Science
+                <span className="ml-2 text-[9px] bg-foreground/10 px-2 py-0.5 rounded-full">Soon</span>
               </button>
             </div>
           </motion.div>
@@ -339,11 +271,10 @@ export default function CaseStudies() {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="space-y-24 md:space-y-36"
           >
-            {projects.map((project, index) => (
+            {projects.map((project) => (
               <ProjectCard
                 key={project.title}
                 project={project}
-                index={index}
               />
             ))}
           </motion.div>

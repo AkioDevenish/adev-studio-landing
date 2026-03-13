@@ -1,47 +1,51 @@
-# YOUWARE.md
-
-## Project Overview
-
-A minimalist, beige-themed portfolio website, featuring 3D interactive elements, motion graphics, and smooth parallax scrolling.
+# ADEV Studio Portfolio
 
 ## Project Overview
 
 **Theme**: Warm Beige (#F2F0E9), Soft Black (#2C2C2C), Muted Olive (#A6A296).
-**Tech Stack**: React 18, TypeScript, Vite, Tailwind CSS, Framer Motion, Three.js (@react-three/fiber).
-**Key Features**:
-- **Typography**: Animated split text (Framer Motion).
-- **Services**: Parallax scrolling effect (Framer Motion).
-- **Testimonials**: Fading carousel.
-- **Contact**: Grain texture overlay (Canvas).
+**Tech Stack**: Next.js 15, React 19, TypeScript, Tailwind CSS, Framer Motion, Three.js (@react-three/fiber + @react-three/drei).
+
+## Key Features
+- **3D Hero Scene**: Genshin-inspired constellation background using React Three Fiber.
+- **Typography**: Animated split text (Framer Motion), Inter + Playfair Display fonts via `next/font`.
+- **Services**: Glassmorphism cards with tilt parallax and gradient orbs.
+- **Blog**: MDX-powered blog with search, category filtering, and pagination.
+- **Case Studies**: 3 detailed project pages (Met Office, Multi-Hazard EWS, Lumë Refillery).
+- **AI Chatbot**: Embedded Gemini-powered assistant for visitor questions.
+- **Contact**: Web3Forms integration + Cal.com scheduling embed.
+- **SEO**: Dynamic OG images, sitemap, robots.txt, structured data, GA4.
 
 ## Architecture
 
+### Pages
+- `/` — Agency landing page (hero → services → work → testimonial → process → pricing → about → contact)
+- `/portfolio` — Full portfolio with developer/data science tab switching
+- `/blog` — Blog listing with search and category filters
+- `/blog/[slug]` — Individual blog post (MDX rendered)
+- `/case-study/*` — 3 case study pages
+
 ### Components
-- src/components/3d/HeroScene.tsx : The 3D R3F scene containing the floating sphere.
-- src/components/sections/ : Contains individual page sections (Hero, Services, CaseStudies, Testimonials, Contact).
-- src/components/reusable/ : External UI components (Noise, SplitText).
+- `src/components/3d/HeroScene.tsx` — 3D R3F constellation scene
+- `src/components/sections/` — Homepage sections
+- `src/components/pages/` — Case study page components
+- `src/components/blog/` — Blog listing client component
+- `src/components/reusable/` — Shared UI (Noise, SplitText)
+- `src/components/ChatBubble.tsx` — AI assistant widget
+- `src/components/Header.tsx` — Global header + Cal.com initialization
+- `src/components/Footer.tsx` — Global footer
 
 ### Styling
-- **Global CSS**: Used for layout, spacing, and typography.
-- **Colors**: Defined in tailwind.config.js ( background , foreground , accent , surface ).
-- **Fonts**: Inter (sans) and Playfair Display (Display).
+- **Colors**: Defined in `tailwind.config.js` (background, foreground, muted, surface)
+- **Fonts**: Inter (sans) and Playfair Display (display) via `next/font/google`
 
 ## Development
 
 ### Commands
-- npm run dev : Start development server.
-- npm run build : Build for production.
-- npm run preview : Preview production build.
+- `npm run dev` — Start development server (Turbopack)
+- `npm run build` — Build for production
+- `npm start` — Preview production build
+- `npm run lint` — Run ESLint
 
-### Dependencies
-- framer-motion : For general animations and parallax.
-- @react-three/fiber & @react-three/drei : For 3D elements.
-- lucide-react : Icons.
-
-## Notes
-
-### Notes
-- The SplitText component uses framer-motion for character splitting animations.
-- The Noise component uses a Canvas-based approach for performance.
-- 3D elements are optimized with MeshDistortMaterial for visual impact without heavy assets.
-- **Critical Dependency Versions**: This project uses React 18. Ensure @react-three/drei is v9.x.x and @react-three/fiber is v8.x.x. Do not upgrade to R3F v9/drei v10 unless upgrading React to v19.
+### Environment Variables
+- `GOOGLE_GENERATIVE_AI_API_KEY` — Gemini API key for the chatbot
+- `NEXT_PUBLIC_WEB3FORMS_KEY` — Web3Forms access key for the contact form

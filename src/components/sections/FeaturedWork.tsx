@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { useRef } from "react";
@@ -42,7 +42,7 @@ const featuredWork = [
       "E-commerce platform for an eco-friendly refill store with clean, modern design and seamless shopping experience.",
     image:
       "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=2564&auto=format&fit=crop",
-    slug: "lumee-refillery",
+    slug: "lum-refillery",
     link: "https://lum-refillery.vercel.app/",
     tags: ["Next.js", "Shopify", "Stripe", "CMS"],
     accent: "from-emerald-500/30 via-teal-500/10",
@@ -51,21 +51,10 @@ const featuredWork = [
 
 function ProjectCard({
   project,
-  index,
 }: {
   project: (typeof featuredWork)[0];
-  index: number;
 }) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: cardRef,
-    offset: ["start end", "end start"],
-  });
-
-  const imageY = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"]);
-  const contentY = useTransform(scrollYProgress, [0, 1], [40, -40]);
-
-  const isReversed = index % 2 !== 0;
 
   return (
     <motion.div
@@ -76,69 +65,11 @@ function ProjectCard({
       transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
       className="group"
     >
-      <div
-        className={`flex flex-col ${
-          isReversed ? "lg:flex-row-reverse" : "lg:flex-row"
-        } gap-8 lg:gap-0 items-stretch`}
-      >
-        {/* Image Side */}
-        <div className="w-full lg:w-[58%] relative">
-          <div className="relative overflow-hidden rounded-2xl lg:rounded-3xl aspect-[4/3] bg-foreground/5">
-            {/* Gradient overlay */}
-            <div
-              className={`absolute inset-0 z-10 bg-gradient-to-t ${project.accent} to-transparent opacity-0 group-hover:opacity-60 transition-opacity duration-700 mix-blend-overlay`}
-            />
-
-            {/* Image with parallax */}
-            <motion.div
-              style={{ y: imageY }}
-              className="absolute inset-[-10%] w-[120%] h-[120%]"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover object-top transition-all duration-1000 grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105"
-                loading="lazy"
-              />
-            </motion.div>
-
-            {/* Dark overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent z-10" />
-
-            {/* Floating year badge */}
-            <div className="absolute top-6 right-6 z-20">
-              <div className="bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full">
-                <span className="text-[11px] font-mono text-white/80 tracking-widest">
-                  {project.year}
-                </span>
-              </div>
-            </div>
-
-            {/* Bottom tags on image */}
-            <div className="absolute bottom-6 left-6 right-6 z-20 flex flex-wrap gap-2 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-              {project.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="text-[10px] font-mono uppercase tracking-wider text-white/70 bg-white/10 backdrop-blur-sm border border-white/10 px-3 py-1.5 rounded-full"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-
+      <div className="flex flex-col md:flex-row justify-between items-start gap-8 border-t border-foreground/10 pt-12">
         {/* Content Side */}
-        <motion.div
-          style={{ y: contentY }}
-          className={`w-full lg:w-[42%] flex flex-col justify-center ${
-            isReversed ? "lg:pr-16 xl:pr-24" : "lg:pl-16 xl:pl-24"
-          }`}
-        >
+        <div className="w-full md:w-[60%] flex flex-col justify-center">
           {/* Category */}
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-6 h-[1px] bg-foreground/30" />
             <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-muted">
               {project.category}
             </span>
@@ -153,10 +84,17 @@ function ProjectCard({
             {project.title}
           </h3>
 
-          {/* Description */}
-          <p className="text-foreground/50 leading-relaxed mb-10 text-base font-light max-w-md">
-            {project.description}
-          </p>
+          {/* Tags */}
+          <div className="flex flex-wrap gap-2 mb-10">
+            {project.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-[10px] font-mono uppercase tracking-wider text-muted bg-foreground/[0.04] border border-foreground/[0.06] px-3 py-1.5 rounded-full"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
 
           {/* CTAs */}
           <div className="flex items-center gap-6">
@@ -188,7 +126,17 @@ function ProjectCard({
               </a>
             )}
           </div>
-        </motion.div>
+        </div>
+
+        {/* Right Info Side */}
+        <div className="w-full md:w-[40%] flex flex-col md:items-end md:text-right mt-2 md:mt-0">
+          <div className="text-[11px] font-mono text-muted tracking-widest mb-6 border border-foreground/10 px-4 py-1.5 rounded-full inline-block">
+            {project.year}
+          </div>
+          <p className="text-foreground/50 leading-relaxed text-base font-light max-w-sm">
+            {project.description}
+          </p>
+        </div>
       </div>
     </motion.div>
   );
@@ -258,8 +206,8 @@ export default function FeaturedWork() {
 
         {/* Projects */}
         <div className="space-y-24 md:space-y-36">
-          {featuredWork.map((project, index) => (
-            <ProjectCard key={project.slug} project={project} index={index} />
+          {featuredWork.map((project) => (
+            <ProjectCard key={project.slug} project={project} />
           ))}
         </div>
 

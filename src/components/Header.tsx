@@ -60,7 +60,7 @@ const Header = () => {
             <Link
               key={link.name}
               href={link.href}
-              className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors"
+              className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm outline-none"
             >
               {link.name}
             </Link>
@@ -69,7 +69,7 @@ const Header = () => {
             data-cal-namespace="30min"
             data-cal-link="adevstudio/30min"
             data-cal-config='{"layout":"month_view","theme":"dark"}'
-            className="px-5 py-2.5 bg-foreground text-background text-sm font-medium rounded-full hover:bg-foreground/90 transition-colors"
+            className="px-5 py-2.5 bg-foreground text-background text-sm font-medium rounded-full hover:bg-foreground/90 transition-colors focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background outline-none"
           >
             Get in Touch
           </button>

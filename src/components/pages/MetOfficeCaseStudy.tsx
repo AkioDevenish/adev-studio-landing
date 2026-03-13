@@ -11,6 +11,7 @@ import {
   Quote,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function MetOfficeCaseStudy() {
   return (
@@ -65,13 +66,15 @@ export default function MetOfficeCaseStudy() {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative rounded-lg overflow-hidden shadow-2xl"
+            className="relative rounded-lg overflow-hidden shadow-2xl h-[70vh]"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src="/images/case-studies/met-office/Homepage.png"
               alt="Met Office Trinidad & Tobago Dashboard"
-              className="w-full h-[70vh] object-cover"
+              fill
+              priority
+              sizes="(max-width: 1280px) 100vw, 1280px"
+              className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
           </motion.div>
@@ -172,7 +175,7 @@ export default function MetOfficeCaseStudy() {
                 <Quote className="absolute top-6 left-6 text-foreground/10 w-12 h-12" />
                 <div className="relative z-10 pl-6">
                   <p className="text-lg text-foreground/80 italic mb-6 leading-relaxed">
-                    "The new portal transformed how we deliver critical weather information. The platform handled the immense traffic surge during the recent hurricane season flawlessly, with zero downtime and incredibly fast load times."
+                    {`"The new portal transformed how we deliver critical weather information. The platform handled the immense traffic surge during the recent hurricane season flawlessly, with zero downtime and incredibly fast load times."`}
                   </p>
                   <div>
                     <p className="font-bold text-foreground">Director of Meteorology</p>

@@ -7,6 +7,9 @@ import dynamic from "next/dynamic";
 
 const HeroScene = dynamic(() => import("@/components/3d/HeroScene"), {
   ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 bg-background" />
+  ),
 });
 
 export default function Hero() {

@@ -8,6 +8,7 @@ const navLinks = [
   { name: "Work", href: "/#work" },
   { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/#contact" },
+  { name: "Privacy", href: "/privacy" },
 ];
 
 const socialLinks = [
@@ -42,7 +43,7 @@ export default function Footer() {
             >
               ADEV STUDIO
             </Link>
-            <p className="text-sm text-white/25 leading-relaxed font-light">
+            <p className="text-sm text-white/45 leading-relaxed font-light">
               Premium web development, data science, and design solutions for
               ambitious brands. Based in Trinidad & Tobago.
             </p>
@@ -52,7 +53,7 @@ export default function Footer() {
           <div className="flex gap-20 md:gap-28">
             {/* Navigation */}
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-white/15 block mb-6">
+              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-white/35 block mb-6">
                 Navigation
               </span>
               <nav className="flex flex-col gap-3">
@@ -70,7 +71,7 @@ export default function Footer() {
 
             {/* Social */}
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-white/15 block mb-6">
+              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-white/35 block mb-6">
                 Social
               </span>
               <nav className="flex flex-col gap-3">
@@ -95,10 +96,10 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/15">
+          <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/35">
             © 2026 ADEV STUDIO. All rights reserved.
           </p>
-          <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/15">
+          <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/35">
             Designed & built by hand
           </p>
         </div>

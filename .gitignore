@@ -39,3 +39,8 @@ lerna-debug.log*
 
 # Backup (migration)
 _backup
+
+# Non-code assets
+Social_Media_Assets
+brand-assets-generator.html
+accessibility-config.json

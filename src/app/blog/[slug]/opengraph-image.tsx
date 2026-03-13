@@ -21,7 +21,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
     const post = getPostData(slug);
     title = post.title;
     category = post.category || "";
-  } catch (e) {
+  } catch {
     // fallback
   }
 

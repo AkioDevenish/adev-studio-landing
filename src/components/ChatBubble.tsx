@@ -1,7 +1,7 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageSquare, X, Send, Sparkles } from "lucide-react";
 import { DefaultChatTransport, UIMessage } from "ai";
@@ -14,11 +14,78 @@ const initialMessages: UIMessage[] = [
   },
 ];
 
+// Lightweight markdown renderer for chat messages
+function MarkdownText({ text }: { text: string }) {
+  const rendered = useMemo(() => {
+    // Split by line breaks first
+    return text.split("\n").map((line, lineIndex) => {
+      // Process inline formatting
+      const parts: React.ReactNode[] = [];
+      // Regex matches: **bold**, *italic*, `code`, [text](url)
+      const regex = /(\*\*(.+?)\*\*)|(\*(.+?)\*)|(`(.+?)`)|(\[(.+?)\]\((.+?)\))/g;
+      let lastIndex = 0;
+      let match;
+
+      while ((match = regex.exec(line)) !== null) {
+        // Add text before the match
+        if (match.index > lastIndex) {
+          parts.push(line.slice(lastIndex, match.index));
+        }
+
+        if (match[1]) {
+          // **bold**
+          parts.push(<strong key={`${lineIndex}-${match.index}`} className="font-semibold">{match[2]}</strong>);
+        } else if (match[3]) {
+          // *italic*
+          parts.push(<em key={`${lineIndex}-${match.index}`}>{match[4]}</em>);
+        } else if (match[5]) {
+          // `code`
+          parts.push(
+            <code key={`${lineIndex}-${match.index}`} className="bg-foreground/10 px-1.5 py-0.5 rounded text-xs font-mono">
+              {match[6]}
+            </code>
+          );
+        } else if (match[7]) {
+          // [text](url)
+          parts.push(
+            <a
+              key={`${lineIndex}-${match.index}`}
+              href={match[9]}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-foreground transition-colors"
+            >
+              {match[8]}
+            </a>
+          );
+        }
+
+        lastIndex = match.index + match[0].length;
+      }
+
+      // Add remaining text
+      if (lastIndex < line.length) {
+        parts.push(line.slice(lastIndex));
+      }
+
+      return (
+        <span key={lineIndex}>
+          {parts.length > 0 ? parts : line}
+          {lineIndex < text.split("\n").length - 1 && <br />}
+        </span>
+      );
+    });
+  }, [text]);
+
+  return <>{rendered}</>;
+}
+
 export default function ChatBubble() {
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   const { messages, sendMessage, status } = useChat({
     id: "adev-chat",
@@ -42,6 +109,42 @@ export default function ChatBubble() {
     }
   }, [isOpen]);
 
+  // Focus trap + Escape key
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (!isOpen || !panelRef.current) return;
+
+      if (e.key === "Escape") {
+        setIsOpen(false);
+        return;
+      }
+
+      if (e.key === "Tab") {
+        const focusable = panelRef.current.querySelectorAll<HTMLElement>(
+          'button, input, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    },
+    [isOpen]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [handleKeyDown]);
+
   const handleSend = (e: React.FormEvent) => {
     e.preventDefault();
     const text = inputValue.trim();
@@ -64,6 +167,10 @@ export default function ChatBubble() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            ref={panelRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="ADEV Studio chat assistant"
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -113,7 +220,11 @@ export default function ChatBubble() {
                           : "bg-foreground/[0.05] text-foreground/80 rounded-2xl rounded-bl-md"
                       }`}
                     >
-                      {text}
+                      {message.role === "user" ? (
+                        text
+                      ) : (
+                        <MarkdownText text={text} />
+                      )}
                     </div>
                   </div>
                 );
@@ -158,7 +269,8 @@ export default function ChatBubble() {
         onClick={() => setIsOpen(!isOpen)}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="fixed bottom-6 right-6 z-[60] w-14 h-14 rounded-full bg-foreground text-background shadow-lg shadow-foreground/10 flex items-center justify-center hover:shadow-xl hover:shadow-foreground/15 transition-shadow"
+        className="fixed bottom-6 right-6 z-[60] w-14 h-14 rounded-full bg-foreground text-background shadow-lg shadow-foreground/10 flex items-center justify-center hover:shadow-xl hover:shadow-foreground/15 transition-shadow focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        aria-label={isOpen ? "Close chat assistant" : "Open chat assistant"}
       >
         <AnimatePresence mode="wait">
           {isOpen ? (

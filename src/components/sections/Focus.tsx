@@ -16,41 +16,7 @@ type Phase = {
 
 const phases: Record<number, Phase> = {
   1: {
-    title: "Phase 1: Foundations, Data Science & XR ",
-    items: [
-      {
-        title: "Foundations",
-        description: "Python, SQL and Statistics.",
-        timeline: "1-2 months",
-      },
-      {
-        title: "Data Science & Machine Learning",
-        description:
-          "Pandas, Scikit-learn, supervised/unsupervised learning and neural networks",
-        timeline: "2-4 months",
-      },
-      {
-        title: "Computer Vision",
-        description:
-          "OpenCV, CNNs, YOLO, segmentation and depth estimation",
-        timeline: "4-6 months",
-      },
-      {
-        title: "Advanced ML",
-        description:
-          "PyTorch/TensorFlow, transformers and diffusion/Gaussian splatting",
-        timeline: "6-8 months",
-      },
-      {
-        title: "XR Development",
-        description:
-          "Unity/Unreal, ARKit/ARCore, ML integration and multisensory APIs",
-        timeline: "8-10 months",
-      },
-    ],
-  },
-  2: {
-    title: "Phase 2: Research & Thesis Development",
+    title: "Phase 1: Research & Thesis Development",
     items: [
       {
         title: "Multisensory Specialization Thesis",
@@ -66,8 +32,8 @@ const phases: Record<number, Phase> = {
       },
     ],
   },
-  3: {
-    title: "Phase 3: Neural Interface Development",
+  2: {
+    title: "Phase 2: Neural Interface Development",
     items: [
       {
         title: "Neuroscience Basics",
@@ -137,7 +103,7 @@ export default function Focus() {
         {/* Phase Tabs */}
         <div className="flex justify-center mb-16">
           <div className="flex bg-foreground/5 rounded-full p-1">
-            {[1, 2, 3].map((phase) => (
+            {[1, 2].map((phase) => (
               <button
                 key={phase}
                 onClick={() => setActivePhase(phase)}

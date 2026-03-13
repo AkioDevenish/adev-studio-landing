@@ -2,8 +2,7 @@
 
 import { motion } from "framer-motion";
 import Noise from "@/components/reactbits/Noise";
-import { useEffect, useState } from "react";
-import { getCalApi } from "@calcom/embed-react";
+import { useState } from "react";
 import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 
 export default function Contact() {
@@ -11,17 +10,7 @@ export default function Contact() {
     "idle" | "sending" | "success" | "error"
   >("idle");
 
-  useEffect(() => {
-    (async function () {
-      const cal = await getCalApi({ namespace: "30min" });
-      cal("ui", {
-        theme: "dark",
-        styles: { branding: { brandColor: "#1a1a1a" } },
-        hideEventTypeDetails: false,
-        layout: "month_view",
-      });
-    })();
-  }, []);
+  // Cal.com is initialized globally in Header.tsx
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -155,7 +144,7 @@ export default function Contact() {
                         />
                       </div>
                       <div>
-                        <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-white/20 block mb-1.5">
+                        <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-white/35 block mb-1.5">
                           {item.label}
                         </span>
                         <span className="text-xl md:text-2xl font-display group-hover:text-white/70 transition-colors duration-300">
@@ -216,7 +205,7 @@ export default function Contact() {
               <input
                 type="hidden"
                 name="access_key"
-                value="de373533-0217-44a2-ae9f-eaf81e5dd8ce"
+                value={process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "de373533-0217-44a2-ae9f-eaf81e5dd8ce"}
               />
               <input
                 type="hidden"
@@ -234,28 +223,28 @@ export default function Contact() {
                 { label: "Email", type: "email", name: "email", placeholder: "Your email" },
               ].map((field) => (
                 <div key={field.name} className="group">
-                  <label className="block text-[10px] uppercase tracking-[0.25em] text-white/20 font-mono mb-4 group-focus-within:text-white/50 transition-colors duration-300">
+                  <label className="block text-[10px] uppercase tracking-[0.25em] text-white/35 font-mono mb-4 group-focus-within:text-white/50 transition-colors duration-300">
                     {field.label}
                   </label>
                   <input
                     type={field.type}
                     name={field.name}
                     required
-                    className="w-full bg-transparent border-b border-white/[0.08] py-4 focus:border-white/30 outline-none transition-all duration-500 text-2xl md:text-3xl font-display placeholder:text-white/15"
+                    className="w-full bg-transparent border-b border-white/[0.08] py-4 focus:border-white/30 focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0f0f0f] outline-none transition-all duration-500 text-2xl md:text-3xl font-display placeholder:text-white/30 rounded-sm"
                     placeholder={field.placeholder}
                   />
                 </div>
               ))}
 
               <div className="group">
-                <label className="block text-[10px] uppercase tracking-[0.25em] text-white/20 font-mono mb-4 group-focus-within:text-white/50 transition-colors duration-300">
+                <label className="block text-[10px] uppercase tracking-[0.25em] text-white/35 font-mono mb-4 group-focus-within:text-white/50 transition-colors duration-300">
                   Message
                 </label>
                 <textarea
                   name="message"
                   required
                   rows={4}
-                  className="w-full bg-transparent border-b border-white/[0.08] py-4 focus:border-white/30 outline-none transition-all duration-500 text-2xl md:text-3xl font-display resize-none placeholder:text-white/15"
+                  className="w-full bg-transparent border-b border-white/[0.08] py-4 focus:border-white/30 focus-visible:ring-2 focus-visible:ring-white/20 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0f0f0f] outline-none transition-all duration-500 text-2xl md:text-3xl font-display resize-none placeholder:text-white/30 rounded-sm"
                   placeholder="Tell me about your project"
                 />
               </div>
