@@ -1,7 +1,31 @@
 import { google } from "@ai-sdk/google";
 import { streamText, convertToModelMessages } from "ai";
+import { NextRequest } from "next/server";
 
 export const maxDuration = 30;
+
+const ALLOWED_ORIGINS = [
+  "https://www.adevstudio.com",
+  "https://adevstudio.com",
+  "http://localhost:3000",
+];
+
+function getCorsHeaders(origin: string | null) {
+  const allowedOrigin = origin && ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  return {
+    "Access-Control-Allow-Origin": allowedOrigin,
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+  };
+}
+
+export async function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get("origin");
+  return new Response(null, {
+    status: 204,
+    headers: getCorsHeaders(origin),
+  });
+}
 
 const ADEV_KNOWLEDGE = `
 # ADEV STUDIO Knowledge Base
@@ -44,7 +68,8 @@ ADEV Studio is a Data Science and Web Design Studio founded by Akio Devenish, ba
 Next.js, React 19, TypeScript, Tailwind CSS, Three.js, React Three Fiber, Framer Motion, Vercel, Python, PyTorch, Pandas, OpenCV
 `;
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
+  const origin = req.headers.get("origin");
   const { messages } = await req.json();
 
   const modelMessages = await convertToModelMessages(messages);
@@ -66,5 +91,13 @@ ${ADEV_KNOWLEDGE}`,
     messages: modelMessages,
   });
 
-  return result.toUIMessageStreamResponse();
+  const response = result.toUIMessageStreamResponse();
+
+  // Add CORS headers to the streaming response
+  const corsHeaders = getCorsHeaders(origin);
+  Object.entries(corsHeaders).forEach(([key, value]) => {
+    response.headers.set(key, value);
+  });
+
+  return response;
 }
