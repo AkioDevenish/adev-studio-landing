@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 const tiers = [
   {
     name: "Foundation",
-    price: "$1,500",
+    price: "$400",
     suffix: "starting at",
     tagline: "One focused deliverable, done right.",
     ideal: "Ideal for startups & small businesses",
@@ -20,7 +20,7 @@ const tiers = [
   },
   {
     name: "Growth",
-    price: "$3,500",
+    price: "$1,000",
     suffix: "starting at",
     tagline: "A complete digital solution across services.",
     ideal: "Ideal for scaling brands & organizations",
