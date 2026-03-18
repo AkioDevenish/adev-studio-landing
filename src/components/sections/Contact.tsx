@@ -20,12 +20,14 @@ export default function Contact() {
     const formData = new FormData(form);
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         body: formData,
       });
 
-      if (response.ok) {
+      const data = await response.json();
+
+      if (data.success) {
         setFormStatus("success");
         form.reset();
         setTimeout(() => setFormStatus("idle"), 5000);
