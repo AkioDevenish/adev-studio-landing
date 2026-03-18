@@ -43,7 +43,7 @@ const developerProjects: Project[] = [
     year: "2024",
     description:
       "Comprehensive weather information portal serving Trinidad & Tobago with real-time meteorological data, interactive forecasts, satellite imagery, and marine conditions.",
-    image: "/images/case-studies/met-office/Homepage.png",
+    image: "/images/case-studies/met-office/Homepage.jpg",
     link: "https://www.metoffice.gov.tt/metdemo/site/demo/",
     slug: "met-office-trinidad-and-tobago",
     tags: ["Next.js", "Python", "Real-time Data", "GIS"],

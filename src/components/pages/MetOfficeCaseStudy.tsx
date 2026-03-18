@@ -69,7 +69,7 @@ export default function MetOfficeCaseStudy() {
             className="relative rounded-lg overflow-hidden shadow-2xl h-[70vh]"
           >
             <Image
-              src="/images/case-studies/met-office/Homepage.png"
+              src="/images/case-studies/met-office/Homepage.jpg"
               alt="Met Office Trinidad & Tobago Dashboard"
               fill
               priority

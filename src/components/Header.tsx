@@ -27,7 +27,12 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    (async function () {
+    // Defer Cal.com initialization until first user interaction.
+    // This avoids blocking the main thread during initial page load.
+    let initialized = false;
+    const initCal = async () => {
+      if (initialized) return;
+      initialized = true;
       const cal = await getCalApi({ namespace: "30min" });
       cal("ui", {
         theme: "dark",
@@ -35,7 +40,19 @@ const Header = () => {
         hideEventTypeDetails: false,
         layout: "month_view",
       });
-    })();
+      // Clean up listeners after initialization
+      window.removeEventListener("pointerover", initCal);
+      window.removeEventListener("scroll", initCal);
+      window.removeEventListener("touchstart", initCal);
+    };
+    window.addEventListener("pointerover", initCal, { once: true, passive: true });
+    window.addEventListener("scroll", initCal, { once: true, passive: true });
+    window.addEventListener("touchstart", initCal, { once: true, passive: true });
+    return () => {
+      window.removeEventListener("pointerover", initCal);
+      window.removeEventListener("scroll", initCal);
+      window.removeEventListener("touchstart", initCal);
+    };
   }, []);
 
   return (

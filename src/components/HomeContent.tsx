@@ -1,26 +1,48 @@
 "use client";
 
+import { Suspense, lazy } from "react";
 import AgencyHero from "@/components/sections/AgencyHero";
-import Services from "@/components/sections/Services";
-import FeaturedWork from "@/components/sections/FeaturedWork";
-import Testimonial from "@/components/sections/Testimonial";
-import Process from "@/components/sections/Process";
-import Pricing from "@/components/sections/Pricing";
-import About from "@/components/sections/About";
-import Contact from "@/components/sections/Contact";
+
+// Lazy load all sections below the fold — they are not needed until
+// the user scrolls, so deferring them lets the hero render faster
+// and avoids loading all framer-motion instances at once.
+const Services = lazy(() => import("@/components/sections/Services"));
+const FeaturedWork = lazy(() => import("@/components/sections/FeaturedWork"));
+const Testimonial = lazy(() => import("@/components/sections/Testimonial"));
+const Process = lazy(() => import("@/components/sections/Process"));
+const Pricing = lazy(() => import("@/components/sections/Pricing"));
+const About = lazy(() => import("@/components/sections/About"));
+const Contact = lazy(() => import("@/components/sections/Contact"));
+
+function SectionFallback() {
+  return <div className="min-h-[50vh]" />;
+}
 
 export default function AgencyHome() {
   return (
     <div className="min-h-screen bg-background">
       <AgencyHero />
-      <Services />
-      <FeaturedWork />
-      <Testimonial />
-      <Process />
-      <Pricing />
-      <About />
-      <Contact />
+      <Suspense fallback={<SectionFallback />}>
+        <Services />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <FeaturedWork />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <Testimonial />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <Process />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <Pricing />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <About />
+      </Suspense>
+      <Suspense fallback={<SectionFallback />}>
+        <Contact />
+      </Suspense>
     </div>
   );
 }
-

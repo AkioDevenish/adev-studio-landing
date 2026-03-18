@@ -1,8 +1,48 @@
 "use client";
 
-import React, { useRef, useMemo } from "react";
+import React, { useRef, useMemo, useState, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+
+// ─── Device capability detection ──────────────────────────────────
+function useDeviceTier(): "high" | "medium" | "low" | "none" {
+  const [tier, setTier] = useState<"high" | "medium" | "low" | "none">("high");
+
+  useEffect(() => {
+    // Check for WebGL support
+    try {
+      const canvas = document.createElement("canvas");
+      const gl =
+        canvas.getContext("webgl2") || canvas.getContext("webgl");
+      if (!gl) {
+        setTier("none");
+        return;
+      }
+
+      // Check device memory (Chrome only, but a good signal)
+      const nav = navigator as Navigator & { deviceMemory?: number };
+      const memory = nav.deviceMemory ?? 8;
+
+      // Check hardware concurrency (CPU cores)
+      const cores = navigator.hardwareConcurrency ?? 4;
+
+      // Mobile detection
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+      if (isMobile && memory <= 4) {
+        setTier("low");
+      } else if (isMobile || memory <= 4 || cores <= 2) {
+        setTier("medium");
+      } else {
+        setTier("high");
+      }
+    } catch {
+      setTier("low");
+    }
+  }, []);
+
+  return tier;
+}
 
 // ─── Ambient dust particles ───────────────────────────────────────
 const DustParticles: React.FC<{ count?: number }> = ({ count = 300 }) => {
@@ -73,7 +113,8 @@ const PlanetOrbit: React.FC<{
   tiltY: number;
   tiltZ: number;
   startAngle: number;
-}> = ({ radius, speed, planetSize, tiltX, tiltY, tiltZ, startAngle }) => {
+  segments: number;
+}> = ({ radius, speed, planetSize, tiltX, tiltY, tiltZ, startAngle, segments }) => {
   const planetRef = useRef<THREE.Group>(null);
   const timeRef = useRef(0);
 
@@ -93,19 +134,19 @@ const PlanetOrbit: React.FC<{
     <group rotation={[tiltX, tiltY, tiltZ]}>
       {/* The visible thin orbit ring */}
       <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[radius, 0.008, 16, 100]} />
+        <torusGeometry args={[radius, 0.008, 8, segments]} />
         <meshBasicMaterial color="#999999" transparent opacity={0.15} />
       </mesh>
 
       {/* The rotating planet */}
       <group ref={planetRef}>
         <mesh>
-          <sphereGeometry args={[planetSize, 32, 32]} />
+          <sphereGeometry args={[planetSize, segments, segments]} />
           <meshStandardMaterial color="#333333" roughness={0.6} metalness={0.2} />
         </mesh>
         {/* Subtle glow around the planet */}
         <mesh>
-          <sphereGeometry args={[planetSize * 1.8, 16, 16]} />
+          <sphereGeometry args={[planetSize * 1.8, Math.max(8, segments / 2), Math.max(8, segments / 2)]} />
           <meshBasicMaterial color="#555555" transparent opacity={0.1} depthWrite={false} />
         </mesh>
       </group>
@@ -113,10 +154,8 @@ const PlanetOrbit: React.FC<{
   );
 };
 
-// ─── Central Star (Sun) removed intentionally ───────────────────────
-
 // ─── Interactive Solar System ─────────────────────────────────────
-const SolarSystem: React.FC = () => {
+const SolarSystem: React.FC<{ segments: number }> = ({ segments }) => {
   const systemRef = useRef<THREE.Group>(null);
   const timeRef = useRef(0);
   const { viewport } = useThree();
@@ -170,27 +209,94 @@ const SolarSystem: React.FC = () => {
           tiltY={p.tilts[1]}
           tiltZ={p.tilts[2]}
           startAngle={p.angle}
+          segments={segments}
         />
       ))}
     </group>
   );
 };
 
+// ─── CSS-only fallback for devices that can't handle WebGL ────────
+const StaticFallback: React.FC = () => (
+  <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+    {/* Subtle orbital ring decorations using CSS */}
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      {[200, 300, 420, 560, 720].map((size, i) => (
+        <div
+          key={i}
+          className="absolute rounded-full border border-foreground/[0.06]"
+          style={{
+            width: size,
+            height: size,
+            top: `${-size / 2}px`,
+            left: `${-size / 2}px`,
+            transform: `rotate(${i * 15 + 20}deg) rotateX(${55 + i * 3}deg)`,
+          }}
+        />
+      ))}
+    </div>
+    {/* Subtle floating dots */}
+    {Array.from({ length: 12 }).map((_, i) => (
+      <div
+        key={i}
+        className="absolute w-1 h-1 rounded-full bg-foreground/10 animate-pulse"
+        style={{
+          top: `${15 + Math.random() * 70}%`,
+          left: `${10 + Math.random() * 80}%`,
+          animationDelay: `${i * 0.3}s`,
+          animationDuration: `${3 + Math.random() * 4}s`,
+        }}
+      />
+    ))}
+  </div>
+);
+
 // ─── Main Scene ───────────────────────────────────────────────────
 const HeroScene: React.FC<{ scrollProgress?: number }> = () => {
+  const tier = useDeviceTier();
+
+  // Tier-based quality settings
+  const config = useMemo(() => {
+    switch (tier) {
+      case "none":
+        return null; // Will render CSS fallback
+      case "low":
+        return { particles: 60, segments: 12, dpr: 0.75 };
+      case "medium":
+        return { particles: 120, segments: 20, dpr: 1 };
+      case "high":
+      default:
+        return { particles: 250, segments: 32, dpr: [1, 1.5] as [number, number] };
+    }
+  }, [tier]);
+
+  // Show CSS fallback if WebGL isn't supported or device is too weak
+  if (!config) {
+    return <StaticFallback />;
+  }
+
   return (
     <div className="absolute inset-0 z-0 pointer-events-auto">
       <Canvas
         camera={{ position: [0, 2, 12], fov: 45 }}
         style={{ background: "transparent" }}
-        gl={{ antialias: true, alpha: true }}
+        dpr={config.dpr}
+        gl={{
+          antialias: tier === "high",
+          alpha: true,
+          powerPreference: tier === "high" ? "high-performance" : "low-power",
+        }}
+        // Performance: limit frame rate on lower-tier devices
+        frameloop="always"
       >
         <ambientLight intensity={1.5} />
         <directionalLight position={[10, 10, 10]} intensity={2.5} />
-        <directionalLight position={[-10, -5, -10]} intensity={1} color="#ffffff" />
+        {tier === "high" && (
+          <directionalLight position={[-10, -5, -10]} intensity={1} color="#ffffff" />
+        )}
         
-        <DustParticles count={250} />
-        <SolarSystem />
+        <DustParticles count={config.particles} />
+        <SolarSystem segments={config.segments} />
       </Canvas>
     </div>
   );
