@@ -7,9 +7,10 @@ export default function HiddenUploader() {
   const [isUploading, setIsUploading] = useState(false);
 
   useEffect(() => {
-    // Listen for a secret keyboard combination: Shift + Alt + U
+    // Listen for a secret keyboard combination: Shift + Alt/Option + U
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.shiftKey && e.altKey && e.key.toLowerCase() === "u") {
+      // Use e.code instead of e.key, because Option+U on Mac produces a special character (¨)
+      if (e.shiftKey && e.altKey && e.code === "KeyU") {
         e.preventDefault();
         if (fileInputRef.current) {
           fileInputRef.current.click();
