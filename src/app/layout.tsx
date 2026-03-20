@@ -106,26 +106,85 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Organization",
+              "@type": ["Organization", "ProfessionalService"],
               name: "ADEV Studio",
+              alternateName: "ADEVSTUDIO",
               url: "https://www.adevstudio.com",
-              logo: "https://www.adevstudio.com/logos/site_avatar_dark.png",
-              description: "Premium web development, data science, and design solutions for ambitious brands.",
+              logo: "https://www.adevstudio.com/logos/adev_logo_dark.png",
+              image: "https://www.adevstudio.com/logos/adev_final_banner.png",
+              description:
+                "ADEV Studio is a premium digital agency specializing in web development, data science, UI/UX design, and 3D interactive experiences. Based in Trinidad & Tobago.",
+              foundingDate: "2025",
               founder: {
                 "@type": "Person",
                 name: "Akio Devenish",
+                jobTitle: "Founder & Developer",
+              },
+              numberOfEmployees: {
+                "@type": "QuantitativeValue",
+                value: 1,
               },
               address: {
                 "@type": "PostalAddress",
                 addressCountry: "TT",
                 addressLocality: "Trinidad and Tobago",
               },
+              areaServed: "Worldwide",
               contactPoint: {
                 "@type": "ContactPoint",
                 email: "hello@adevstudio.com",
                 telephone: "+1-868-469-5973",
                 contactType: "customer service",
+                availableLanguage: "English",
               },
+              knowsAbout: [
+                "Web Development",
+                "Data Science",
+                "UI/UX Design",
+                "3D Interactive Experiences",
+                "Next.js",
+                "React",
+                "Python",
+                "Three.js",
+              ],
+              makesOffer: [
+                {
+                  "@type": "Offer",
+                  itemOffered: {
+                    "@type": "Service",
+                    name: "Web Development",
+                    description:
+                      "High-performance websites & web applications built with Next.js, React, and modern frameworks.",
+                  },
+                },
+                {
+                  "@type": "Offer",
+                  itemOffered: {
+                    "@type": "Service",
+                    name: "Data Science & Analytics",
+                    description:
+                      "Transform raw data into actionable insights with machine learning models, dashboards, and data-driven strategies.",
+                  },
+                },
+                {
+                  "@type": "Offer",
+                  itemOffered: {
+                    "@type": "Service",
+                    name: "UI/UX Design",
+                    description:
+                      "Clean, modern interfaces designed to convert with intuitive user experiences.",
+                  },
+                },
+                {
+                  "@type": "Offer",
+                  itemOffered: {
+                    "@type": "Service",
+                    name: "3D & Interactive Experiences",
+                    description:
+                      "Immersive browser-based experiences using WebGL and Three.js.",
+                  },
+                },
+              ],
               sameAs: [
                 "https://x.com/Helloadevstudio",
                 "https://www.youtube.com/@AkioandTen",
