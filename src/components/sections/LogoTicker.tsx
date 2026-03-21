@@ -6,9 +6,6 @@ const companies = [
   "Met Office Trinidad & Tobago",
   "Multi-Hazard EWS",
   "Lumë Refillery",
-  "Digital Agency",
-  "Tech Startups",
-  "E-Commerce Brands",
 ];
 
 export default function LogoTicker() {
