@@ -15,10 +15,15 @@ export async function POST(request: Request) {
 
     // Upload directly to Vercel Blob
     const blob = await put(file.name, file, {
-      access: 'public',
+      access: 'public', // Some stores require 'public', others 'private'
+    }).catch(async (e) => {
+      if (e.message.includes('private store')) {
+        return await put(file.name, file, { access: 'private' as any });
+      }
+      throw e;
     });
 
-    // Vercel Blob returns a direct, public URL
+    // Vercel Blob returns a direct URL (public or private depending on store)
     return NextResponse.json({ success: true, filepath: blob.url });
   } catch (error) {
     console.error('Upload error:', error);
