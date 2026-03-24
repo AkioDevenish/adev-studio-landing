@@ -18,6 +18,7 @@ export async function POST(request: Request) {
       access: 'public', // Some stores require 'public', others 'private'
     }).catch(async (e) => {
       if (e.message.includes('private store')) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return await put(file.name, file, { access: 'private' as any });
       }
       throw e;
