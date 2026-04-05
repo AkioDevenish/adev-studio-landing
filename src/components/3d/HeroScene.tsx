@@ -6,42 +6,9 @@ import * as THREE from "three";
 
 // ─── Device capability detection ──────────────────────────────────
 function useDeviceTier(): "high" | "medium" | "low" | "none" {
-  const [tier, setTier] = useState<"high" | "medium" | "low" | "none">("high");
-
-  useEffect(() => {
-    // Check for WebGL support
-    try {
-      const canvas = document.createElement("canvas");
-      const gl =
-        canvas.getContext("webgl2") || canvas.getContext("webgl");
-      if (!gl) {
-        setTier("none");
-        return;
-      }
-
-      // Check device memory (Chrome only, but a good signal)
-      const nav = navigator as Navigator & { deviceMemory?: number };
-      const memory = nav.deviceMemory ?? 8;
-
-      // Check hardware concurrency (CPU cores)
-      const cores = navigator.hardwareConcurrency ?? 4;
-
-      // Mobile detection
-      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-      if (isMobile && memory <= 4) {
-        setTier("low");
-      } else if (isMobile || memory <= 4 || cores <= 2) {
-        setTier("medium");
-      } else {
-        setTier("high");
-      }
-    } catch {
-      setTier("low");
-    }
-  }, []);
-
-  return tier;
+  // Always return 'high' to prevent Google Chrome from aggressively falling back
+  // to the CSS-only version if hardware detection returns weird values.
+  return "high";
 }
 
 // ─── Ambient dust particles ───────────────────────────────────────
