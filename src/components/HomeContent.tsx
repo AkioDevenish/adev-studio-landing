@@ -2,7 +2,6 @@
 
 import { Suspense, lazy } from "react";
 import AgencyHero from "@/components/sections/AgencyHero";
-import HiddenUploader from "@/components/HiddenUploader";
 
 // Lazy load all sections below the fold — they are not needed until
 // the user scrolls, so deferring them lets the hero render faster
@@ -24,7 +23,6 @@ function SectionFallback() {
 export default function AgencyHome() {
   return (
     <div className="min-h-screen bg-background">
-      <HiddenUploader />
       <AgencyHero />
       <Suspense fallback={<SectionFallback />}>
         <LogoTicker />
