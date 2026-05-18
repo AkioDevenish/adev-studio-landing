@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { motion, useMotionValue, useTransform, useInView } from "framer-motion";
 import { Code, BarChart3, Palette, Globe, ArrowUpRight } from "lucide-react";
 import { useRef } from "react";
 
@@ -155,6 +155,9 @@ function ServiceCard({
 }
 
 export default function Services() {
+  const headingRef = useRef(null);
+  const headingInView = useInView(headingRef, { once: true, margin: "-100px" });
+
   return (
     <section
       id="services"
@@ -185,49 +188,75 @@ export default function Services() {
 
       <div className="max-w-screen-xl mx-auto relative z-10">
         {/* Section Header */}
-        <div className="mb-20 md:mb-28">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10"
-          >
+        <div ref={headingRef} className="mb-20 md:mb-28">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
             <div>
-              <div className="flex items-center gap-4 mb-8">
-                <div className="w-8 h-[1px] bg-gradient-to-r from-white/40 to-transparent" />
-                <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-white/30">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={headingInView ? { opacity: 1 } : {}}
+                transition={{ duration: 0.6 }}
+                className="flex items-center gap-4 mb-8"
+              >
+                <motion.div
+                  initial={{ scaleX: 0 }}
+                  animate={headingInView ? { scaleX: 1 } : {}}
+                  transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                  className="w-8 h-[1px] bg-gradient-to-r from-white/40 to-transparent origin-left"
+                />
+                <motion.span
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={headingInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.4 }}
+                  className="text-[11px] font-mono uppercase tracking-[0.25em] text-white/30"
+                >
                   What We Do
-                </span>
-              </div>
+                </motion.span>
+              </motion.div>
               <h2 className="text-4xl md:text-6xl lg:text-7xl font-display leading-[0.95] tracking-tight">
-                Services built for
+                {"Services built for".split(" ").map((word, i) => (
+                  <span key={i} className="inline-block overflow-hidden mr-[0.2em]">
+                    <motion.span
+                      className="inline-block"
+                      initial={{ y: "120%" }}
+                      animate={headingInView ? { y: "0%" } : {}}
+                      transition={{ duration: 0.9, delay: 0.3 + i * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      {word}
+                    </motion.span>
+                  </span>
+                ))}
                 <br />
-                <span className="italic text-white/40">
-                  ambitious brands
-                </span>
-                .
+                {"ambitious brands.".split(" ").map((word, i) => (
+                  <span key={i} className="inline-block overflow-hidden mr-[0.2em]">
+                    <motion.span
+                      className="inline-block italic text-white/40"
+                      initial={{ y: "120%" }}
+                      animate={headingInView ? { y: "0%" } : {}}
+                      transition={{ duration: 0.9, delay: 0.55 + i * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      {word}
+                    </motion.span>
+                  </span>
+                ))}
               </h2>
             </div>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              animate={headingInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
               className="text-white/30 text-sm max-w-xs md:text-right leading-relaxed font-light"
             >
               Full-spectrum digital services from strategy to launch. We
               partner with you to create work that moves the needle.
             </motion.p>
-          </motion.div>
+          </div>
 
           {/* Divider with animated gradient */}
           <motion.div
             initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            animate={headingInView ? { scaleX: 1 } : {}}
+            transition={{ duration: 1.6, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="mt-14 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent origin-left"
           />
         </div>

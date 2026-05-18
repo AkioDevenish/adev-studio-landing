@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll } from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { useRef } from "react";
@@ -41,17 +41,27 @@ function ProjectCard({
   project: (typeof featuredWork)[0];
 }) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(cardRef, { once: true, margin: "-80px" });
+
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "end start"],
+  });
+
+  const cardY = useTransform(scrollYProgress, [0, 1], [60, -30]);
 
   return (
     <motion.div
       ref={cardRef}
-      initial={{ opacity: 0, y: 80 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-10%" }}
-      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+      style={{ y: cardY }}
       className="group"
     >
-      <div className="flex flex-col md:flex-row justify-between items-start gap-8 border-t border-foreground/10 pt-12">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={isInView ? { opacity: 1 } : {}}
+        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        className="flex flex-col md:flex-row justify-between items-start gap-8 border-t border-foreground/10 pt-12"
+      >
         {/* Content Side */}
         <div className="w-full md:w-[60%] flex flex-col justify-center">
           {/* Category */}
@@ -65,20 +75,34 @@ function ProjectCard({
             </span>
           </div>
 
-          {/* Title */}
+          {/* Title — word reveal */}
           <h3 className="text-4xl md:text-5xl xl:text-6xl font-display leading-[0.95] mb-6 tracking-tight group-hover:text-foreground/80 transition-colors duration-500">
-            {project.title}
+            {project.title.split(" ").map((word, i) => (
+              <span key={i} className="inline-block overflow-hidden mr-[0.2em]">
+                <motion.span
+                  className="inline-block"
+                  initial={{ y: "120%" }}
+                  animate={isInView ? { y: "0%" } : {}}
+                  transition={{ duration: 0.9, delay: 0.2 + i * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  {word}
+                </motion.span>
+              </span>
+            ))}
           </h3>
 
-          {/* Tags */}
+          {/* Tags — stagger in */}
           <div className="flex flex-wrap gap-2 mb-10">
-            {project.tags.map((tag) => (
-              <span
+            {project.tags.map((tag, i) => (
+              <motion.span
                 key={tag}
+                initial={{ opacity: 0, scale: 0.8, filter: "blur(4px)" }}
+                animate={isInView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
+                transition={{ duration: 0.5, delay: 0.5 + i * 0.06, ease: [0.22, 1, 0.36, 1] }}
                 className="text-[10px] font-mono uppercase tracking-wider text-muted bg-foreground/[0.04] border border-foreground/[0.06] px-3 py-1.5 rounded-full"
               >
                 {tag}
-              </span>
+              </motion.span>
             ))}
           </div>
 
@@ -123,7 +147,7 @@ function ProjectCard({
             {project.description}
           </p>
         </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }

@@ -1,8 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import CountUp from "@/components/animations/CountUp";
+import { useRef } from "react";
 
 const techStack = [
   "Next.js",
@@ -44,6 +46,9 @@ const approach = [
 ];
 
 export default function About() {
+  const headingRef = useRef(null);
+  const headingInView = useInView(headingRef, { once: true, margin: "-100px" });
+
   return (
     <section className="py-32 md:py-44 px-6 md:px-12 bg-background relative overflow-hidden">
       {/* Background decorations */}
@@ -55,28 +60,56 @@ export default function About() {
       <div className="max-w-screen-xl mx-auto relative z-10">
         {/* Header */}
         <div className="mb-20 md:mb-28">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className="flex items-center gap-4 mb-8">
-              <div className="w-8 h-[1px] bg-gradient-to-r from-foreground/40 to-transparent" />
-              <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-muted">
+          <div ref={headingRef}>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={headingInView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.6 }}
+              className="flex items-center gap-4 mb-8"
+            >
+              <motion.div
+                initial={{ scaleX: 0 }}
+                animate={headingInView ? { scaleX: 1 } : {}}
+                transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                className="w-8 h-[1px] bg-gradient-to-r from-foreground/40 to-transparent origin-left"
+              />
+              <motion.span
+                initial={{ opacity: 0, x: -10 }}
+                animate={headingInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="text-[11px] font-mono uppercase tracking-[0.25em] text-muted"
+              >
                 About Us
-              </span>
-            </div>
+              </motion.span>
+            </motion.div>
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-display leading-[0.95] tracking-tight">
-              A{" "}
-              <span className="italic text-foreground/40">
-                one-person studio
-              </span>
+              {"A one-person studio".split(" ").map((word, i) => (
+                <span key={i} className={`inline-block overflow-hidden mr-[0.2em] ${word === "one-person" || word === "studio" ? "italic text-foreground/40" : ""}`}>
+                  <motion.span
+                    className="inline-block"
+                    initial={{ y: "120%" }}
+                    animate={headingInView ? { y: "0%" } : {}}
+                    transition={{ duration: 0.9, delay: 0.3 + i * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    {word}
+                  </motion.span>
+                </span>
+              ))}
               <br />
-              with big-agency{" "}
-              <span className="italic text-foreground/40">capabilities</span>.
+              {"with big-agency capabilities.".split(" ").map((word, i) => (
+                <span key={i} className={`inline-block overflow-hidden mr-[0.2em] ${word.startsWith("capabilities") ? "italic text-foreground/40" : ""}`}>
+                  <motion.span
+                    className="inline-block"
+                    initial={{ y: "120%" }}
+                    animate={headingInView ? { y: "0%" } : {}}
+                    transition={{ duration: 0.9, delay: 0.6 + i * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    {word}
+                  </motion.span>
+                </span>
+              ))}
             </h2>
-          </motion.div>
+          </div>
 
           <motion.div
             initial={{ scaleX: 0 }}
@@ -135,7 +168,7 @@ export default function About() {
                   transition={{ delay: i * 0.1, duration: 0.6 }}
                 >
                   <p className="text-4xl md:text-5xl font-display mb-2 tracking-tight">
-                    {stat.value}
+                    <CountUp value={stat.value} delay={i * 0.15} />
                   </p>
                   <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-muted">
                     {stat.label}
