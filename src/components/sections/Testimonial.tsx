@@ -26,6 +26,10 @@ const testimonials = [
 ];
 
 export default function Testimonial() {
+  return null;
+}
+
+function _Testimonial() {
   const [current, setCurrent] = useState(0);
 
   const next = useCallback(() => {
