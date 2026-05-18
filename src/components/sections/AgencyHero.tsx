@@ -70,12 +70,6 @@ export default function AgencyHero() {
                 className="group-hover:translate-x-1 transition-transform"
               />
             </Link>
-            <Link
-              href="/portfolio"
-              className="px-8 py-4 border border-foreground/20 text-foreground text-sm font-medium rounded-full hover:border-foreground/60 transition-all duration-300"
-            >
-              View Portfolio
-            </Link>
           </div>
 
           <span className="text-xs font-mono uppercase tracking-widest text-muted mt-4">

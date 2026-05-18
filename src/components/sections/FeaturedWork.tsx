@@ -20,20 +20,6 @@ const featuredWork = [
     accent: "from-amber-500/30 via-orange-500/10",
   },
   {
-    title: "Multi-Hazard EWS",
-    category: "Full Stack",
-    type: "Emergency Management",
-    year: "2025",
-    description:
-      "National early warning system delivering real-time alerts for floods, earthquakes, tsunamis, and severe weather events across the Caribbean.",
-    image:
-      "https://images.unsplash.com/photo-1527482797697-8795b05a13fe?q=80&w=2564&auto=format&fit=crop",
-    slug: "multi-hazard-early-warning-system",
-    link: "https://multihazard-test.com/home",
-    tags: ["React", "Node.js", "WebSocket", "Alert System"],
-    accent: "from-blue-500/30 via-indigo-500/10",
-  },
-  {
     title: "Lumë Refillery",
     category: "E-Commerce",
     type: "Sustainability",

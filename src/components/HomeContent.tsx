@@ -7,8 +7,6 @@ import AgencyHero from "@/components/sections/AgencyHero";
 // the user scrolls, so deferring them lets the hero render faster
 // and avoids loading all framer-motion instances at once.
 const Services = lazy(() => import("@/components/sections/Services"));
-const FeaturedWork = lazy(() => import("@/components/sections/FeaturedWork"));
-const Testimonial = lazy(() => import("@/components/sections/Testimonial"));
 const Process = lazy(() => import("@/components/sections/Process"));
 const Pricing = lazy(() => import("@/components/sections/Pricing"));
 const About = lazy(() => import("@/components/sections/About"));
@@ -29,12 +27,6 @@ export default function AgencyHome() {
       </Suspense>
       <Suspense fallback={<SectionFallback />}>
         <Services />
-      </Suspense>
-      <Suspense fallback={<SectionFallback />}>
-        <FeaturedWork />
-      </Suspense>
-      <Suspense fallback={<SectionFallback />}>
-        <Testimonial />
       </Suspense>
       <Suspense fallback={<SectionFallback />}>
         <Process />
