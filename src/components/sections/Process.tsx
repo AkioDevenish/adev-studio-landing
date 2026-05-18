@@ -40,13 +40,9 @@ const processSteps = [
 export default function Process() {
   return (
     <section className="relative overflow-hidden">
-      {/* Dark contrasting band */}
-      <div className="bg-[#0a0a0a] text-white py-32 md:py-44 px-6 md:px-12 relative">
-        {/* Noise texture overlay */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PC9maWx0ZXI+PHJlY3QgZmlsdGVyPSJ1cmwoI2EpIiBoZWlnaHQ9IjEwMCUiIHdpZHRoPSIxMDAlIi8+PC9zdmc+')]" />
-
+      <div className="bg-surface py-32 md:py-44 px-6 md:px-12 relative">
         {/* Ambient glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] bg-gradient-radial from-white/[0.02] to-transparent rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-foreground/[0.02] to-transparent rounded-full blur-[100px] pointer-events-none" />
 
         <div className="max-w-screen-xl mx-auto relative z-10">
           {/* Header */}
@@ -60,18 +56,18 @@ export default function Process() {
             >
               <div>
                 <div className="flex items-center gap-4 mb-8">
-                  <div className="w-8 h-[1px] bg-gradient-to-r from-white/40 to-transparent" />
-                  <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-white/40">
+                  <div className="w-8 h-[1px] bg-gradient-to-r from-foreground/40 to-transparent" />
+                  <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-muted">
                     Process
                   </span>
                 </div>
                 <h2 className="text-5xl md:text-7xl lg:text-[5.5rem] font-display leading-[0.9] tracking-tight max-w-2xl">
                   How we bring
                   <br />
-                  <span className="italic text-white/30">ideas to life.</span>
+                  <span className="italic text-foreground/30">ideas to life.</span>
                 </h2>
               </div>
-              <p className="max-w-sm text-white/30 text-sm leading-relaxed font-light md:pb-2">
+              <p className="max-w-sm text-foreground/30 text-sm leading-relaxed font-light md:pb-2">
                 Four phases. One seamless experience. We move fast without cutting corners.
               </p>
             </motion.div>
@@ -93,29 +89,29 @@ export default function Process() {
                 className="group relative"
               >
                 {/* Divider line */}
-                <div className="h-[1px] bg-white/[0.06] group-hover:bg-white/[0.12] transition-colors duration-700" />
+                <div className="h-[1px] bg-foreground/[0.06] group-hover:bg-foreground/[0.12] transition-colors duration-700" />
 
                 <div className="py-12 md:py-16 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6 items-start cursor-default">
                   {/* Number */}
                   <div className="md:col-span-2 flex items-baseline gap-4">
-                    <span className="text-[4rem] md:text-[5.5rem] font-display leading-none text-white/[0.04] group-hover:text-white/[0.1] transition-all duration-700 select-none">
+                    <span className="text-[4rem] md:text-[5.5rem] font-display leading-none text-foreground/[0.04] group-hover:text-foreground/[0.1] transition-all duration-700 select-none">
                       {step.number}
                     </span>
                   </div>
 
                   {/* Title block */}
                   <div className="md:col-span-4 flex flex-col gap-2">
-                    <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-white/20 group-hover:text-white/40 transition-colors duration-500">
+                    <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-foreground/20 group-hover:text-foreground/40 transition-colors duration-500">
                       {step.subtitle}
                     </span>
-                    <h3 className="text-3xl md:text-4xl font-display leading-[1.05] tracking-tight group-hover:text-white transition-colors duration-500">
+                    <h3 className="text-3xl md:text-4xl font-display leading-[1.05] tracking-tight group-hover:text-foreground transition-colors duration-500">
                       {step.title}
                     </h3>
                   </div>
 
                   {/* Description */}
                   <div className="md:col-span-4">
-                    <p className="text-white/30 text-sm leading-[1.8] font-light group-hover:text-white/50 transition-colors duration-500">
+                    <p className="text-foreground/30 text-sm leading-[1.8] font-light group-hover:text-foreground/50 transition-colors duration-500">
                       {step.description}
                     </p>
                   </div>
@@ -133,7 +129,7 @@ export default function Process() {
                           duration: 0.5,
                           ease: [0.16, 1, 0.3, 1],
                         }}
-                        className="text-[10px] font-mono uppercase tracking-[0.15em] text-white/15 group-hover:text-white/30 px-3 py-1.5 rounded-full border border-white/[0.04] group-hover:border-white/[0.1] transition-all duration-500 whitespace-nowrap"
+                        className="text-[10px] font-mono uppercase tracking-[0.15em] text-foreground/15 group-hover:text-foreground/30 px-3 py-1.5 rounded-full border border-foreground/[0.04] group-hover:border-foreground/[0.1] transition-all duration-500 whitespace-nowrap"
                       >
                         {detail}
                       </motion.span>
@@ -143,13 +139,13 @@ export default function Process() {
 
                 {/* Hover glow */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
-                  <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+                  <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-foreground/20 to-transparent" />
                 </div>
               </motion.div>
             ))}
 
             {/* Final divider */}
-            <div className="h-[1px] bg-white/[0.06]" />
+            <div className="h-[1px] bg-foreground/[0.06]" />
           </div>
         </div>
       </div>
