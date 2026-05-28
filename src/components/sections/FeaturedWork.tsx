@@ -190,7 +190,7 @@ export default function FeaturedWork() {
               transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             >
               <Link
-                href="/portfolio"
+                href="/#work"
                 className="group/all inline-flex items-center gap-3 text-[11px] font-mono uppercase tracking-[0.2em] text-muted hover:text-foreground transition-colors duration-300"
               >
                 <span>View All Work</span>
@@ -230,7 +230,7 @@ export default function FeaturedWork() {
           className="text-center mt-28 md:mt-36"
         >
           <Link
-            href="/portfolio"
+            href="/#work"
             className="group inline-flex items-center gap-3 px-10 py-5 rounded-full border border-foreground/10 hover:border-foreground/30 hover:bg-foreground hover:text-background text-sm font-mono uppercase tracking-[0.15em] transition-all duration-500"
           >
             See Full Portfolio

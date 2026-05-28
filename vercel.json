@@ -21,6 +21,11 @@
       "source": "/legal/terms-and-conditions",
       "destination": "/terms",
       "permanent": true
+    },
+    {
+      "source": "/portfolio",
+      "destination": "/#work",
+      "permanent": true
     }
   ],
   "headers": [

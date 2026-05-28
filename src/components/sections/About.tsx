@@ -145,7 +145,7 @@ export default function About() {
             </div>
 
             <Link
-              href="/portfolio"
+              href="/#work"
               className="group inline-flex items-center gap-3 mt-10 text-[11px] font-mono uppercase tracking-[0.2em] text-foreground hover:text-foreground/60 transition-colors"
             >
               <span>See Our Work</span>
