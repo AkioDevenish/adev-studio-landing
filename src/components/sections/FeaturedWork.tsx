@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { ArrowUpRight, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { useRef } from "react";
 
 const featuredWork = [
@@ -183,7 +183,7 @@ export default function FeaturedWork() {
         {/* Projects */}
         <div className="space-y-24 md:space-y-36">
           {featuredWork.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
+            <ProjectCard key={project.title} project={project} />
           ))}
         </div>
 
