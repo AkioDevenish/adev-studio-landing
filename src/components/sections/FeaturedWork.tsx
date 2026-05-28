@@ -15,7 +15,7 @@ const featuredWork = [
       "Comprehensive weather information portal serving an entire nation with real-time meteorological data, interactive forecasts, and satellite imagery.",
     image: "/images/case-studies/met-office/Homepage.jpg",
     slug: "met-office-trinidad-and-tobago",
-    link: "https://www.metoffice.gov.tt/metdemo/site/demo/",
+    link: "https://www.metoffice.gov.tt/",
     tags: ["Next.js", "Python", "Real-time Data", "GIS"],
     accent: "from-amber-500/30 via-orange-500/10",
   },
@@ -221,25 +221,7 @@ export default function FeaturedWork() {
           ))}
         </div>
 
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="text-center mt-28 md:mt-36"
-        >
-          <Link
-            href="/#work"
-            className="group inline-flex items-center gap-3 px-10 py-5 rounded-full border border-foreground/10 hover:border-foreground/30 hover:bg-foreground hover:text-background text-sm font-mono uppercase tracking-[0.15em] transition-all duration-500"
-          >
-            See Full Portfolio
-            <ArrowUpRight
-              size={16}
-              className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
-            />
-          </Link>
-        </motion.div>
+
       </div>
     </section>
   );

@@ -174,7 +174,7 @@ export default function MetOfficeCaseStudy() {
 
               {/* Live Site Button */}
               <a
-                href="https://www.metoffice.gov.tt/metdemo/site/demo/"
+                href="https://www.metoffice.gov.tt/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 px-8 py-4 bg-foreground text-background rounded-lg hover:bg-foreground/90 transition-colors font-medium"
