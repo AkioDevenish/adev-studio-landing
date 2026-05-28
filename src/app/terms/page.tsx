@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Terms & Conditions",
   description:
-    "Terms and conditions for ADEV Studio — the rules and guidelines governing the use of our website and services.",
+    "Terms and conditions for ADEV Studio - the rules and guidelines governing the use of our website and services.",
 };
 
 export default function TermsAndConditions() {
@@ -110,8 +110,8 @@ export default function TermsAndConditions() {
               3.1 Our Content
             </h3>
             <p className="mb-6">
-              All content on the Site — including but not limited to text, graphics, logos, icons, images,
-              audio clips, video clips, data compilations, 3D models, animations, code, and software —
+              All content on the Site - including but not limited to text, graphics, logos, icons, images,
+              audio clips, video clips, data compilations, 3D models, animations, code, and software -
               is the property of ADEV Studio or its content suppliers and is protected by international
               copyright, trademark, and other intellectual property laws. The compilation of all content
               on the Site is the exclusive property of ADEV Studio.
@@ -187,9 +187,9 @@ export default function TermsAndConditions() {
               proposal:
             </p>
             <ul className="list-disc list-inside space-y-2 ml-4 mb-6">
-              <li><strong className="text-foreground/90">Foundation tier</strong> — 1 revision round</li>
-              <li><strong className="text-foreground/90">Growth tier</strong> — 3 revision rounds</li>
-              <li><strong className="text-foreground/90">Partnership tier</strong> — Unlimited revisions within scope</li>
+              <li><strong className="text-foreground/90">Foundation tier</strong> - 1 revision round</li>
+              <li><strong className="text-foreground/90">Growth tier</strong> - 3 revision rounds</li>
+              <li><strong className="text-foreground/90">Partnership tier</strong> - Unlimited revisions within scope</li>
             </ul>
             <p>
               Revisions beyond the agreed number will be billed at our standard hourly rate.

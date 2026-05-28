@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "Privacy policy for ADEV Studio — how we collect, use, protect, and handle your personal data.",
+    "Privacy policy for ADEV Studio - how we collect, use, protect, and handle your personal data.",
 };
 
 export default function PrivacyPolicy() {
@@ -225,19 +225,19 @@ export default function PrivacyPolicy() {
             </p>
             <ul className="list-disc list-inside space-y-2 ml-4 mt-4">
               <li>
-                <strong className="text-foreground/90">Contact form submissions</strong> — retained in
+                <strong className="text-foreground/90">Contact form submissions</strong> - retained in
                 our email inbox until the inquiry is resolved, then archived or deleted within 12 months.
               </li>
               <li>
-                <strong className="text-foreground/90">Analytics data</strong> — retained by Google
+                <strong className="text-foreground/90">Analytics data</strong> - retained by Google
                 Analytics for 14 months (default GA4 retention period), then automatically deleted.
               </li>
               <li>
-                <strong className="text-foreground/90">AI chat conversations</strong> — not retained
+                <strong className="text-foreground/90">AI chat conversations</strong> - not retained
                 beyond your active browser session.
               </li>
               <li>
-                <strong className="text-foreground/90">Calendar bookings</strong> — retained by Cal.com
+                <strong className="text-foreground/90">Calendar bookings</strong> - retained by Cal.com
                 per their retention policies.
               </li>
             </ul>
@@ -274,13 +274,13 @@ export default function PrivacyPolicy() {
               Depending on your jurisdiction, you may have the following rights regarding your personal data:
             </p>
             <ul className="list-disc list-inside space-y-2 ml-4">
-              <li><strong className="text-foreground/90">Right of access</strong> — request a copy of the personal data we hold about you</li>
-              <li><strong className="text-foreground/90">Right to rectification</strong> — request correction of inaccurate or incomplete data</li>
-              <li><strong className="text-foreground/90">Right to erasure</strong> — request deletion of your personal data</li>
-              <li><strong className="text-foreground/90">Right to restrict processing</strong> — request that we limit how we use your data</li>
-              <li><strong className="text-foreground/90">Right to data portability</strong> — request your data in a structured, machine-readable format</li>
-              <li><strong className="text-foreground/90">Right to object</strong> — object to the processing of your data for certain purposes</li>
-              <li><strong className="text-foreground/90">Right to withdraw consent</strong> — withdraw consent at any time where processing is based on consent</li>
+              <li><strong className="text-foreground/90">Right of access</strong> - request a copy of the personal data we hold about you</li>
+              <li><strong className="text-foreground/90">Right to rectification</strong> - request correction of inaccurate or incomplete data</li>
+              <li><strong className="text-foreground/90">Right to erasure</strong> - request deletion of your personal data</li>
+              <li><strong className="text-foreground/90">Right to restrict processing</strong> - request that we limit how we use your data</li>
+              <li><strong className="text-foreground/90">Right to data portability</strong> - request your data in a structured, machine-readable format</li>
+              <li><strong className="text-foreground/90">Right to object</strong> - object to the processing of your data for certain purposes</li>
+              <li><strong className="text-foreground/90">Right to withdraw consent</strong> - withdraw consent at any time where processing is based on consent</li>
             </ul>
             <p className="mt-4">
               To exercise any of these rights, please contact us at{" "}

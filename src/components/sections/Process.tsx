@@ -17,7 +17,7 @@ const processSteps = [
     title: "Strategy & Design",
     subtitle: "Think & Shape",
     description:
-      "We craft a clear roadmap and design system tailored to your brand. Wireframes, prototypes, and visual direction — all before a single line of code.",
+      "We craft a clear roadmap and design system tailored to your brand. Wireframes, prototypes, and visual direction - all before a single line of code.",
     details: ["Wireframing", "Visual design", "Prototyping"],
   },
   {
@@ -33,7 +33,7 @@ const processSteps = [
     title: "Launch & Support",
     subtitle: "Ship & Grow",
     description:
-      "We handle deployment, optimization, and provide ongoing support. Your project doesn't end at launch — it evolves.",
+      "We handle deployment, optimization, and provide ongoing support. Your project doesn't end at launch - it evolves.",
     details: ["Deployment", "Monitoring", "Ongoing iteration"],
   },
 ];

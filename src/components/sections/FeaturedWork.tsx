@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import Link from "next/link";
 import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { useRef } from "react";
 
@@ -14,7 +13,6 @@ const featuredWork = [
     description:
       "Comprehensive weather information portal serving an entire nation with real-time meteorological data, interactive forecasts, and satellite imagery.",
     image: "/images/case-studies/met-office/Homepage.jpg",
-    slug: "met-office-trinidad-and-tobago",
     link: "https://www.metoffice.gov.tt/",
     tags: ["Next.js", "Python", "Real-time Data", "GIS"],
     accent: "from-amber-500/30 via-orange-500/10",
@@ -28,7 +26,6 @@ const featuredWork = [
       "E-commerce platform for an eco-friendly refill store with clean, modern design and seamless shopping experience.",
     image:
       "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=2564&auto=format&fit=crop",
-    slug: "lum-refillery",
     link: "https://lum-refillery.vercel.app/",
     tags: ["Next.js", "Shopify", "Stripe", "CMS"],
     accent: "from-emerald-500/30 via-teal-500/10",
@@ -106,36 +103,24 @@ function ProjectCard({
             ))}
           </div>
 
-          {/* CTAs */}
-          <div className="flex items-center gap-6">
-            <Link
-              href={`/case-study/${project.slug}`}
+          {/* CTA */}
+          {project.link && (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
               className="group/link relative inline-flex items-center gap-2 text-sm font-medium"
             >
               <span className="relative">
-                View Case Study
+                View Live Site
                 <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-foreground group-hover/link:w-full transition-all duration-500" />
               </span>
-              <ArrowUpRight
+              <ExternalLink
                 size={14}
                 className="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform duration-300"
               />
-            </Link>
-
-            {project.link && (
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group/ext inline-flex items-center gap-1.5 text-sm text-foreground/40 hover:text-foreground/70 transition-colors duration-300"
-              >
-                <ExternalLink size={13} />
-                <span className="text-[11px] font-mono uppercase tracking-wider">
-                  Live
-                </span>
-              </a>
-            )}
-          </div>
+            </a>
+          )}
         </div>
 
         {/* Right Info Side */}
@@ -183,25 +168,6 @@ export default function FeaturedWork() {
               </h2>
             </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <Link
-                href="/#work"
-                className="group/all inline-flex items-center gap-3 text-[11px] font-mono uppercase tracking-[0.2em] text-muted hover:text-foreground transition-colors duration-300"
-              >
-                <span>View All Work</span>
-                <div className="w-8 h-8 rounded-full border border-foreground/15 group-hover/all:border-foreground/40 flex items-center justify-center transition-all duration-300 group-hover/all:bg-foreground group-hover/all:text-background">
-                  <ArrowUpRight
-                    size={12}
-                    className="group-hover/all:translate-x-0.5 group-hover/all:-translate-y-0.5 transition-transform"
-                  />
-                </div>
-              </Link>
-            </motion.div>
           </motion.div>
 
           {/* Animated divider */}

@@ -55,7 +55,7 @@ export default function PromoBanner() {
                 {/* Content */}
                 <div className="flex-grow min-w-0">
                   <p className="text-sm md:text-base font-display text-white/90 leading-snug">
-                    <span className="text-amber-300 font-medium">Limited availability</span> — We&apos;re booking Q2 projects now.
+                    <span className="text-amber-300 font-medium">Limited availability</span> - We&apos;re booking Q2 projects now.
                   </p>
                   <p className="text-xs text-white/40 mt-1 font-light">
                     Free 30-minute consultation · No obligation
