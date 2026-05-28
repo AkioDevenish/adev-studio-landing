@@ -101,7 +101,7 @@ const PlanetOrbit: React.FC<{
     <group rotation={[tiltX, tiltY, tiltZ]}>
       {/* The visible thin orbit ring */}
       <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[radius, 0.008, 8, segments]} />
+        <torusGeometry args={[radius, 0.008, 8, 256]} />
         <meshBasicMaterial color="#999999" transparent opacity={0.15} />
       </mesh>
 
