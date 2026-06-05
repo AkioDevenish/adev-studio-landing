@@ -6,7 +6,7 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { getCalApi } from "@calcom/embed-react";
 
-const navLinks = [
+const navLinks: { name: string; href: string }[] = [
   // Empty - only Get in Touch button
 ];
 
