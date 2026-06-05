@@ -98,11 +98,22 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/35">
-            © 2026 ADEV STUDIO. All rights reserved.
+            © {new Date().getFullYear()} ADEVSTUDIO. All rights reserved.
           </p>
-          <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/35">
-            Designed & built by hand
-          </p>
+          <div className="flex items-center gap-6">
+            <Link
+              href="/privacy"
+              className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/35 hover:text-white/60 transition-colors duration-300"
+            >
+              Privacy
+            </Link>
+            <Link
+              href="/terms"
+              className="text-[10px] font-mono uppercase tracking-[0.2em] text-white/35 hover:text-white/60 transition-colors duration-300"
+            >
+              Terms
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

@@ -1,8 +1,24 @@
 "use client";
 
-import React, { useRef, useMemo, useState, useEffect } from "react";
+import React, { useRef, useMemo } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+
+// Tooltip state management
+let tooltipCallback: ((data: { 
+  name: string; 
+  url: string; 
+  type: string; 
+  x: number; 
+  y: number;
+  description?: string;
+  tech?: string[];
+  year?: string;
+} | null) => void) | null = null;
+
+export function setTooltipCallback(callback: typeof tooltipCallback) {
+  tooltipCallback = callback;
+}
 
 // ─── Device capability detection ──────────────────────────────────
 function useDeviceTier(): "high" | "medium" | "low" | "none" {
@@ -81,9 +97,39 @@ const PlanetOrbit: React.FC<{
   tiltZ: number;
   startAngle: number;
   segments: number;
-}> = ({ radius, speed, planetSize, tiltX, tiltY, tiltZ, startAngle, segments }) => {
+  project?: {
+    name: string;
+    url: string;
+    type: string;
+    favicon?: string;
+    description?: string;
+    tech?: string[];
+    year?: string;
+  };
+}> = ({ radius, speed, planetSize, tiltX, tiltY, tiltZ, startAngle, segments, project }) => {
   const planetRef = useRef<THREE.Group>(null);
   const timeRef = useRef(0);
+  const [hovered, setHovered] = React.useState(false);
+  const [texture, setTexture] = React.useState<THREE.Texture | null>(null);
+
+  // Load favicon texture
+  React.useEffect(() => {
+    if (project?.favicon) {
+      const loader = new THREE.TextureLoader();
+      loader.setCrossOrigin('anonymous');
+      loader.load(
+        project.favicon,
+        (loadedTexture) => {
+          loadedTexture.colorSpace = THREE.SRGBColorSpace;
+          setTexture(loadedTexture);
+        },
+        undefined,
+        (error) => {
+          console.warn(`Failed to load texture for ${project.name}:`, error);
+        }
+      );
+    }
+  }, [project?.favicon, project?.name]);
 
   useFrame((state, delta) => {
     const safeDelta = Math.min(delta, 0.1);
@@ -94,6 +140,9 @@ const PlanetOrbit: React.FC<{
       const t = timeRef.current * speed + startAngle;
       planetRef.current.position.x = Math.cos(t) * radius;
       planetRef.current.position.z = Math.sin(t) * radius;
+      
+      // Gentle rotation to face camera
+      planetRef.current.rotation.y = -t + Math.PI / 2;
     }
   });
 
@@ -106,15 +155,96 @@ const PlanetOrbit: React.FC<{
       </mesh>
 
       {/* The rotating planet */}
-      <group ref={planetRef}>
+      <group 
+        ref={planetRef}
+        onPointerOver={(e) => {
+          e.stopPropagation();
+          setHovered(true);
+          document.body.style.cursor = 'pointer';
+          if (tooltipCallback && project) {
+            const rect = e.nativeEvent;
+            tooltipCallback({
+              name: project.name,
+              url: project.url,
+              type: project.type,
+              x: rect.clientX,
+              y: rect.clientY,
+              description: project.description,
+              tech: project.tech,
+              year: project.year
+            });
+          }
+        }}
+        onPointerMove={(e) => {
+          e.stopPropagation();
+          if (tooltipCallback && project && hovered) {
+            const rect = e.nativeEvent;
+            tooltipCallback({
+              name: project.name,
+              url: project.url,
+              type: project.type,
+              x: rect.clientX,
+              y: rect.clientY,
+              description: project.description,
+              tech: project.tech,
+              year: project.year
+            });
+          }
+        }}
+        onPointerOut={(e) => {
+          e.stopPropagation();
+          setHovered(false);
+          document.body.style.cursor = 'auto';
+          if (tooltipCallback) {
+            tooltipCallback(null);
+          }
+        }}
+        onClick={(e) => {
+          e.stopPropagation();
+          if (project?.url) {
+            window.open(project.url, '_blank', 'noopener,noreferrer');
+          }
+        }}
+      >
+        {/* Invisible larger hitbox sphere for easier hovering */}
+        <mesh visible={false}>
+          <sphereGeometry args={[planetSize * 3, 8, 8]} />
+          <meshBasicMaterial transparent opacity={0} />
+        </mesh>
+
+        {/* Background sphere */}
         <mesh>
           <sphereGeometry args={[planetSize, segments, segments]} />
-          <meshStandardMaterial color="#333333" roughness={0.6} metalness={0.2} />
+          <meshStandardMaterial 
+            color={hovered ? "#f5f5f5" : "#e8e8e8"} 
+            roughness={0.4} 
+            metalness={0.1}
+            emissive={hovered ? "#666666" : "#000000"}
+            emissiveIntensity={hovered ? 0.2 : 0}
+          />
         </mesh>
+
+        {/* Favicon texture as a sprite/plane on top */}
+        {texture && (
+          <sprite scale={[planetSize * 1.6, planetSize * 1.6, 1]}>
+            <spriteMaterial 
+              map={texture} 
+              transparent 
+              opacity={1}
+              depthTest={false}
+            />
+          </sprite>
+        )}
+
         {/* Subtle glow around the planet */}
         <mesh>
           <sphereGeometry args={[planetSize * 1.8, Math.max(8, segments / 2), Math.max(8, segments / 2)]} />
-          <meshBasicMaterial color="#555555" transparent opacity={0.1} depthWrite={false} />
+          <meshBasicMaterial 
+            color={hovered ? "#888888" : "#555555"} 
+            transparent 
+            opacity={hovered ? 0.2 : 0.1} 
+            depthWrite={false} 
+          />
         </mesh>
       </group>
     </group>
@@ -125,7 +255,6 @@ const PlanetOrbit: React.FC<{
 const SolarSystem: React.FC<{ segments: number }> = ({ segments }) => {
   const systemRef = useRef<THREE.Group>(null);
   const timeRef = useRef(0);
-  const { viewport } = useThree();
 
   useFrame((state, delta) => {
     const safeDelta = Math.min(delta, 0.1);
@@ -134,14 +263,14 @@ const SolarSystem: React.FC<{ segments: number }> = ({ segments }) => {
     if (systemRef.current) {
       const t = timeRef.current;
       
-      // Base orientation to match the specific diagonal startup angle requested
+      // Base orientation - fixed, no mouse interaction
       const baseRotationX = 0.45;  // Pitch: flatter ellipses
-      const baseRotationY = -0.2; // Yaw: slight angle
+      const baseRotationY = -0.2;  // Yaw: slight angle
       const baseRotationZ = 0.45;  // Roll: right side higher than left side
 
-      // Interactive mouse follow with smooth interpolation (lerping)
-      const targetRotationX = baseRotationX + (state.pointer.y * viewport.height) / 20 + Math.sin(t * 0.1) * 0.05;
-      const targetRotationY = baseRotationY + (state.pointer.x * viewport.width) / 20 + t * 0.02;
+      // Gentle automatic rotation only
+      const targetRotationX = baseRotationX + Math.sin(t * 0.1) * 0.05;
+      const targetRotationY = baseRotationY + t * 0.02;
       const targetRotationZ = baseRotationZ + Math.sin(t * 0.05) * 0.05;
 
       // Smoothly interpolate current rotation to target rotation
@@ -154,12 +283,99 @@ const SolarSystem: React.FC<{ segments: number }> = ({ segments }) => {
   // Define our planets with varying orbits
   const planets = useMemo(
     () => [
-      { radius: 1.5, speed: 0.4, size: 0.04, tilts: [0.1, 0, 0], angle: 0 },
-      { radius: 2.2, speed: 0.25, size: 0.06, tilts: [-0.2, 0.1, 0], angle: 2 },
-      { radius: 3.1, speed: 0.15, size: 0.08, tilts: [0.15, -0.1, 0.1], angle: 4 },
-      { radius: 4.2, speed: 0.1, size: 0.05, tilts: [-0.05, 0.2, -0.1], angle: 1 },
-      { radius: 5.5, speed: 0.08, size: 0.07, tilts: [0.2, -0.2, 0.05], angle: 5 },
-      { radius: 7.0, speed: 0.05, size: 0.04, tilts: [-0.15, 0.05, -0.15], angle: 3 },
+      { 
+        radius: 1.5, 
+        speed: 0.4, 
+        size: 0.08,  // Increased from 0.04
+        tilts: [0.1, 0, 0], 
+        angle: 0,
+        project: {
+          name: "Met Office Trinidad & Tobago",
+          url: "https://www.metoffice.gov.tt/",
+          type: "Government Portal",
+          favicon: "https://www.metoffice.gov.tt/favicon.ico",
+          description: "National weather forecasting and climate services platform",
+          tech: ["Next.js", "TypeScript", "Tailwind"],
+          year: "2024"
+        }
+      },
+      { 
+        radius: 2.2, 
+        speed: 0.25, 
+        size: 0.09,  // Increased from 0.06
+        tilts: [-0.2, 0.1, 0], 
+        angle: 2,
+        project: {
+          name: "Lume Refillery",
+          url: "https://lumerefillery.com/",
+          type: "E-commerce",
+          favicon: "https://lumerefillery.com/favicon.ico",
+          description: "Sustainable refill station and eco-friendly product marketplace",
+          tech: ["React", "Shopify", "Stripe"],
+          year: "2024"
+        }
+      },
+      { 
+        radius: 3.1, 
+        speed: 0.15, 
+        size: 0.08, 
+        tilts: [0.15, -0.1, 0.1], 
+        angle: 4,
+        project: {
+          name: "SkySign",
+          url: "https://skysign-gamma.vercel.app/",
+          type: "Web App",
+          favicon: "https://skysign-gamma.vercel.app/favicon.ico",
+          description: "Digital signage management and content delivery platform",
+          tech: ["Next.js", "React", "WebGL"],
+          year: "2024"
+        }
+      },
+      { 
+        radius: 4.2, 
+        speed: 0.1, 
+        size: 0.07,  // Increased from 0.05
+        tilts: [-0.05, 0.2, -0.1], 
+        angle: 1,
+        project: {
+          name: "Coming Soon",
+          url: "",
+          type: "In Development",
+          description: "Exciting new project in the works",
+          tech: [],
+          year: "2026"
+        }
+      },
+      { 
+        radius: 5.5, 
+        speed: 0.08, 
+        size: 0.07, 
+        tilts: [0.2, -0.2, 0.05], 
+        angle: 5,
+        project: {
+          name: "Coming Soon",
+          url: "",
+          type: "In Development",
+          description: "Another great project coming your way",
+          tech: [],
+          year: "2026"
+        }
+      },
+      { 
+        radius: 7.0, 
+        speed: 0.05, 
+        size: 0.06,  // Increased from 0.04
+        tilts: [-0.15, 0.05, -0.15], 
+        angle: 3,
+        project: {
+          name: "Coming Soon",
+          url: "",
+          type: "In Development",
+          description: "Stay tuned for more amazing work",
+          tech: [],
+          year: "2026"
+        }
+      },
     ],
     []
   );
@@ -177,6 +393,7 @@ const SolarSystem: React.FC<{ segments: number }> = ({ segments }) => {
           tiltZ={p.tilts[2]}
           startAngle={p.angle}
           segments={segments}
+          project={p.project}
         />
       ))}
     </group>
@@ -253,7 +470,6 @@ const HeroScene: React.FC<{ scrollProgress?: number }> = () => {
           alpha: true,
           powerPreference: tier === "high" ? "high-performance" : "low-power",
         }}
-        // Performance: limit frame rate on lower-tier devices
         frameloop="always"
       >
         <ambientLight intensity={1.5} />

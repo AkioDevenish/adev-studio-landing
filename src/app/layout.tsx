@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import Script from "next/script";
-import { Suspense } from "react";
 import "./globals.css";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
-import ChatBubble from "@/components/ChatBubble";
-import PromoBanner from "@/components/PromoBanner";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -200,13 +196,6 @@ export default function RootLayout({
             {children}
           </PageTransition>
         </main>
-        <Footer />
-        <Suspense fallback={null}>
-          <ChatBubble />
-        </Suspense>
-        <Suspense fallback={null}>
-          <PromoBanner />
-        </Suspense>
         <Analytics />
         <SpeedInsights />
       </body>

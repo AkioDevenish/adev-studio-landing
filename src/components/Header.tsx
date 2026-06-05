@@ -3,14 +3,11 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { getCalApi } from "@calcom/embed-react";
 import Link from "next/link";
+import { getCalApi } from "@calcom/embed-react";
 
 const navLinks = [
-  { name: "Services", href: "/#services" },
-  { name: "Work", href: "/#work" },
-  { name: "Blog", href: "/blog" },
-  { name: "Contact", href: "/#contact" },
+  // Empty - only Get in Touch button
 ];
 
 const Header = () => {
@@ -27,32 +24,14 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    // Defer Cal.com initialization until first user interaction.
-    // This avoids blocking the main thread during initial page load.
-    let initialized = false;
-    const initCal = async () => {
-      if (initialized) return;
-      initialized = true;
+    (async function () {
       const cal = await getCalApi({ namespace: "30min" });
       cal("ui", {
-        theme: "dark",
-        styles: { branding: { brandColor: "#1a1a1a" } },
+        styles: { branding: { brandColor: "#2C2C2C" } },
         hideEventTypeDetails: false,
-        layout: "month_view",
+        layout: "month_view"
       });
-      // Clean up listeners after initialization
-      window.removeEventListener("pointerover", initCal);
-      window.removeEventListener("scroll", initCal);
-      window.removeEventListener("touchstart", initCal);
-    };
-    window.addEventListener("pointerover", initCal, { once: true, passive: true });
-    window.addEventListener("scroll", initCal, { once: true, passive: true });
-    window.addEventListener("touchstart", initCal, { once: true, passive: true });
-    return () => {
-      window.removeEventListener("pointerover", initCal);
-      window.removeEventListener("scroll", initCal);
-      window.removeEventListener("touchstart", initCal);
-    };
+    })();
   }, []);
 
   return (
@@ -82,10 +61,18 @@ const Header = () => {
               {link.name}
             </Link>
           ))}
+          <a
+            href="https://personalos.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm outline-none"
+          >
+            PersonalOS
+          </a>
           <button
             data-cal-namespace="30min"
             data-cal-link="adevstudio/30min"
-            data-cal-config='{"layout":"month_view","theme":"dark"}'
+            data-cal-config='{"layout":"month_view"}'
             className="px-5 py-2.5 bg-foreground text-background text-sm font-medium rounded-full hover:bg-foreground/90 transition-colors focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background outline-none"
           >
             Get in Touch
@@ -122,10 +109,19 @@ const Header = () => {
                   {link.name}
                 </Link>
               ))}
+              <a
+                href="https://personalos.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsOpen(false)}
+                className="text-lg font-medium text-foreground/80 hover:text-foreground"
+              >
+                PersonalOS
+              </a>
               <button
                 data-cal-namespace="30min"
                 data-cal-link="adevstudio/30min"
-                data-cal-config='{"layout":"month_view","theme":"dark"}'
+                data-cal-config='{"layout":"month_view"}'
                 onClick={() => setIsOpen(false)}
                 className="mt-2 px-5 py-3 bg-foreground text-background text-center font-medium rounded-full hover:bg-foreground/90 transition-colors"
               >
