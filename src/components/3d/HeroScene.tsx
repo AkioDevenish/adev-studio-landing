@@ -116,11 +116,12 @@ const PlanetOrbit: React.FC<{
   React.useEffect(() => {
     if (project?.favicon) {
       const loader = new THREE.TextureLoader();
-      loader.setCrossOrigin('anonymous');
       loader.load(
         project.favicon,
         (loadedTexture) => {
           loadedTexture.colorSpace = THREE.SRGBColorSpace;
+          loadedTexture.minFilter = THREE.LinearFilter;
+          loadedTexture.magFilter = THREE.LinearFilter;
           setTexture(loadedTexture);
         },
         undefined,
@@ -212,26 +213,27 @@ const PlanetOrbit: React.FC<{
           <meshBasicMaterial transparent opacity={0} />
         </mesh>
 
-        {/* Background sphere */}
+        {/* Background sphere - white/light gray base */}
         <mesh>
           <sphereGeometry args={[planetSize, segments, segments]} />
           <meshStandardMaterial 
-            color={hovered ? "#f5f5f5" : "#e8e8e8"} 
-            roughness={0.4} 
-            metalness={0.1}
-            emissive={hovered ? "#666666" : "#000000"}
-            emissiveIntensity={hovered ? 0.2 : 0}
+            color={hovered ? "#ffffff" : "#f8f8f8"} 
+            roughness={0.3} 
+            metalness={0.05}
+            emissive={hovered ? "#cccccc" : "#000000"}
+            emissiveIntensity={hovered ? 0.15 : 0}
           />
         </mesh>
 
         {/* Favicon texture as a sprite/plane on top */}
         {texture && (
-          <sprite scale={[planetSize * 1.6, planetSize * 1.6, 1]}>
+          <sprite scale={[planetSize * 1.5, planetSize * 1.5, 1]} position={[0, 0, planetSize * 0.01]}>
             <spriteMaterial 
               map={texture} 
               transparent 
-              opacity={1}
-              depthTest={false}
+              opacity={0.95}
+              depthTest={true}
+              depthWrite={false}
             />
           </sprite>
         )}
@@ -286,14 +288,14 @@ const SolarSystem: React.FC<{ segments: number }> = ({ segments }) => {
       { 
         radius: 1.5, 
         speed: 0.4, 
-        size: 0.08,  // Increased from 0.04
+        size: 0.08,
         tilts: [0.1, 0, 0], 
         angle: 0,
         project: {
           name: "Met Office Trinidad & Tobago",
           url: "https://www.metoffice.gov.tt/",
           type: "Government Portal",
-          favicon: "https://www.metoffice.gov.tt/favicon.ico",
+          favicon: "https://www.google.com/s2/favicons?domain=metoffice.gov.tt&sz=128",
           description: "National weather forecasting and climate services platform",
           tech: ["Next.js", "TypeScript", "Tailwind"],
           year: "2024"
@@ -302,14 +304,14 @@ const SolarSystem: React.FC<{ segments: number }> = ({ segments }) => {
       { 
         radius: 2.2, 
         speed: 0.25, 
-        size: 0.09,  // Increased from 0.06
+        size: 0.09,
         tilts: [-0.2, 0.1, 0], 
         angle: 2,
         project: {
           name: "Lume Refillery",
           url: "https://lumerefillery.com/",
           type: "E-commerce",
-          favicon: "https://lumerefillery.com/favicon.ico",
+          favicon: "https://www.google.com/s2/favicons?domain=lumerefillery.com&sz=128",
           description: "Sustainable refill station and eco-friendly product marketplace",
           tech: ["React", "Shopify", "Stripe"],
           year: "2024"
@@ -325,7 +327,7 @@ const SolarSystem: React.FC<{ segments: number }> = ({ segments }) => {
           name: "SkySign",
           url: "https://skysign-gamma.vercel.app/",
           type: "Web App",
-          favicon: "https://skysign-gamma.vercel.app/favicon.ico",
+          favicon: "https://www.google.com/s2/favicons?domain=skysign-gamma.vercel.app&sz=128",
           description: "Digital signage management and content delivery platform",
           tech: ["Next.js", "React", "WebGL"],
           year: "2024"
@@ -334,13 +336,14 @@ const SolarSystem: React.FC<{ segments: number }> = ({ segments }) => {
       { 
         radius: 4.2, 
         speed: 0.1, 
-        size: 0.07,  // Increased from 0.05
+        size: 0.07,
         tilts: [-0.05, 0.2, -0.1], 
         angle: 1,
         project: {
           name: "Coming Soon",
           url: "",
           type: "In Development",
+          favicon: "https://www.google.com/s2/favicons?domain=adevstudio.vercel.app&sz=128",
           description: "Exciting new project in the works",
           tech: [],
           year: "2026"
@@ -356,6 +359,7 @@ const SolarSystem: React.FC<{ segments: number }> = ({ segments }) => {
           name: "Coming Soon",
           url: "",
           type: "In Development",
+          favicon: "https://www.google.com/s2/favicons?domain=adevstudio.vercel.app&sz=128",
           description: "Another great project coming your way",
           tech: [],
           year: "2026"
@@ -364,13 +368,14 @@ const SolarSystem: React.FC<{ segments: number }> = ({ segments }) => {
       { 
         radius: 7.0, 
         speed: 0.05, 
-        size: 0.06,  // Increased from 0.04
+        size: 0.06,
         tilts: [-0.15, 0.05, -0.15], 
         angle: 3,
         project: {
           name: "Coming Soon",
           url: "",
           type: "In Development",
+          favicon: "https://www.google.com/s2/favicons?domain=adevstudio.vercel.app&sz=128",
           description: "Stay tuned for more amazing work",
           tech: [],
           year: "2026"
