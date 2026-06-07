@@ -61,14 +61,6 @@ const Header = () => {
               {link.name}
             </Link>
           ))}
-          <a
-            href="https://personalos.vercel.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors focus-visible:ring-2 focus-visible:ring-foreground/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm outline-none"
-          >
-            PersonalOS
-          </a>
           <button
             data-cal-namespace="30min"
             data-cal-link="adevstudio/30min"
@@ -109,15 +101,6 @@ const Header = () => {
                   {link.name}
                 </Link>
               ))}
-              <a
-                href="https://personalos.vercel.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setIsOpen(false)}
-                className="text-lg font-medium text-foreground/80 hover:text-foreground"
-              >
-                PersonalOS
-              </a>
               <button
                 data-cal-namespace="30min"
                 data-cal-link="adevstudio/30min"

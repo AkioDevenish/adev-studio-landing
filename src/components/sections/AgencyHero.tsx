@@ -215,22 +215,22 @@ export default function AgencyHero() {
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 1.5, duration: 0.8 }}
-        className="fixed bottom-6 md:bottom-8 left-4 md:left-8 z-20 flex flex-wrap items-center gap-2 md:gap-3 text-[9px] md:text-[10px]"
+        className="fixed bottom-6 md:bottom-8 left-4 md:left-8 z-20 flex flex-wrap items-center gap-1.5 sm:gap-2 md:gap-3 text-[8px] sm:text-[9px] md:text-[10px] max-w-[calc(100vw-180px)] sm:max-w-[calc(100vw-220px)]"
       >
-        <p className="font-mono uppercase tracking-[0.2em] text-foreground/40">
+        <p className="font-mono uppercase tracking-[0.15em] sm:tracking-[0.2em] text-foreground/40 whitespace-nowrap">
           © {new Date().getFullYear()} ADEVSTUDIO
         </p>
-        <span className="text-foreground/20 hidden sm:inline">·</span>
+        <span className="text-foreground/20 hidden xs:inline">·</span>
         <Link
           href="/privacy"
-          className="font-mono uppercase tracking-[0.15em] text-foreground/40 hover:text-foreground/70 transition-colors duration-300"
+          className="font-mono uppercase tracking-[0.1em] sm:tracking-[0.15em] text-foreground/40 hover:text-foreground/70 transition-colors duration-300 whitespace-nowrap"
         >
           Privacy
         </Link>
-        <span className="text-foreground/20 hidden sm:inline">·</span>
+        <span className="text-foreground/20 hidden xs:inline">·</span>
         <Link
           href="/terms"
-          className="font-mono uppercase tracking-[0.15em] text-foreground/40 hover:text-foreground/70 transition-colors duration-300"
+          className="font-mono uppercase tracking-[0.1em] sm:tracking-[0.15em] text-foreground/40 hover:text-foreground/70 transition-colors duration-300 whitespace-nowrap"
         >
           Terms
         </Link>
@@ -243,9 +243,9 @@ export default function AgencyHero() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 10, scale: 0.95 }}
           transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed z-50 pointer-events-none"
+          className="fixed z-50 pointer-events-none hidden lg:block"
           style={{
-            left: Math.min(tooltip.x + 20, (typeof window !== 'undefined' ? window.innerWidth : 1920) - 400),
+            left: Math.min(tooltip.x + 20, window.innerWidth - 400),
             top: tooltip.y - 20,
           }}
         >
